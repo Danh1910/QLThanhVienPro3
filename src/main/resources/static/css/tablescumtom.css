@@ -1,0 +1,10 @@
+.icon-container {
+    display: flex;
+    justify-content: end;
+    padding-right: 20px;
+    
+}
+
+.icon-container a {
+    margin-left: 10px; /* Điều chỉnh khoảng cách giữa các thẻ <a> bằng margin */
+}
