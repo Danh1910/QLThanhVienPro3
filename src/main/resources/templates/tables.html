@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -103,7 +103,7 @@
                         <div class="card-header py-3">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h2 class="m-0 font-weight-bold text-primary">DataTables Example</h2>
+                                    <h2 th:text="${message}" class="m-0 font-weight-bold text-primary">DataTables Example</h2>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon-container">
