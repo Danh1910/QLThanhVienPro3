@@ -33,7 +33,8 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+		 <version>2.2.224</version>
+		 <type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>com.mysql</groupId>
