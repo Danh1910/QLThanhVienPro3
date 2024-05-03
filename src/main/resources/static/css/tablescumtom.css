@@ -8,3 +8,9 @@
 .icon-container a {
     margin-left: 10px; /* Điều chỉnh khoảng cách giữa các thẻ <a> bằng margin */
 }
+
+.btn-circle.btn-lg{
+    height: 2.5rem;
+    width: 2.5rem;
+    font-size: 1.35rem;
+}
