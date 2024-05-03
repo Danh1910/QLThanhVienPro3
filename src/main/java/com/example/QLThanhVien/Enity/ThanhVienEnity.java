@@ -11,12 +11,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.FetchType;
+import lombok.Data;
+
 import java.util.ArrayList;
 
 /**
  *
  * @author ASUS
  */
+@Data
 @Entity
 @Table(name = "thanhvien")
 public class ThanhVienEnity {
@@ -25,8 +28,8 @@ public class ThanhVienEnity {
     @Column(name = "MaTV")
     private int MaTV;
 
-    @Column(name = "HoTen")
-    private String HoTen;
+    @Column(name = "Ten")
+    private String Ten;
 
     @Column(name = "Khoa")
     private String Khoa;
@@ -49,23 +52,23 @@ public class ThanhVienEnity {
     public ThanhVienEnity() {
     }
     
-    public ThanhVienEnity(int MaTV, String HoTen, String Khoa, String Nganh, String SDT) {
+    public ThanhVienEnity(int MaTV, String Ten, String Khoa, String Nganh, String SDT) {
         this.MaTV = MaTV;
-        this.HoTen = HoTen;
+        this.Ten = Ten;
         this.Khoa = Khoa;
         this.Nganh = Nganh;
         this.SDT = SDT;
     }
-    public ThanhVienEnity(String HoTen, String Khoa, String Nganh, String SDT) {
-        this.HoTen = HoTen;
+    public ThanhVienEnity(String Ten, String Khoa, String Nganh, String SDT) {
+        this.Ten = Ten;
         this.Khoa = Khoa;
         this.Nganh = Nganh;
         this.SDT = SDT;
     }
 
-    public ThanhVienEnity(int MaTV, String HoTen, String Khoa, String Nganh, String SDT, String Password, String Email) {
+    public ThanhVienEnity(int MaTV, String Ten, String Khoa, String Nganh, String SDT, String Password, String Email) {
         this.MaTV = MaTV;
-        this.HoTen = HoTen;
+        this.Ten = Ten;
         this.Khoa = Khoa;
         this.Nganh = Nganh;
         this.SDT = SDT;
@@ -91,8 +94,8 @@ public class ThanhVienEnity {
         this.Password = Password;
     }
     
-    public String getHoTen() {
-        return HoTen;
+    public String getTen() {
+        return Ten;
     }
 
     public int getMaTV() {
@@ -111,8 +114,8 @@ public class ThanhVienEnity {
         return SDT;
     }
 
-    public void setHoTen(String HoTen) {
-        this.HoTen = HoTen;
+    public void setTen(String Ten) {
+        this.Ten = Ten;
     }
 
     public void setKhoa(String Khoa) {
