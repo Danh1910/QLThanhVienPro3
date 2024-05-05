@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -51,14 +51,14 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="ThanhVien.html">
                 <i class="fas fa-fw fa-users"></i>
                 <span>Thành viên</span></a>
         </li>
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" href="ThietBi.html">
                 <i class="fas fa-desktop"></i>
                 <span>Thiết bị </span></a>
@@ -103,26 +103,24 @@
                     <div class="card-header py-3">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h2 class="m-0 font-weight-bold text-primary">Quản Lý Thành Viên</h2>
+                                <h2 th:text="${message}" class="m-0 font-weight-bold text-primary">DataTables Example</h2>
                             </div>
                             <div class="col-auto">
                                 <div class="icon-container">
                                     <a href="#" class="btn btn-primary btn-circle btn-lg">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-success btn-circle btn-lg">
-                                        <i class="fas fa-check"></i>
+                                        <i class="fas fa-plus"></i> <!-- Thêm -->
                                     </a>
                                     <a href="#" class="btn btn-info btn-circle btn-lg">
-                                        <i class="fas fa-info-circle"></i>
+                                        <i class="fas fa-file-excel"></i> <!-- Thêm bằng file Excel -->
                                     </a>
                                     <a href="#" class="btn btn-warning btn-circle btn-lg">
-                                        <i class="fas fa-exclamation-triangle"></i>
+                                        <i class="fas fa-sync-alt"></i> <!-- Làm mới trang -->
                                     </a>
                                     <a href="#" class="btn btn-danger btn-circle btn-lg">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="fas fa-trash-alt"></i> <!-- Xóa -->
                                     </a>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -133,30 +131,27 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Mã Thành Viên</th>
-                                    <th>Họ Tên</th>
-                                    <th>Khoa</th>
-                                    <th>Ngành</th>
-                                    <th>Số Điện Thoại</th>
-                                    <th>Password</th>
-                                    <th>Email</th>
-                                    <th>Edit</th>
+                                    <th></th>
+                                    <th>Mã thiết bị</th>
+                                    <th>Tên thiết bị</th>
+                                    <th>Mô tả thiết bị</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
 
                                 <tr th:each="row, state: ${data}">
-                                    <td th:utext="${row.MaTV}">...</td>
-                                    <td th:utext="${row.Ten}">...</td>
-                                    <td th:utext="${row.Khoa}">...</td>
-                                    <td th:utext="${row.Nganh}">...</td>
-                                    <td th:utext="${row.SDT}">...</td>
-                                    <td th:utext="${row.Password}">...</td>
-                                    <td th:utext="${row.Email}">...</td>
-                                    <td><a th:href="@{'/edit/' + ${row.MaTV}}">Edit</a></td> <!-- Sửa đường dẫn ở đây -->
+                                    <td><input type="checkbox" th:id="'checkbox_' + ${row.MaTB}" name="selectedItems" th:value="${row.MaTB}"/></td>
+                                    <td th:utext="${row.MaTB}">...</td>
+                                    <td th:utext="${row.TenTB}">...</td>
+                                    <td th:utext="${row.MoTaTB}">...</td>
+                                    <td>
+                                        <a href="@{'/edit/' + ${row.MaTB}}" class="btn btn-success btn-circle btn-lg">
+                                            <i class="fas fa-pencil-alt"></i> <!-- Sửa -->
+                                        </a>
+                                    </td> <!-- Sửa đường dẫn ở đây -->
                                 </tr>
-
 
                                 </tbody>
                             </table>

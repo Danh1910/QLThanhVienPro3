@@ -10,21 +10,20 @@ import lombok.Data;
 public class ThietBiEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column ( name = "MaTB")
     private Integer MaTB;
 
     @Column ( name = "TenTB")
     private String TenTB;
 
-    @Column ( name = "MoTaTB")
+    @Column ( name = "mo_tatb")
     private String MoTaTB;
 
 
-    public ThietBiEntity(Integer MaTB, String TenTB, String MoTa) {
+    public ThietBiEntity(Integer MaTB, String TenTB, String MoTaTB) {
         this.MaTB = MaTB;
         this.TenTB = TenTB;
-        this.MoTaTB = MoTa;
+        this.MoTaTB = MoTaTB;
     }
 
     public ThietBiEntity() {
@@ -52,8 +51,8 @@ public class ThietBiEntity {
         return MoTaTB;
     }
 
-    public void setMoTaTB(String MoTa) {
-        this.MoTaTB = MoTa;
+    public void setMoTaTB(String MoTaTB) {
+        this.MoTaTB = MoTaTB;
     }
 
 
