@@ -28,6 +28,9 @@
     <!-- Custom styles for this template -->
     <link href="../css/tablescumtom.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+    <link href="../css/FormSuaTB.css" rel="stylesheet">
+
 
 </head>
 
@@ -127,6 +130,7 @@
 
 
                     <div class="card-body">
+
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
@@ -147,7 +151,7 @@
                                     <td th:utext="${row.TenTB}">...</td>
                                     <td th:utext="${row.MoTaTB}">...</td>
                                     <td>
-                                        <a href="@{'/edit/' + ${row.MaTB}}" class="btn btn-success btn-circle btn-lg">
+                                        <a class="btn btn-success btn-circle btn-lg openFormButton">
                                             <i class="fas fa-pencil-alt"></i> <!-- Sửa -->
                                         </a>
                                     </td> <!-- Sửa đường dẫn ở đây -->
@@ -206,6 +210,29 @@
     </div>
 </div>
 
+<!--Form sửa thiết bi-->
+<div class="container">
+    <div id="editForm" class="edit-form">
+        <h2>Sửa thông tin thiết bị</h2>
+        <form id="deviceForm">
+            <div class="form-group">
+                <label for="deviceCode">Mã thiết bị:</label>
+                <input type="text" class="form-control" id="deviceCode" value="Mã thiết bị hiện tại" readonly />
+            </div>
+            <div class="form-group">
+                <label for="deviceName">Tên thiết bị:</label>
+                <input type="text" class="form-control" id="deviceName" value="Tên thiết bị hiện tại" />
+            </div>
+            <div class="form-group">
+                <label for="deviceDescription">Mô tả thiết bị:</label>
+                <textarea class="form-control" id="deviceDescription" rows="3">Mô tả hiện tại của thiết bị</textarea>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="saveChanges()">Lưu thay đổi</button>
+            <button type="button" class="btn btn-secondary" onclick="closeForm()">Đóng</button>
+        </form>
+    </div>
+</div>
+
 Bootstrap core JavaScript
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -222,6 +249,8 @@ Bootstrap core JavaScript
 
 <!-- Page level custom scripts -->
 <script src="../js/demo/datatables-demo.js"></script>
+
+<script src="../js/ThietBi/SuaThietBi.js"></script>
 
 </body>
 
