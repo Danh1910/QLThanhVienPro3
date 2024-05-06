@@ -145,7 +145,7 @@
 
                                 <tbody>
 
-                                <tr th:each="row, state: ${data}">
+                                <tr th:each="row, state: ${data}" th:idtb="${row.MaTB}" th:tentb="${row.TenTB}" th:motatb="${row.MoTaTB}">
                                     <td><input type="checkbox" th:id="'checkbox_' + ${row.MaTB}" name="selectedItems" th:value="${row.MaTB}"/></td>
                                     <td th:utext="${row.MaTB}">...</td>
                                     <td th:utext="${row.TenTB}">...</td>
