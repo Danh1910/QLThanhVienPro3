@@ -110,16 +110,16 @@
                             </div>
                             <div class="col-auto">
                                 <div class="icon-container">
-                                    <a href="#" class="btn btn-primary btn-circle btn-lg">
+                                    <a class="btn btn-primary btn-circle btn-lg">
                                         <i class="fas fa-plus"></i> <!-- Thêm -->
                                     </a>
-                                    <a href="#" class="btn btn-info btn-circle btn-lg">
+                                    <a class="btn btn-info btn-circle btn-lg">
                                         <i class="fas fa-file-excel"></i> <!-- Thêm bằng file Excel -->
                                     </a>
-                                    <a href="#" class="btn btn-warning btn-circle btn-lg">
+                                    <a class="btn btn-warning btn-circle btn-lg">
                                         <i class="fas fa-sync-alt"></i> <!-- Làm mới trang -->
                                     </a>
-                                    <a href="#" class="btn btn-danger btn-circle btn-lg">
+                                    <a class="btn btn-danger btn-circle btn-lg" onclick="deleteThietBi()">
                                         <i class="fas fa-trash-alt"></i> <!-- Xóa -->
                                     </a>
                                 </div>
@@ -135,7 +135,7 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th></th>
+                                    <th><input type="checkbox" name="selectedItems" id="checkAll" class="larger-checkbox" style="margin-top: 8px; "/></th>
                                     <th>Mã thiết bị</th>
                                     <th>Tên thiết bị</th>
                                     <th>Mô tả thiết bị</th>
@@ -146,7 +146,7 @@
                                 <tbody>
 
                                 <tr th:each="row, state: ${data}" th:idtb="${row.MaTB}" th:tentb="${row.TenTB}" th:motatb="${row.MoTaTB}">
-                                    <td><input type="checkbox" th:id="'checkbox_' + ${row.MaTB}" name="selectedItems" th:value="${row.MaTB}"/></td>
+                                    <td><input type="checkbox" th:id="'checkbox_' + ${row.MaTB}" name="selectedItems" th:value="${row.MaTB}" class="checkbox_ID larger-checkbox" style="margin-top: 8px;"/></td>
                                     <td th:utext="${row.MaTB}">...</td>
                                     <td th:utext="${row.TenTB}">...</td>
                                     <td th:utext="${row.MoTaTB}">...</td>
