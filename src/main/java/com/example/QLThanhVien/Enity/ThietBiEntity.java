@@ -10,6 +10,7 @@ import lombok.Data;
 public class ThietBiEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column ( name = "MaTB")
     private Integer MaTB;
 
