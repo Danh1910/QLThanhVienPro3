@@ -7,7 +7,7 @@ function closeForm() {
 }
 
 function ShowChooseFile(){
-    
+
 }
 
 function saveChanges() {
@@ -21,3 +21,5 @@ var addButton = document.getElementById('addButton');
 addButton.addEventListener('click', function(event) {
     openForm();
 });
+
+
