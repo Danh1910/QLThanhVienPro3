@@ -2,6 +2,8 @@ package com.example.QLThanhVien.Enity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 import java.util.Date;
@@ -13,34 +15,49 @@ import java.util.Date;
 public class ThongTinSuDungEntity {
 
 
+    @Setter
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MaTT")
     private int MaTT;
 
 
+    @Setter
+    @Getter
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="MaTV",nullable=false,foreignKey=@ForeignKey(name="fk_ThongTinSuDungDTO_ThanhVienDTO"))
     private ThanhVienEnity MaTV;
 
 
 
+    @Setter
+    @Getter
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="MaTB",nullable=true,foreignKey=@ForeignKey(name="fk_ThongTinSuDungDTO_ThietBiDTO"))
     private ThietBiEntity MaTB;
 
 
 
+    @Setter
+    @Getter
     @Column(name = "TGVao")
     private Date TGVao;
 
 
+    @Setter
+    @Getter
     @Column(name = "TGMuon")
     private Date TGMuon;
 
 
+    @Setter
+    @Getter
     @Column(name = "TGTra")
     private Date TGTra;
+
+    @Column(name = "TGDatCho")
+    private Date TGDatCho;
 
 
 
@@ -48,64 +65,17 @@ public class ThongTinSuDungEntity {
     }
 
 
-    public ThongTinSuDungEntity(int MaTT, ThanhVienEnity MaTV, ThietBiEntity MaTB, Date TGVao, Date TGMuon, Date TGTra) {
+    public ThongTinSuDungEntity(int MaTT, ThanhVienEnity MaTV, ThietBiEntity MaTB, Date TGVao, Date TGMuon, Date TGTra, Date TGDatCho) {
         this.MaTT = MaTT;
         this.MaTV = MaTV;
         this.MaTB = MaTB;
         this.TGVao = TGVao;
         this.TGMuon = TGMuon;
         this.TGTra = TGTra;
+        this.TGDatCho = TGDatCho;
     }
 
 
-
-    public int getMaTT() {
-        return MaTT;
-    }
-
-    public ThanhVienEnity getMaTV() {
-        return MaTV;
-    }
-
-    public ThietBiEntity getMaTB() {
-        return MaTB;
-    }
-
-    public Date getTGVao() {
-        return TGVao;
-    }
-
-    public Date getTGMuon() {
-        return TGMuon;
-    }
-
-    public Date getTGTra() {
-        return TGTra;
-    }
-
-    public void setMaTT(int maTT) {
-        MaTT = maTT;
-    }
-
-    public void setMaTV(ThanhVienEnity maTV) {
-        MaTV = maTV;
-    }
-
-    public void setMaTB(ThietBiEntity maTB) {
-        MaTB = maTB;
-    }
-
-    public void setTGVao(Date TGVao) {
-        this.TGVao = TGVao;
-    }
-
-    public void setTGMuon(Date TGMuon) {
-        this.TGMuon = TGMuon;
-    }
-
-    public void setTGTra(Date TGTra) {
-        this.TGTra = TGTra;
-    }
 }
 
 

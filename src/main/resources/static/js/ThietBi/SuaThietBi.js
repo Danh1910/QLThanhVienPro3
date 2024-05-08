@@ -75,12 +75,11 @@ function deleteThietBi() {
         })
         .then(response => {
             if (response.ok) {
-
-                alert("Đã xóa thành công");
+                alert("Hệ thống sẽ không xóa thiết bị đang được mượn hoặc đang được đặt chỗ");
                 window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
                 
             } else {
-                console.error('Lỗi khi lưu thiết bị');
+                console.error('Lỗi khi xóa thiết bị');
             }
             
         })
