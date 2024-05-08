@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 
 @Controller
 public class ThietBiController {
@@ -42,6 +45,25 @@ public class ThietBiController {
             ThietBiEntity thietBiEntity = new ThietBiEntity(maTB,tenTB,moTaTB);
 
             thietBiRepository.save(thietBiEntity);
+
+    }
+
+    @DeleteMapping("/ThietBi.html")
+    public void deleteDevice(@RequestBody List<Integer> list_id){
+        for (Integer id : list_id){
+
+
+            Optional<ThietBiEntity> temp = thietBiRepository.findById(id);
+
+            if (temp.isPresent()) {
+                ThietBiEntity thietBi = temp.get();
+
+                thietBiRepository.delete(thietBi);
+            } else {
+                System.out.println("Khong tim ra " + id);
+            }
+
+        }
 
     }
 

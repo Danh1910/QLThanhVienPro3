@@ -66,12 +66,12 @@ function deleteThietBi() {
     const confirmation = confirm("Bạn có chắc chắn muốn xóa không?");
 
     if (confirmation) {
-        fetch('https://example.com/api/resources', {
+        fetch('/ThietBi.html', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(idsToDelete) // Chuyển danh sách ID thành JSON và gửi đi
+            body: JSON.stringify(list_id_check) // Chuyển danh sách ID thành JSON và gửi đi
         })
         .then(response => {
             if (response.ok) {
