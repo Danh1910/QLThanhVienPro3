@@ -6,6 +6,10 @@ function closeForm() {
     document.getElementById("addForm").style.display = "none";
 }
 
+function ShowChooseFile(){
+    
+}
+
 function saveChanges() {
     // Viết mã JavaScript để lưu thông tin thiết bị tại đây
     // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()

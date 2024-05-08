@@ -32,6 +32,8 @@
     <link href="../css/Css_TB/FormSuaTB.css" rel="stylesheet">
 
 
+
+
 </head>
 
 <body id="page-top">
@@ -113,9 +115,10 @@
                                     <a class="btn btn-primary btn-circle btn-lg">
                                         <i class="fas fa-plus"></i> <!-- Thêm -->
                                     </a>
-                                    <a class="btn btn-info btn-circle btn-lg">
-                                        <i class="fas fa-file-excel"></i> <!-- Thêm bằng file Excel -->
-                                    </a>
+                                    <label for="excelFileInput" class="btn btn-info btn-circle btn-lg" style="margin-left: 10px;">
+                                        <i class="fas fa-file-excel"></i> <!-- Icon file Excel -->
+                                        <input type="file" id="excelFileInput" class="file-input" accept=".xlsx, .xls" />
+                                    </label>
                                     <a class="btn btn-warning btn-circle btn-lg">
                                         <i class="fas fa-sync-alt"></i> <!-- Làm mới trang -->
                                     </a>
@@ -232,6 +235,8 @@
         </form>
     </div>
 </div>
+
+
 
 Bootstrap core JavaScript
 <script src="../vendor/jquery/jquery.min.js"></script>
