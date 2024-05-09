@@ -147,7 +147,8 @@
                                     <th>Số Điện Thoại</th>
                                     <th>Password</th>
                                     <th>Email</th>
-                                    <th>Edit</th>
+                                    <th>Sửa</th>
+                                    <th>Mượn</th>
                                 </tr>
                                 </thead>
 
@@ -163,12 +164,22 @@
                                     <td th:utext="${row.SDT}">...</td>
                                     <td th:utext="${row.Password}">...</td>
                                     <td th:utext="${row.Email}">...</td>
+
                                     <td>
                                         <a class="btn btn-success btn-circle btn-lg openFormButton">
                                             <i class="fas fa-pencil-alt"></i> <!-- Sửa -->
                                         </a>
 
                                     </td> <!-- Sửa đường dẫn ở đây -->
+
+                                    <td>
+                                        <a href = "/MuonThietBi.html" class="btn btn-primary btn-circle btn-lg"> <!-- Thay đổi màu nền của nút thành màu xanh dương -->
+                                            <i class="fas fa-toolbox"></i> <!-- Sử dụng biểu tượng "toolbox" thay vì "pencil-alt" -->
+                                        </a>
+                                    </td>
+
+
+
                                 </tr>
 
 
@@ -245,7 +256,6 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -264,6 +274,7 @@
         </div>
     </div>
 </div>
+
 
 Bootstrap core JavaScript
 <script src="../vendor/jquery/jquery.min.js"></script>

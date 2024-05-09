@@ -27,7 +27,7 @@ public class ThongTinSuDungEntity {
     @Getter
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="MaTV",nullable=false,foreignKey=@ForeignKey(name="fk_ThongTinSuDungDTO_ThanhVienDTO"))
-    private ThanhVienEnity MaTV;
+    private ThanhVienEntity MaTV;
 
 
 
@@ -65,7 +65,7 @@ public class ThongTinSuDungEntity {
     }
 
 
-    public ThongTinSuDungEntity(int MaTT, ThanhVienEnity MaTV, ThietBiEntity MaTB, Date TGVao, Date TGMuon, Date TGTra, Date TGDatCho) {
+    public ThongTinSuDungEntity(int MaTT, ThanhVienEntity MaTV, ThietBiEntity MaTB, Date TGVao, Date TGMuon, Date TGTra, Date TGDatCho) {
         this.MaTT = MaTT;
         this.MaTV = MaTV;
         this.MaTB = MaTB;
