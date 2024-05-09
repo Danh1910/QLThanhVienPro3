@@ -5,7 +5,7 @@
 package com.example.QLThanhVien.Controller;
 
 
-import com.example.QLThanhVien.Enity.ThanhVienEnity;
+import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,10 +33,20 @@ public class ThanhVienController {
     @RequestMapping("/ThanhVien.html")
     public String sayHello(Model model){
         model.addAttribute("message", "Quản lý thành viên");
-        Iterable<ThanhVienEnity> list= tvRepository.findAll();
+        Iterable<ThanhVienEntity> list= tvRepository.findAll();
         model.addAttribute("data",list);
 
         return "ThanhVien.html";
+    }
+
+
+    @PutMapping("/ThanhVien.html")
+    public void editThanhVien(@RequestParam(name = "MaTV") Integer maTV, @RequestParam(name = "Ten") String ten, @RequestParam(name = "Khoa") String khoa, @RequestParam(name = "Nganh") String nganh, @RequestParam(name = "SDT") String sdt, @RequestParam(name = "Email") String email, @RequestParam(name = "Password") String password, Model model) {
+
+        ThanhVienEntity tvEntity = new ThanhVienEntity(maTV,ten,khoa,nganh,sdt,email,password);
+
+        tvRepository.save(tvEntity);
+
     }
 
 

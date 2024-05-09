@@ -6,14 +6,9 @@ package com.example.QLThanhVien.Enity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.FetchType;
 import lombok.Data;
-
-import java.util.ArrayList;
 
 /**
  *
@@ -22,7 +17,7 @@ import java.util.ArrayList;
 @Data
 @Entity
 @Table(name = "thanhvien")
-public class ThanhVienEnity {
+public class ThanhVienEntity {
     
     @Id
     @Column(name = "MaTV")
@@ -49,24 +44,24 @@ public class ThanhVienEnity {
 //    @OneToMany(fetch=FetchType.LAZY, mappedBy= "thanhvien")
 //    private ArrayList<ThongTinSuDungEnity> ttsd = new ArrayList<>();
 //    
-    public ThanhVienEnity() {
+    public ThanhVienEntity() {
     }
     
-    public ThanhVienEnity(int MaTV, String Ten, String Khoa, String Nganh, String SDT) {
+    public ThanhVienEntity(int MaTV, String Ten, String Khoa, String Nganh, String SDT) {
         this.MaTV = MaTV;
         this.Ten = Ten;
         this.Khoa = Khoa;
         this.Nganh = Nganh;
         this.SDT = SDT;
     }
-    public ThanhVienEnity(String Ten, String Khoa, String Nganh, String SDT) {
+    public ThanhVienEntity(String Ten, String Khoa, String Nganh, String SDT) {
         this.Ten = Ten;
         this.Khoa = Khoa;
         this.Nganh = Nganh;
         this.SDT = SDT;
     }
 
-    public ThanhVienEnity(int MaTV, String Ten, String Khoa, String Nganh, String SDT, String Password, String Email) {
+    public ThanhVienEntity(int MaTV, String Ten, String Khoa, String Nganh, String SDT, String Email,String Password) {
         this.MaTV = MaTV;
         this.Ten = Ten;
         this.Khoa = Khoa;
