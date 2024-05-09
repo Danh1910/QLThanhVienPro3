@@ -146,7 +146,7 @@
 
                                 <tbody>
 
-                                <tr th:each="row, state: ${data}">
+                                <tr th:each="row, state: ${data}" th:idtv="${row.MaTV}" th:tentv="${row.Ten}" th:khoa="$row.Khoa" th:nganh="$row.Nganh" th:sdt="$row.SDT" th:email="$row.Email" th:password="$row.Password">
                                     <td th:utext="${row.MaTV}">...</td>
                                     <td th:utext="${row.Ten}">...</td>
                                     <td th:utext="${row.Khoa}">...</td>
@@ -212,8 +212,12 @@
                 <input type="text" class="form-control" id="personNganh" th:value="${thanhVien.Nganh}" />
             </div>
             <div class="form-group">
+                <label for="personSDT">SDT:</label>
+                <input type="text" class="form-control" id="personSDT" th:value="${thanhVien.SDT}" />
+            </div>
+            <div class="form-group">
                 <label for="personName">Email:</label>
-                <input type="text" class="form-control" id="personEmail" th:value="${thanhVien.Email}" />
+                <input type="email" class="form-control" id="personEmail" th:value="${thanhVien.Email}" />
             </div>
             <div class="form-group">
                 <label for="personName">Password:</label>
@@ -270,21 +274,7 @@ Bootstrap core JavaScript
 
 <script src="../js/ThanhVien/SuaThanhVien.js"></script>
 
-<script th:inline="javascript">
-    function openForm() {
-        // Lấy ra phần tử HTML của form chỉnh sửa dựa vào id hoặc class của nó
-        var editForm = document.getElementById("editForm");
 
-        // Kiểm tra xem form chỉnh sửa có tồn tại không
-        if (editForm) {
-            // Nếu form tồn tại, thay đổi style để hiển thị form
-            editForm.style.display = "block";
-        } else {
-            // Nếu form không tồn tại, thông báo lỗi
-            console.error("Form không tồn tại.");
-        }
-    }
-</script>
 
 </body>
 
