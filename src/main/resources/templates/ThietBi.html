@@ -31,6 +31,9 @@
     <!-- Custom styles for this template -->
     <link href="../css/Css_TB/FormSuaTB.css" rel="stylesheet">
 
+    
+    <!-- Custom styles for this template -->
+    <link href="../css/Css_TB/FormThemTB.css" rel="stylesheet">
 
 
 
@@ -118,7 +121,7 @@
                             </div>
                             <div class="col-auto">
                                 <div class="icon-container">
-                                    <a class="btn btn-primary btn-circle btn-lg">
+                                    <a class="btn btn-primary btn-circle btn-lg" id="addButton">
                                         <i class="fas fa-plus"></i> <!-- Thêm -->
                                     </a>
                                     <label for="excelFileInput" class="btn btn-info btn-circle btn-lg" style="margin-left: 10px;">
@@ -219,6 +222,36 @@
     </div>
 </div>
 
+<!--Form them thiết bi-->
+<div class="container">
+    <div id="addForm" class="add-form">
+        <h2>Thêm thiết bị</h2>
+        <form id="adddeviceForm">
+            <div class="form-group">
+                <label for="deviceCode">Loại thiết bị:</label>
+                <select class="form-control" id="adddeviceCode">
+                    <option value="Micro">Micro</option>
+                    <option value="Máy chiếu">Máy chiếu</option>
+                    <option value="Máy ảnh">Máy ảnh</option>
+                    <option value="Cassette">Cassette</option>
+                    <option value="Tivi">Tivi</option>
+                    <option value="Quạt đứng">Quạt đứng</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="deviceName">Tên thiết bị:</label>
+                <input type="text" class="form-control" id="adddeviceName" value="" />
+            </div>
+            <div class="form-group">
+                <label for="deviceDescription">Mô tả thiết bị:</label>
+                <textarea class="form-control" id="adddeviceDescription" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="saveAdd()">Lưu thay đổi</button>
+            <button type="button" class="btn btn-secondary" onclick="closeFormAdd()">Đóng</button>
+        </form>
+    </div>
+</div>
+
 <!--Form sửa thiết bi-->
 <div class="container">
     <div id="editForm" class="edit-form">
@@ -237,7 +270,7 @@
                 <textarea class="form-control" id="deviceDescription" rows="3">Mô tả hiện tại của thiết bị</textarea>
             </div>
             <button type="button" class="btn btn-primary" onclick="saveChanges()">Lưu thay đổi</button>
-            <button type="button" class="btn btn-secondary" onclick="closeForm()">Đóng</button>
+            <button type="button" class="btn btn-secondary" onclick="closeFormEdit()">Đóng</button>
         </form>
     </div>
 </div>
@@ -264,6 +297,8 @@ Bootstrap core JavaScript
 <script src="../js/ThietBi/SuaThietBi.js"></script>
 
 <script src="../js/ThietBi/FileExcel.js"></script>
+
+<script src="../js/ThietBi/ThemThietBi.js"></script>
 
 </body>
 
