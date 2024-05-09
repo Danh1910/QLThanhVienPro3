@@ -16,81 +16,49 @@ function closeFormEdit() {
 // Thực hiện thay đổi thông tin thiết bị
 function saveChanges() {
 
-    // Lấy phần tử input bằng id
+    // Lấy phần tử input bằng i
+        var personId = document.getElementById('personCode');
+        var personName = document.getElementById('personName');
+        var personKhoa = document.getElementById('personKhoa');
+        var personNganh = document.getElementById('personNganh');
+        var personSDT = document.getElementById('personSDT');
+        var personEmail = document.getElementById('personEmail');
+        var personPassword = document.getElementById('personPassword');
 
-    var personId = document.getElementById('personCode');
-    var personName = document.getElementById('personName');
-    var personDescription = document.getElementById('personDescription');
+        // Kiểm tra xem các phần tử input có tồn tại không
+        if (personId && personName && personKhoa && personNganh && personSDT && personEmail && personPassword) {
+            // Lấy giá trị từ các phần tử input
+            const maTV = personId.value;
+            const tenTV = personName.value;
+            const khoa = personKhoa.value;
+            const nganh = personNganh.value;
+            const sdt = personSDT.value;
+            const email = personEmail.value;
+            const password = personPassword.value;
 
+            fetch('/ThietBi.html?MaTV=' + maTV + '&Ten=' + tenTV + '&Khoa=' + khoa + '&Nganh=' + nganh + '&SDT=' + sdt + '&Email=' + email + '&Password=' + password , {
+                method: 'PUT'
+            })
+            .then(response => {
+                if (response.ok) {
+                    // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
+                    closeFormEdit();
 
-    if (personId && personName && personDescription) {
+                    alert("Dữ liệu đã được sửa thành công");
+                    window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
 
-        const maTB = personId.value; // Giá trị MaTB
-        const tenTB = personName.value; // Giá trị TenTB
-        const moTaTB = personDescription.value; // Giá trị MoTaTB
-
-        fetch('/ThietBi.html?MaTB=' + maTB + '&TenTB=' + tenTB + '&MoTaTB=' + moTaTB, {
-            method: 'PUT'
-        })
-        .then(response => {
-            if (response.ok) {
-                // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
-                closeFormEdit();
-
-                alert("Dữ liệu đã được sửa thành công");
-                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
-
-            } else {
-                console.error('Lỗi khi lưu thiết bị');
-            }
-        })
-        .catch(error => {
-            console.error('Lỗi khi gửi yêu cầu: ', error);
-        });
-
-
-
-
-    }
-}
-
-
-function deleteThietBi() {
-
-    if (list_id_check.length == 0){
-        alert("Vui lòng chọn thiết bị muốn xóa");
-
-        return;
-    }
-
-    const confirmation = confirm("Bạn có chắc chắn muốn xóa không?");
-
-    if (confirmation) {
-        fetch('/ThietBi.html', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(list_id_check) // Chuyển danh sách ID thành JSON và gửi đi
-        })
-        .then(response => {
-            if (response.ok) {
-                alert("Hệ thống sẽ không xóa thiết bị đang được mượn hoặc đang được đặt chỗ");
-                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
-
-            } else {
-                console.error('Lỗi khi xóa thiết bị');
-            }
-
-        })
-        .catch(error => {
-        console.error('There was a problem with your fetch operation:', error);
-        });
-    } else {
-        console.log("Không xóa")
-    }
+                } else {
+                    console.error('Lỗi khi lưu thành viên');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi khi gửi yêu cầu: ', error);
+            });
 
 
+
+
+        }
 }
 
 
@@ -113,6 +81,8 @@ document.addEventListener('DOMContentLoaded', function () {
             var personSDT = button.closest('tr').getAttribute('sdt');
             var personEmail = button.closest('tr').getAttribute('email');
             var personPassword = button.closest('tr').getAttribute('password');
+
+            openFormEdit();
 
             // Gán dữ liệu vào các input trong form chỉnh sửa
             var personIdInput = document.getElementById('personCode');
@@ -138,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
 
 
 
@@ -229,4 +198,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 });
-//
+

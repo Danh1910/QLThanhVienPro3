@@ -139,6 +139,7 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
+                                    <th style="width: 50px;"><input type="checkbox" name="selectedItems" id="checkAll" class="larger-checkbox" style="margin-top: 5px;"/></th>
                                     <th>Mã Thành Viên</th>
                                     <th>Họ Tên</th>
                                     <th>Khoa</th>
@@ -152,7 +153,9 @@
 
                                 <tbody>
 
-                                <tr th:each="row, state: ${data}" th:idtv="${row.MaTV}" th:tentv="${row.Ten}" th:khoa="$row.Khoa" th:nganh="$row.Nganh" th:sdt="$row.SDT" th:email="$row.Email" th:password="$row.Password">
+                                <tr th:each="row, state: ${data}" th:idtv="${row.MaTV}" th:tentv="${row.Ten}" th:khoa="${row.Khoa}" th:nganh="${row.Nganh}" th:sdt="${row.SDT}" th:email="${row.Email}" th:password="${row.Password}">
+                                    <td><input type="checkbox" th:id="'checkbox_' + ${row.MaTV}" name="selectedItems" th:value="${row.MaTV}" class="checkbox_ID larger-checkbox"/></td>
+
                                     <td th:utext="${row.MaTV}">...</td>
                                     <td th:utext="${row.Ten}">...</td>
                                     <td th:utext="${row.Khoa}">...</td>
@@ -161,9 +164,10 @@
                                     <td th:utext="${row.Password}">...</td>
                                     <td th:utext="${row.Email}">...</td>
                                     <td>
-                                        <a th:href="@{'/edit/' + ${row.MaTV}}" class="btn btn-success btn-circle btn-lg openFormButton" onclick="openForm()">
+                                        <a class="btn btn-success btn-circle btn-lg openFormButton">
                                             <i class="fas fa-pencil-alt"></i> <!-- Sửa -->
                                         </a>
+
                                     </td> <!-- Sửa đường dẫn ở đây -->
                                 </tr>
 
@@ -203,34 +207,34 @@
         <form id="personForm">
             <div class="form-group">
                 <label for="personCode">Mã thành viên:</label>
-                <input type="text" class="form-control" id="personCode" th:value="${thanhVien.MaTV}" readonly />
+                <input type="text" class="form-control" id="personCode" value="Mã thành viên" readonly />
             </div>
             <div class="form-group">
                 <label for="personName">Tên thành viên:</label>
-                <input type="text" class="form-control" id="personName" th:value="${thanhVien.Ten}" />
+                <input type="text" class="form-control" id="personName" value="Tên thành viên" />
             </div>
             <div class="form-group">
                 <label for="personName">Khoa:</label>
-                <input type="text" class="form-control" id="personKhoa" th:value="${thanhVien.Khoa}" />
+                <input type="text" class="form-control" id="personKhoa" value="Khoa thành viên"  />
             </div>
             <div class="form-group">
                 <label for="personName">Ngành:</label>
-                <input type="text" class="form-control" id="personNganh" th:value="${thanhVien.Nganh}" />
+                <input type="text" class="form-control" id="personNganh" value="Ngành thành viên"  />
             </div>
             <div class="form-group">
                 <label for="personSDT">SDT:</label>
-                <input type="text" class="form-control" id="personSDT" th:value="${thanhVien.SDT}" />
+                <input type="text" class="form-control" id="personSDT" value="SDT thành viên"  />
             </div>
             <div class="form-group">
                 <label for="personName">Email:</label>
-                <input type="email" class="form-control" id="personEmail" th:value="${thanhVien.Email}" />
+                <input type="email" class="form-control" id="personEmail" value="Email thành viên"  />
             </div>
             <div class="form-group">
                 <label for="personName">Password:</label>
-                <input type="text" class="form-control" id="personPassword" th:value="${thanhVien.Password}" />
+                <input type="text" class="form-control" id="personPassword" value="Password thành viên"  />
             </div>
             <button type="button" class="btn btn-primary" onclick="saveChanges()">Lưu thay đổi</button>
-            <button type="button" class="btn btn-secondary" onclick="closeForm()">Đóng</button>
+            <button type="button" class="btn btn-secondary" onclick="closeFormEdit()">Đóng</button>
         </form>
     </div>
 </div>
@@ -279,6 +283,7 @@ Bootstrap core JavaScript
 <script src="../js/demo/datatables-demo.js"></script>
 
 <script src="../js/ThanhVien/SuaThanhVien.js"></script>
+
 
 
 
