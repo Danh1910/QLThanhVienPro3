@@ -27,10 +27,9 @@
     <link href="../css/tablescumtom.css" rel="stylesheet">
 	<style>
 		.dropdown {
-	        width: 50%;
 	        min-width: 15em;
 	        position: relative;
-	        margin: 2em;
+	        margin: 1em;
 	    }
 	    
 	    .dropdown * {
@@ -148,7 +147,7 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="ThanhVien.html">
+                <a class="nav-link" href="XuLyViPham.html">
                     <i class="fas fa-exclamation-triangle"></i>
                     <span>Xử lý vi phạm</span></a>
             </li>
@@ -203,18 +202,21 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
                                 <label>Ngày Kết Thúc: </label>&nbsp&nbsp&nbsp
 	                            <input type="date" class="form-control bg-light border-0 small" placeholder="Search for..."
                                 aria-describedby="basic-addon2">
+                                
+                                &nbsp&nbsp&nbsp
+                                <div class="dropdown">
+					                <div class="select">
+					                    <span class="selected" id="nhacungcap">Theo Khoa</span>
+					                    <div class="caret"></div>
+					                </div>
+					                <ul class="menu">
+			                            <li class="activecbx">Theo Khoa</li>
+			                            <li>Theo Ngành</li>
+			                            <li>Theo Mượn</li>
+					                </ul>
+				            	</div>
 	                        </div>
-	                        <div class="dropdown">
-				                <div class="select">
-				                    <span class="selected" id="nhacungcap">Theo Khoa</span>
-				                    <div class="caret"></div>
-				                </div>
-				                <ul class="menu">
-		                            <li class="activecbx">Theo Khoa</li>
-		                            <li>Theo Ngành</li>
-		                            <li>Theo Mượn</li>
-				                </ul>
-				            </div>
+	                        
 	                    </form>
 						</div>
                 	</div>
@@ -330,20 +332,9 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
     
 
 	<!-- Page level plugins -->
