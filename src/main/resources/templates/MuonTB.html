@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>Quản lý thiết bị</title>
 
     <!-- Custom fonts for this template -->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -28,6 +28,14 @@
     <!-- Custom styles for this template -->
     <link href="../css/tablescumtom.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+    <link href="../css/Css_TB/FormSuaTB.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="../css/Css_TB/FormThemTB.css" rel="stylesheet">
+
+
 
 </head>
 
@@ -40,31 +48,29 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="ThanhVien.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.html">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">User <sup></sup></div>
+            <div class="sidebar-brand-text mx-3">User<sup></sup></div>
         </a>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="ThongTinTV.html">
                 <i class="fas fa-fw fa-users"></i>
-                <span>Thông tin</span></a>
+                <span>Thành viên</span></a>
         </li>
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" href="MuonTB.html">
                 <i class="fas fa-desktop"></i>
-                <span>Mượn thiết bị</span></a>
+                <span>Đặt mượn thiết bị</span></a>
         </li>
-
-
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -77,8 +83,11 @@
     </ul>
     <!-- End of Sidebar -->
 
+
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
+
+        <br>
 
         <!-- Main Content -->
         <div id="content">
@@ -90,77 +99,163 @@
                     <div class="card-header py-3">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h2 class="m-0 font-weight-bold text-primary">Mượn thiết bị</h2>
+                                <h2 class="m-0 font-weight-bold text-primary">Đặt mượn thiết bị</h2>
+
                             </div>
                             <div class="col-auto">
                                 <div class="icon-container">
-                                    <a href="#" class="btn btn-info btn-circle btn-lg">
-                                        <i class="fas fa-info-circle"></i>
+                                    <a class="btn btn-primary btn-circle btn-lg" id="addButton">
+                                        <i class="fas fa-plus"></i> <!-- Thêm -->
+                                    </a>
+                                    <label for="excelFileInput" class="btn btn-info btn-circle btn-lg" style="margin-left: 10px;">
+                                        <i class="fas fa-file-excel"></i> <!-- Icon file Excel -->
+                                        <input type="file" id="excelFileInput" class="file-input" accept=".xlsx, .xls" />
+                                    </label>
+                                    <a class="btn btn-danger btn-circle btn-lg" onclick="deleteThietBi()">
+                                        <i class="fas fa-trash-alt"></i> <!-- Xóa -->
                                     </a>
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- End of Main Content -->
 
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2020</span>
+
+
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Mã thiết bị</th>
+                                    <th>Tên thiết bị</th>
+                                    <th>Mô tả thiết bị</th>
+                                    <th>Trạng thái đặt chỗ</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+                                <tr th:each="row, state: ${data}" th:idtb="${row.MaTB}" th:tentb="${row.TenTB}" th:motatb="${row.MoTaTB}">
+                                    <td th:utext="${row.MaTB}">...</td>
+                                    <td th:utext="${row.TenTB}">...</td>
+                                    <td th:utext="${row.MoTaTB}">...</td>
+                                    <td>...</td>
+                                    <td>
+                                        <a class="btn btn-success btn-circle btn-lg openFormButton">
+                                            <i class="fas fa-pencil-alt"></i> <!-- Sửa -->
+                                        </a>
+                                    </td> <!-- Sửa đường dẫn ở đây -->
+                                </tr>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </footer>
+                </div>
 
             </div>
+            <!-- /.container-fluid -->
 
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="../login.html">Logout</a>
+            </div>
         </div>
     </div>
 </div>
-        <!-- End of Page Wrapper -->
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
 
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="../login.html">Logout</a>
-                    </div>
-                </div>
+<!--Form mượn thiết bi-->
+<div class="container">
+    <div id="editForm" class="edit-form">
+        <h2>Đặt mượn thiết bị</h2>
+        <form id="deviceForm">
+            <div class="form-group">
+                <label for="deviceCode">Mã thiết bị:</label>
+                <input type="text" class="form-control" id="deviceCode" value="Mã thiết bị hiện tại" readonly />
             </div>
-        </div>
+            <div class="form-group">
+                <label for="deviceName">Tên thiết bị:</label>
+                <input type="text" class="form-control" id="deviceName" value="Tên thiết bị hiện tại" readonly />
+            </div>
+            <div>
+                <label for="deviceName">Tình trạng đặt chỗ:</label>
+                <input type="text" class="form-control" id="" value="Chưa đặt" readonly />
+            </div>
+            <div>
+                <label for="deviceName">Chọn thời gian:</label>
 
-        Bootstrap core JavaScript
-        <script src="../vendor/jquery/jquery.min.js"></script>
-        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="saveChanges()">OK</button>
+            <button type="button" class="btn btn-secondary" onclick="closeFormEdit()">Close</button>
+        </form>
+    </div>
+</div>
 
-        <!-- Core plugin JavaScript-->
-        <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="../js/sb-admin-2.min.js"></script>
 
-        <!-- Page level plugins -->
-        <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Page level custom scripts -->
-        <script src="../js/demo/datatables-demo.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../js/demo/datatables-demo.js"></script>
+
+<!--<script src="../js/ThietBi/SuaThietBi.js"></script>-->
+
+<script src="../js/DatMuonTB/DatMuon.js"></script>
+
+<script src="../js/ThietBi/FileExcel.js"></script>
+
+<script src="../js/ThietBi/ThemThietBi.js"></script>
 
 </body>
 
