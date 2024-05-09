@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -57,11 +59,12 @@ public class ThietBiController {
 
     }
 
-    @PostMapping("/ThietBi.html")
-    public ResponseEntity<String> addExcel(@RequestParam (name = "FilePath") String FilePath){
+    @PatchMapping("/ThietBi.html")
+    public ResponseEntity<String> addExcel(@RequestParam("file") MultipartFile file){
         ArrayList<ThietBiEntity> list_excel = new ArrayList<>();
         try{
-            FileInputStream inputStream = new FileInputStream(new File(FilePath));
+            byte[] fileBytes = file.getBytes();
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(fileBytes);
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
 
@@ -114,12 +117,7 @@ public class ThietBiController {
             }
 
             for (ThietBiEntity a : list_excel){
-//                if (tbDAL.kiemTraMaThietBiTonTai(a.getMaTB())){
-//                    tbDAL.updateThietBi(a);
-//                }
-//                else{
-//                    tbDAL.addThietBi(a);
-//                }
+                thietBiRepository.save(a);
             }
 
 

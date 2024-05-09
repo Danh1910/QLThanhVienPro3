@@ -11,9 +11,37 @@ function ShowChooseFile(){
 }
 
 function saveAdd() {
-    // Viết mã JavaScript để lưu thông tin thiết bị tại đây
-    // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
-    closeFormAdd();
+    // Lấy phần tử input bằng id
+
+    var deviceId = document.getElementById('adddeviceCode');
+    var deviceName = document.getElementById('adddeviceName');
+    var deviceDescription = document.getElementById('adddeviceDescription');
+    if (deviceId && deviceName && deviceDescription) {
+
+        const loaiTBIndex = deviceId.selectedIndex;
+        const tenTB = deviceName.value; // Giá trị TenTB
+        const moTaTB = deviceDescription.value; // Giá trị MoTaTB
+
+        fetch('/ThietBi.html?LoaiTBIndex=' + loaiTBIndex + '&TenTB=' + tenTB + '&MoTaTB=' + moTaTB, {
+            method: 'POST'
+        })
+        .then(response => {
+            if (response.ok) {
+                // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
+                closeFormEdit();
+
+                alert("Thiết bị đã được thêm thành công");
+                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+                
+            } else {
+                console.error('Lỗi khi thêm thiết bị');
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi khi gửi yêu cầu: ', error);
+        });
+    }
+    // closeFormAdd();
 }
 var addButton = document.getElementById('addButton');
 
