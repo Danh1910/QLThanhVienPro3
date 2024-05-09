@@ -336,11 +336,11 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 		                                </tr>
 	                                </thead>
 	                                <tbody>
-		                                <tr th:each="row, state: ${data}">
-		                                    <td th:utext="${row.MaTV}">...</td>
-		                                    <td th:utext="${row.Ten}">...</td>
-		                                    <td th:utext="${row.Khoa}">...</td>
-		                                    <td th:utext="${row.Nganh}">...</td>
+		                                <tr th:each="row, state: ${listTTSD}">
+		                                    <td th:utext="${row.MaTT}">...</td>
+		                                    <td th:utext="${row.MaTV.MaTV}">...</td>
+		                                    <td th:utext="${row.MaTB != null ? row.MaTB.MaTB : ''}">...</td>
+		                                    <td th:utext="${row.TGVao}">...</td>
 		                                </tr>
 	                                </tbody>
 	                            </table>
