@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
  * @author ASUS
  */
 
-public interface ThanhVienRepository extends CrudRepository<ThanhVienEnity,Long>{}
+public interface ThanhVienRepository extends CrudRepository<ThanhVienEnity,Long>{
+
+}

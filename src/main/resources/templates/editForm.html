@@ -1,0 +1,35 @@
+<form xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="container">
+    <div id="editForm" class="edit-form">
+        <h2>Sửa thông tin thành viên</h2>
+        <form id="personForm">
+            <div class="form-group">
+                <label for="personCode">Mã thành viên:</label>
+                <input type="text" class="form-control" id="personCode" th:value="${thanhVien.MaTV}" readonly />
+            </div>
+            <div class="form-group">
+                <label for="personName">Tên thành viên:</label>
+                <input type="text" class="form-control" id="personName" th:value="${thanhVien.Ten}" />
+            </div>
+            <div class="form-group">
+                <label for="personName">Khoa:</label>
+                <input type="text" class="form-control" id="personKhoa" th:value="${thanhVien.Khoa}" />
+            </div>
+            <div class="form-group">
+                <label for="personName">Ngành:</label>
+                <input type="text" class="form-control" id="personNganh" th:value="${thanhVien.Nganh}" />
+            </div>
+            <div class="form-group">
+                <label for="personName">Email:</label>
+                <input type="text" class="form-control" id="personEmail" th:value="${thanhVien.Email}" />
+            </div>
+            <div class="form-group">
+                <label for="personName">Password:</label>
+                <input type="text" class="form-control" id="personPassword" th:value="${thanhVien.Password}" />
+            </div>
+            <button type="button" class="btn btn-primary" onclick="saveChanges()">Lưu thay đổi</button>
+            <button type="button" class="btn btn-secondary" onclick="closeForm()">Đóng</button>
+        </form>
+    </div>
+</div>
+</form>
