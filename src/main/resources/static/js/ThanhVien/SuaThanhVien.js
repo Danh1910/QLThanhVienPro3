@@ -36,23 +36,8 @@ function saveChanges() {
             const email = personEmail.value;
             const password = personPassword.value;
 
-            fetch('/ThietBi.html?MaTV=' + maTV + '&Ten=' + tenTV + '&Khoa=' + khoa + '&Nganh=' + nganh + '&SDT=' + sdt + '&Email=' + email + '&Password=' + password , {
-                method: 'PUT'
-            })
-            .then(response => {
-                if (response.ok) {
-                    // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
-                    closeFormEdit();
-
-                    alert("Dữ liệu đã được sửa thành công");
-                    window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
-
-                } else {
-                    console.error('Lỗi khi lưu thành viên');
-                }
-            })
-            .catch(error => {
-                console.error('Lỗi khi gửi yêu cầu: ', error);
+            fetch('/ThanhVien.html?MaTV=' + maTV + '&Ten=' + tenTV + '&Khoa=' + khoa + '&Nganh=' + nganh + '&SDT=' + sdt + '&Email=' + email + '&Password=' + password , {
+                method: 'PUT'khi gửi yêu cầu: ', error);
             });
 
 
@@ -60,7 +45,6 @@ function saveChanges() {
 
         }
 }
-
 
 
 

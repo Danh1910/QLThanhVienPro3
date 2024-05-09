@@ -4,14 +4,14 @@
  */
 package com.example.QLThanhVien.Repository;
 
-import com.example.QLThanhVien.Enity.ThanhVienEnity;
+import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository; 
+
 /**
  *
  * @author ASUS
  */
 
-public interface ThanhVienRepository extends CrudRepository<ThanhVienEnity,Long>{
+public interface ThanhVienRepository extends CrudRepository<ThanhVienEntity,Long>{
 
 }

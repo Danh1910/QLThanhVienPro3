@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.QLThanhVien.Enity.ThanhVienEnity;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
 import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
