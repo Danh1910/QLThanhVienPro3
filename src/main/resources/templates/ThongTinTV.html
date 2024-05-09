@@ -28,6 +28,8 @@
     <!-- Custom styles for this template -->
     <link href="../css/tablescumtom.css" rel="stylesheet">
 
+    <link href="../css/CSS_thongtinTV/thongtin.css" rel="stylesheet">
+
 
 </head>
 
@@ -90,19 +92,84 @@
                     <div class="card-header py-3">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h2 class="m-0 font-weight-bold text-primary">Thông Tin Thành Viên</h2>
+                                <h2 class="m-0 font-weight-bold text-primary">Hồ sơ thành viên</h2>
                             </div>
                             <div class="col-auto">
                                 <div class="icon-container">
-                                    <a href="#" class="btn btn-info btn-circle btn-lg">
-                                        <i class="fas fa-info-circle"></i>
+                                    <a class="btn btn-primary btn-circle btn-lg" id="addButton">
+                                        <i class="fas fa-plus"></i> <!-- Thêm -->
+                                    </a>
+                                    <label for="excelFileInput" class="btn btn-info btn-circle btn-lg" style="margin-left: 10px;">
+                                        <i class="fas fa-file-excel"></i> <!-- Icon file Excel -->
+                                        <input type="file" id="excelFileInput" class="file-input" accept=".xlsx, .xls" />
+                                    </label>
+                                    <a class="btn btn-warning btn-circle btn-lg">
+                                        <i class="fas fa-sync-alt"></i> <!-- Làm mới trang -->
+                                    </a>
+                                    <a class="btn btn-danger btn-circle btn-lg" onclick="deleteThietBi()">
+                                        <i class="fas fa-trash-alt"></i> <!-- Xóa -->
                                     </a>
                                 </div>
+
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label>MSSV</label>
+                                <input type="text" class="form-control" value="3121410104" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Tên</label>
+                                <input type="text" class="form-control" value="Trần Trung Kiệt" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Khoa</label>
+                                <input type="text" class="form-control" value="CNTT" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Ngành</label>
+                                <input type="text" class="form-control" value="KTPM" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input type="text" class="form-control" value="" readonly>
+                                <div class="change_pass">
+                                    <a class="btn btn-danger btn-circle btn-lg" onclick="">
+                                        <i class="fas fa-trash-alt"></i> <!-- Xóa -->
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control" value="">
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="">Lưu</button>
+                            <button type="button" class="btn btn-secondary" onclick="">Hủy</button>
+                        </form>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="tt_vp">
+                            <p>Trạng thái vi phạm:</p>
+                            <p>Không có vi phạm</p>
+                        </div>
+
+                    </div>
                 </div>
+
             </div>
+            <!-- /.container-fluid -->
 
         </div>
         <!-- End of Main Content -->
@@ -116,31 +183,31 @@
             </div>
         </footer>
         <!-- End of Footer -->
+
     </div>
-    <!-- End of Content Wrapper -->
-</div>
 <!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="../login.html">Logout</a>
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="../login.html">Logout</a>
+                </div>
             </div>
         </div>
     </div>
