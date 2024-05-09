@@ -32,7 +32,6 @@ public class ThanhVienController {
 //    }
     @RequestMapping("/ThanhVien.html")
     public String sayHello(Model model){
-        System.out.println("Say hello1");
         model.addAttribute("message", "Quản lý thành viên");
         Iterable<ThanhVienEnity> list= tvRepository.findAll();
         model.addAttribute("data",list);

@@ -14,7 +14,6 @@ public class ThietBiEntity {
     @Getter
     @Setter
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column ( name = "MaTB")
     private Integer MaTB;
 
