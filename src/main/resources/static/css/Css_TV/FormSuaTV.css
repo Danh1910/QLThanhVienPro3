@@ -12,7 +12,11 @@
     z-index: 1000;
 
     /* Thêm các thuộc tính sau để căn giữa theo chiều ngang và chiều dọc */
-        width: 400px;
+        width: 600px;
         max-width: 90%;
 }
 
+.larger-checkbox{
+    transform: scale(1.5); /* Tăng kích thước lên 1.2 lần */
+
+}
