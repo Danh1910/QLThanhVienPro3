@@ -3,12 +3,12 @@
 const list_id_check = []
 
 // Hiện form lên 
-function openForm() {
+function openFormEdit() {
     document.getElementById("editForm").style.display = "block";
 }
 
 // Tắt form
-function closeForm() {
+function closeFormEdit() {
     document.getElementById("editForm").style.display = "none";
 }
 
@@ -35,7 +35,7 @@ function saveChanges() {
         .then(response => {
             if (response.ok) {
                 // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
-                closeForm();
+                closeFormEdit();
 
                 alert("Dữ liệu đã được sửa thành công");
                 window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
@@ -66,21 +66,20 @@ function deleteThietBi() {
     const confirmation = confirm("Bạn có chắc chắn muốn xóa không?");
 
     if (confirmation) {
-        fetch('https://example.com/api/resources', {
+        fetch('/ThietBi.html', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(idsToDelete) // Chuyển danh sách ID thành JSON và gửi đi
+            body: JSON.stringify(list_id_check) // Chuyển danh sách ID thành JSON và gửi đi
         })
         .then(response => {
             if (response.ok) {
-
-                alert("Đã xóa thành công");
+                alert("Hệ thống sẽ không xóa thiết bị đang được mượn hoặc đang được đặt chỗ");
                 window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
                 
             } else {
-                console.error('Lỗi khi lưu thiết bị');
+                console.error('Lỗi khi xóa thiết bị');
             }
             
         })
@@ -112,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var deviceName = button.closest('tr').getAttribute('tentb');
             var deviceDescription = button.closest('tr').getAttribute('motatb');
 
-            openForm();
+            openFormEdit();
             // Lấy phần tử input bằng id
 
             var deviceIdInput = document.getElementById('deviceCode');

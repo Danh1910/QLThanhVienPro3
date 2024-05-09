@@ -16,8 +16,9 @@
 }
 
 input[type="checkbox"] {
-    margin: auto;
+    margin-top: 14px;
     display: block;
+    margin-left: 26px;
 }
 
 .btn-circle {
@@ -29,6 +30,6 @@ input[type="checkbox"] {
         align-items: center;
     }
 
-    .btn-circle i {
-        font-size: 16px;
-    }
+.btn-circle i {
+    font-size: 16px;
+}
