@@ -62,15 +62,10 @@ public class ThietBiController {
     @PatchMapping("/ThietBi.html")
     public ResponseEntity<String> addExcel(@RequestParam("file") MultipartFile file){
         ArrayList<ThietBiEntity> list_excel = new ArrayList<>();
-
         try{
-
             byte[] fileBytes = file.getBytes();
-
             ByteArrayInputStream inputStream = new ByteArrayInputStream(fileBytes);
-
             Workbook workbook = WorkbookFactory.create(inputStream);
-
             Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
 
             Row Titlerow = sheet.getRow(0);
@@ -83,8 +78,6 @@ public class ThietBiController {
                 String ma = TitleMaCell.getStringCellValue();
                 String ten = TitleTenCell.getStringCellValue();
                 String mota = TitleMoTaCell.getStringCellValue();
-
-
                 if (!ma.equals("MaTB") || !ten.equals("TenTB") || !mota.equals("MoTaTB")){
                     return ResponseEntity.ok("File không đúng cấu trúc cột"); // Ví dụ: trả về một thông báo thành công
                 }
@@ -109,9 +102,6 @@ public class ThietBiController {
                                 Ma = MaCell.getNumericCellValue();
                                 Ten = TenCell.getStringCellValue();
                                 MoTa = MoTaCell.getStringCellValue();
-
-
-
                             }
                             catch(Exception e){
                                 return ResponseEntity.ok("MaTB là số, TenTB và MoTaTB là chuỗi ký tự"); // Ví dụ: trả về một thông báo thành công
@@ -119,9 +109,7 @@ public class ThietBiController {
 
                             ThietBiEntity thietbi = new ThietBiEntity((int) Ma, Ten, MoTa);
 
-
                             list_excel.add(thietbi);
-
 
                         }
                     }
