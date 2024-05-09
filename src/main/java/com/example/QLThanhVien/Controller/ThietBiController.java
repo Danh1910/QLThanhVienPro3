@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -57,12 +59,18 @@ public class ThietBiController {
 
     }
 
-    @PostMapping("/ThietBi.html")
-    public ResponseEntity<String> addExcel(@RequestParam (name = "FilePath") String FilePath){
+    @PatchMapping("/ThietBi.html")
+    public ResponseEntity<String> addExcel(@RequestParam("file") MultipartFile file){
         ArrayList<ThietBiEntity> list_excel = new ArrayList<>();
+
         try{
-            FileInputStream inputStream = new FileInputStream(new File(FilePath));
+
+            byte[] fileBytes = file.getBytes();
+
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(fileBytes);
+
             Workbook workbook = WorkbookFactory.create(inputStream);
+
             Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
 
             Row Titlerow = sheet.getRow(0);
@@ -75,6 +83,8 @@ public class ThietBiController {
                 String ma = TitleMaCell.getStringCellValue();
                 String ten = TitleTenCell.getStringCellValue();
                 String mota = TitleMoTaCell.getStringCellValue();
+
+
                 if (!ma.equals("MaTB") || !ten.equals("TenTB") || !mota.equals("MoTaTB")){
                     return ResponseEntity.ok("File không đúng cấu trúc cột"); // Ví dụ: trả về một thông báo thành công
                 }
@@ -99,6 +109,9 @@ public class ThietBiController {
                                 Ma = MaCell.getNumericCellValue();
                                 Ten = TenCell.getStringCellValue();
                                 MoTa = MoTaCell.getStringCellValue();
+
+
+
                             }
                             catch(Exception e){
                                 return ResponseEntity.ok("MaTB là số, TenTB và MoTaTB là chuỗi ký tự"); // Ví dụ: trả về một thông báo thành công
@@ -106,7 +119,9 @@ public class ThietBiController {
 
                             ThietBiEntity thietbi = new ThietBiEntity((int) Ma, Ten, MoTa);
 
+
                             list_excel.add(thietbi);
+
 
                         }
                     }
@@ -114,12 +129,7 @@ public class ThietBiController {
             }
 
             for (ThietBiEntity a : list_excel){
-//                if (tbDAL.kiemTraMaThietBiTonTai(a.getMaTB())){
-//                    tbDAL.updateThietBi(a);
-//                }
-//                else{
-//                    tbDAL.addThietBi(a);
-//                }
+                thietBiRepository.save(a);
             }
 
 

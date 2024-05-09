@@ -5,8 +5,10 @@ function handleExcelFileSelection() {
     
     if (fileInput.files.length > 0) {
         var selectedFile = fileInput.files[0];
-        console.log('File được chọn:', selectedFile.path);
+        console.log('File được chọn:', selectedFile.name);
         // Thêm bất kỳ xử lý nào bạn muốn ở đây
+
+        AddExcel(selectedFile)
     } else {
         console.log('Không có file nào được chọn.');
     }
@@ -14,12 +16,13 @@ function handleExcelFileSelection() {
 
 
 function AddExcel(selectedFile){
-    fetch('/ThietBi.html?FilePath=' + selectedFile, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(list_id_check) // Chuyển danh sách ID thành JSON và gửi đi
+    var formData = new FormData();
+    formData.append('file', selectedFile); // Thêm file vào FormData object
+
+    fetch('/ThietBi.html', {
+        method: 'PATCH', // Sử dụng phương thức PATCH
+        body: formData, // Dữ liệu gửi đi là FormData object
+       
     })
     .then(response => {
         if (response.ok) {
@@ -29,10 +32,13 @@ function AddExcel(selectedFile){
         }
         
     })
-    .then(date =>{
-        
+    .then(data => {
+        alert(data);
+        window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
     })
     .catch(error => {
     console.error('There was a problem with your fetch operation:', error);
     });
+
+    
 }

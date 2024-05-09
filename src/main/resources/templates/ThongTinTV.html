@@ -40,11 +40,11 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../ThanhVien.html">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3">User <sup></sup></div>
         </a>
 
         <!-- Divider -->
@@ -52,37 +52,18 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="ThanhVien.html">
-                <i class="fas fa-fw fa-users"></i>
-                <span>Thành viên</span></a>
-        </li>
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="ThietBi.html">
-                <i class="fas fa-desktop"></i>
-                <span>Thiết bị </span></a>
-        </li>
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="ThanhVien.html">
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>Xử lý vi phạm</span></a>
-        </li>
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="ThongKe.html">
-                <i class="fas fa-chart-bar"></i>
-                <span>Thống kê</span></a>
-        </li>
-
-        <li class="nav-item">
             <a class="nav-link" href="ThongTinTV.html">
-                <i class="fas fa-chart-bar"></i>
-                <span>User</span></a>
+                <i class="fas fa-fw fa-users"></i>
+                <span>Thông tin</span></a>
         </li>
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="MuonTB.html">
+                <i class="fas fa-desktop"></i>
+                <span>Mượn thiết bị</span></a>
+        </li>
+
 
 
         <!-- Divider -->
@@ -109,69 +90,19 @@
                     <div class="card-header py-3">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h2 class="m-0 font-weight-bold text-primary">Quản Lý Thành Viên</h2>
+                                <h2 class="m-0 font-weight-bold text-primary">Thông Tin Thành Viên</h2>
                             </div>
                             <div class="col-auto">
                                 <div class="icon-container">
-                                    <a href="#" class="btn btn-primary btn-circle btn-lg">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-success btn-circle btn-lg">
-                                        <i class="fas fa-check"></i>
-                                    </a>
                                     <a href="#" class="btn btn-info btn-circle btn-lg">
                                         <i class="fas fa-info-circle"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-warning btn-circle btn-lg">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger btn-circle btn-lg">
-                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Mã Thành Viên</th>
-                                    <th>Họ Tên</th>
-                                    <th>Khoa</th>
-                                    <th>Ngành</th>
-                                    <th>Số Điện Thoại</th>
-                                    <th>Password</th>
-                                    <th>Email</th>
-                                    <th>Edit</th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-
-                                <tr th:each="row, state: ${data}">
-                                    <td th:utext="${row.MaTV}">...</td>
-                                    <td th:utext="${row.Ten}">...</td>
-                                    <td th:utext="${row.Khoa}">...</td>
-                                    <td th:utext="${row.Nganh}">...</td>
-                                    <td th:utext="${row.SDT}">...</td>
-                                    <td th:utext="${row.Password}">...</td>
-                                    <td th:utext="${row.Email}">...</td>
-                                    <td><a th:href="@{'/edit/' + ${row.MaTV}}">Edit</a></td> <!-- Sửa đường dẫn ở đây -->
-                                </tr>
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
-
             </div>
-            <!-- /.container-fluid -->
 
         </div>
         <!-- End of Main Content -->
@@ -185,10 +116,8 @@
             </div>
         </footer>
         <!-- End of Footer -->
-
     </div>
     <!-- End of Content Wrapper -->
-
 </div>
 <!-- End of Page Wrapper -->
 
