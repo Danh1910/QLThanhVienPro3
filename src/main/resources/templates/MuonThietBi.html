@@ -12,27 +12,35 @@
 <form action="#" method="post">
 
     <label for="member-id">Mã Thành Viên:</label>
-    <input type="text" id="member-id" name="member-id" required>
+    <input type="text" id="member-id" name="member-id" class="member" readonly value="Giá trị mặc định" required>
 
     <label for="borrower">Tên Thành Viên:</label>
-    <input type="text" id="borrower" name="borrower" required>
+    <input type="text" id="borrower" name="borrower" class="member" readonly value="Giá trị mặc định" required>
 
 
-
-
-    <label for="device">Tên Thiết Bị:</label>
-    <input type="text" id="device" name="device" required>
-
-    <label for="borrower">Người Mượn:</label>
-    <input type="text" id="borrower" name="borrower" required>
+    <label for="device-id">Mã Thiết Bị:</label>
+    <select id="device-id" name="device-id" required>
+        <option value="">Chọn Mã Thiết Bị</option>
+        <option value="device1">Mã Thiết Bị 1</option>
+        <option value="device2">Mã Thiết Bị 2</option>
+        <!-- Thêm các tùy chọn khác nếu cần -->
+    </select>
+    
+    <label for="device-name">Tên Thiết Bị:</label>
+    <select id="device-name" name="device-name" required>
+        <option value="">Chọn Tên Thiết Bị</option>
+        <option value="device1">Tên Thiết Bị 1</option>
+        <option value="device2">Tên Thiết Bị 2</option>
+        <!-- Thêm các tùy chọn khác nếu cần -->
+    </select>
 
     
-
     <label for="borrow-date">Ngày Mượn:</label>
-    <input type="date" id="borrow-date" name="borrow-date" required>
-
+    <input type="datetime-local" id="borrow-date" name="borrow-date" required>
+    
     <label for="return-date">Ngày Trả:</label>
-    <input type="date" id="return-date" name="return-date" required>
+    <input type="datetime-local" id="return-date" name="return-date" required>
+    
 
     <input type="submit" value="Mượn Thiết Bị">
 </form>

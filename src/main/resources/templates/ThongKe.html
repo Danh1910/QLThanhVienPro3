@@ -29,7 +29,6 @@
 		.dropdown {
 	        min-width: 15em;
 	        position: relative;
-	        margin: 1em;
 	    }
 	    
 	    .dropdown * {
@@ -37,14 +36,14 @@
 	    }
 	    
 	    .select {
-	        background: #2a2f3b;
+	        background: #207ac0;
 	        color: white;
 	        display: flex;
 	        justify-content: space-between;
 	        align-items: center;
-	        border: 2px #2a2f3b solid;
+	        border: 2px #207ac0 solid;
 	        border-radius: 0.5em;
-	        padding: 1em;
+	        padding: 0.5em;
 	        cursor: pointer;
 	        transition: background 0.3s;
 	    }
@@ -55,7 +54,7 @@
 	    }
 	
 	    .select:hover {
-	        background: #323741;
+	        background: #17598d;
 	    }
 	
 	    .caret {
@@ -74,13 +73,13 @@
 	    .menu {
 	        list-style: none;
 	        padding: 0.2em 0.5em;
-	        background: #323741;
-	        border: 1px #363a43 solid;
+	        background: #207ac0;
+	        border: 1px #207ac0 solid;
 	        box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
 	        border-radius: 0.5em;
-	        color: #9fa5b5;
+	        color: white;
 	        position: absolute;
-	        top: 4.3em;
+	        top: 3.2em;
 	        left: 50%;
 	        width: 100%;
 	        transform: translateX(-50%);
@@ -98,11 +97,11 @@
 	    }
 	
 	    .menu li:hover {
-	        background: #2a2d35;
+	        background: #26489a;
 	    }
 	
 	    .activecbx {
-	        background: #23242a;
+	        background: #26489a;
 	    }
 	
 	    .menu-open {
@@ -192,19 +191,8 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 						
 						<div class="card-body">
 						<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-	                        <div class="input-group">
-	                            <label>Ngày bắt đầu: </label>&nbsp&nbsp&nbsp
-	                            <input type="date" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-describedby="basic-addon2">
-                                &nbsp&nbsp&nbsp
-                                &nbsp&nbsp&nbsp
-                                &nbsp&nbsp&nbsp
-                                <label>Ngày Kết Thúc: </label>&nbsp&nbsp&nbsp
-	                            <input type="date" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-describedby="basic-addon2">
-                                
-                                &nbsp&nbsp&nbsp
-                                <div class="dropdown">
+							<div class="input-group">
+								<div class="dropdown">
 					                <div class="select">
 					                    <span class="selected" id="nhacungcap">Theo Khoa</span>
 					                    <div class="caret"></div>
@@ -212,9 +200,44 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 					                <ul class="menu">
 			                            <li class="activecbx">Theo Khoa</li>
 			                            <li>Theo Ngành</li>
-			                            <li>Theo Mượn</li>
 					                </ul>
 				            	</div>
+				            	&nbsp&nbsp&nbsp
+	                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+	                                aria-label="Search" aria-describedby="basic-addon2" style="margin-top: 3px;">
+	                            <div class="input-group-append">
+	                                <button class="btn btn-primary" type="button">
+	                                    <i class="fas fa-search fa-sm"></i>
+	                                </button>
+	                            </div>
+							</div><br>
+	                        <div class="input-group">
+								<div class="dropdown">
+					                <div class="select">
+					                    <span class="selected" id="nhacungcap">Thời gian vào</span>
+					                    <div class="caret"></div>
+					                </div>
+					                <ul class="menu">
+			                            <li class="activecbx">Thời gian vào</li>
+			                            <li>Thời gian mượn</li>
+			                            <li>Thời gian trả</li>
+					                </ul>
+				            	</div>
+				            	&nbsp&nbsp&nbsp
+	                            &nbsp&nbsp&nbsp<label>Ngày bắt đầu: </label>&nbsp&nbsp&nbsp
+	                            <input type="date" class="form-control bg-light border-0 small"
+                                aria-describedby="basic-addon2">
+                                &nbsp&nbsp&nbsp
+                                &nbsp&nbsp&nbsp
+                                &nbsp&nbsp&nbsp
+                                <label>Ngày Kết Thúc: </label>&nbsp&nbsp&nbsp
+	                            <input type="date" class="form-control bg-light border-0 small"
+                                aria-describedby="basic-addon2">
+                                
+                                &nbsp&nbsp&nbsp
+                                <input type="button" value="Lọc" class="btn btn-warning btn-icon-split" style="padding-left: 1em;padding-right: 1em;">
+	                        	&nbsp&nbsp&nbsp
+	                        	<input type="button" value="Lọc" class="btn btn-secondary btn-icon-split" style="padding-left: 1em;padding-right: 1em;">
 	                        </div>
 	                        
 	                    </form>

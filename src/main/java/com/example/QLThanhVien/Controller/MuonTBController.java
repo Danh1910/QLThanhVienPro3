@@ -1,5 +1,7 @@
 package com.example.QLThanhVien.Controller;
 
+import com.example.QLThanhVien.Enity.ThietBiEntity;
+import com.example.QLThanhVien.Repository.ThietBiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +14,22 @@ import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
 public class MuonTBController {
     @Autowired
     private ThanhVienRepository tvRepository;
+
+    @Autowired
+    private ThietBiRepository thietBiRepository;
+
     @Autowired
     private ThongTinSuDungRepository ttsdRepository;
 
 
     @RequestMapping("/MuonTB.html")
-    public String action(Model model){
-        System.out.println("Thong tin cho bang muon thiet bi");
+    public String LoadData(Model model){
+
+        model.addAttribute("message", "Đặt mượn thiết bị");
+
+        Iterable<ThietBiEntity> list= thietBiRepository.findAll();
+
+        model.addAttribute("data",list);
 
         return "MuonTB.html";
     }

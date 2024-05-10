@@ -60,6 +60,39 @@ public class ThietBiController {
 
     }
 
+    @PostMapping("/ThietBi.html")
+    public void addDevice(@RequestParam(name = "LoaiTBIndex") String loaiTB, @RequestParam(name = "TenTB") String tenTB, @RequestParam(name = "MoTaTB") String motaTB){
+        int SoLoaiTB= Integer.parseInt(loaiTB)+1;
+        String IdTB;
+        Calendar cal = Calendar.getInstance();
+        // Lấy năm hiện tại
+        int year = cal.get(Calendar.YEAR);
+        int stt= layIdLoaiTB(SoLoaiTB);
+        IdTB = Integer.toString(SoLoaiTB)+Integer.toString(year)+Integer.toString(stt);
+        ThietBiEntity thietBiEntity = new ThietBiEntity(Integer.parseInt(IdTB),tenTB,motaTB);
+        thietBiRepository.save(thietBiEntity);
+    }
+    public int layIdLoaiTB(int loaiTB_selected){
+        Iterable<ThietBiEntity> list= thietBiRepository.findAll();
+        int dem=0;
+        for(ThietBiEntity x : list){
+            if(KtLoaiTB(x,loaiTB_selected)){
+                dem+=1;
+            }
+        }
+        return dem+1;
+    }
+    public boolean KtLoaiTB(ThietBiEntity tb, int loaiTB) {
+        String temp = Integer.toString(tb.getMaTB());
+        char firstChar = temp.charAt(0);
+        int intValue = Character.getNumericValue(firstChar);
+        if (intValue == loaiTB) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @PatchMapping("/ThietBi.html")
     public ResponseEntity<String> addExcel(@RequestParam("file") MultipartFile file){
         ArrayList<ThietBiEntity> list_excel = new ArrayList<>();
@@ -167,19 +200,6 @@ public class ThietBiController {
 
     }
 
-
-
-
-    @RequestMapping("/MuonThietBi.html")
-    public String openFormMuon(){
-        return "MuonThietBi.html";
-    }
-
-
-
-
-
-
     public ThongTinSuDungEntity CheckMuonvaDatCho (List<ThongTinSuDungEntity> list,int idThietBi){
         for (ThongTinSuDungEntity temp : list){
             if (temp.getMaTB() != null) {
@@ -203,39 +223,5 @@ public class ThietBiController {
         }
     }
 
-
-    @PostMapping("/ThietBi.html")
-    public void addDevice(@RequestParam(name = "LoaiTBIndex") String loaiTB, @RequestParam(name = "TenTB") String tenTB, @RequestParam(name = "MoTaTB") String motaTB){
-        int SoLoaiTB= Integer.parseInt(loaiTB)+1;
-        String IdTB;
-        Calendar cal = Calendar.getInstance();
-        // Lấy năm hiện tại
-        int year = cal.get(Calendar.YEAR);
-        int stt= layIdLoaiTB(SoLoaiTB);
-        IdTB = Integer.toString(SoLoaiTB)+Integer.toString(year)+Integer.toString(stt);
-        ThietBiEntity thietBiEntity = new ThietBiEntity(Integer.parseInt(IdTB),tenTB,motaTB);
-        thietBiRepository.save(thietBiEntity);
-    }
-
-    public int layIdLoaiTB(int loaiTB_selected){
-        Iterable<ThietBiEntity> list= thietBiRepository.findAll();
-        int dem=0;
-        for(ThietBiEntity x : list){
-            if(KtLoaiTB(x,loaiTB_selected)){
-                dem+=1;
-            }
-        }
-        return dem+1;
-    }
-    public boolean KtLoaiTB(ThietBiEntity tb, int loaiTB) {
-        String temp = Integer.toString(tb.getMaTB());
-        char firstChar = temp.charAt(0);
-        int intValue = Character.getNumericValue(firstChar);
-        if (intValue == loaiTB) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
 }

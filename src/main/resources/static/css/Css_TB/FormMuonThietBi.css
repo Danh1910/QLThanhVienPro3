@@ -5,12 +5,13 @@ form {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    
 }
 label {
     display: block;
     margin-bottom: 10px;
 }
-input[type="text"], input[type="date"], input[type="submit"] {
+input[type="text"], input[type="datetime-local"], input[type="submit"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -25,4 +26,15 @@ input[type="submit"] {
 }
 input[type="submit"]:hover {
     background-color: #0056b3; /* Màu xanh dương nhạt khi hover */
+}
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.member {
+    background-color: #cccccc; /* Màu xám đậm */
 }
