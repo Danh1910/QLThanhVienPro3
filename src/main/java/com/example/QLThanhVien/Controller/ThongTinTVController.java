@@ -1,5 +1,6 @@
 package com.example.QLThanhVien.Controller;
 
+import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,7 @@ public class ThongTinTVController {
     @GetMapping("/ThongTinTV.html")
     public String getThongTinTV(@RequestParam Integer maTV, Model model) {
         // Tìm thông tin của thành viên dựa trên mã thành viên
-        ThanhVienEnity thanhVien = tvRepository.findById(Long.valueOf(maTV)).orElse(null);
+        ThanhVienEntity thanhVien = tvRepository.findById(Long.valueOf(maTV)).orElse(null);
 
         // Kiểm tra xem thành viên có tồn tại không
         if (thanhVien != null) {
@@ -50,7 +51,7 @@ public class ThongTinTVController {
                                    @RequestParam String email,
                                    @RequestParam String sdt) {
         // Tìm thông tin của thành viên dựa trên mã thành viên
-        ThanhVienEnity thanhVien = tvRepository.findById(maTV).orElse(null);
+        ThanhVienEntity thanhVien = tvRepository.findById(maTV).orElse(null);
 
         // Kiểm tra xem thành viên có tồn tại không
         if (thanhVien != null) {
