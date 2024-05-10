@@ -15,6 +15,7 @@ public class XuLyViPhamEntity {
     @Getter
     @Setter
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="MaXL")
     private Integer MaXL;
 
@@ -49,6 +50,14 @@ public class XuLyViPhamEntity {
         this.hinh_thucxl = hinh_thucxl;
         this.so_tien = so_tien;
         this.NgayXL = NgayXL;
+        this.trang_thaixl = trang_thaixl;
+    }
+
+    public XuLyViPhamEntity(Integer maTV, String hinh_thucxl, Integer so_tien, Date ngayXL, Integer trang_thaixl) {
+        MaTV = maTV;
+        this.hinh_thucxl = hinh_thucxl;
+        this.so_tien = so_tien;
+        NgayXL = ngayXL;
         this.trang_thaixl = trang_thaixl;
     }
 
