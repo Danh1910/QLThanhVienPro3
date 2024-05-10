@@ -163,6 +163,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Lấy tất cả check box
     var checkbox = document.querySelectorAll(".checkbox_ID");

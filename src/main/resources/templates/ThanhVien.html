@@ -168,7 +168,7 @@
                                     </td> <!-- Sửa đường dẫn ở đây -->
 
                                     <td>
-                                        <a href = "/MuonThietBi.html" class="btn btn-primary btn-circle btn-lg"> <!-- Thay đổi màu nền của nút thành màu xanh dương -->
+                                        <a th:href ="@{'/MuonThietBi/' +${row.MaTV}(maTV=${row.MaTV})}"  class="btn btn-primary btn-circle btn-lg openFormMuon"> <!-- Thay đổi màu nền của nút thành màu xanh dương -->
                                             <i class="fas fa-toolbox"></i> <!-- Sử dụng biểu tượng "toolbox" thay vì "pencil-alt" -->
                                         </a>
                                     </td>
@@ -244,6 +244,45 @@
         </form>
     </div>
 </div>
+
+<div class="container">
+    <div id="addForm" class="add-form">
+        <h2>Thêm thành viên</h2>
+        <form id="addPersonForm">
+            <div class="form-group">
+                <label for="personCode">Mã thành viên:</label>
+                <input type="text" class="form-control" id="addPersonCode" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personName">Tên thành viên:</label>
+                <input type="text" class="form-control" id="addPersonName" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personKhoa">Khoa:</label>
+                <input type="text" class="form-control" id="addPersonKhoa" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personNganh">Ngành:</label>
+                <input type="text" class="form-control" id="addPersonNganh" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personSDT">SDT:</label>
+                <input type="text" class="form-control" id="addPersonSDT" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personEmail">Email:</label>
+                <input type="email" class="form-control" id="addPersonEmail" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personPassword">Password:</label>
+                <input type="text" class="form-control" id="addPersonPassword" value="" />
+            </div>
+            <button type="button" class="btn btn-primary" onclick="saveAdd()">Lưu thay đổi</button>
+            <button type="button" class="btn btn-secondary" onclick="closeFormAdd()">Đóng</button>
+        </form>
+    </div>
+</div>
+
 
 
 <!-- Scroll to Top Button-->

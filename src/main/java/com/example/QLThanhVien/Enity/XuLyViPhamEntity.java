@@ -54,15 +54,13 @@ public class XuLyViPhamEntity {
         this.trang_thaixl = trang_thaixl;
     }
 
-    public XuLyViPhamEntity(ThanhVienEntity MaTV, String hinh_thucxl, Integer so_tien, Date NgayXL, Integer trang_thaixl){
-        this.MaTV = MaTV;
+    public XuLyViPhamEntity(ThanhVienEntity maTV, String hinh_thucxl, Integer so_tien, Date ngayXL, Integer trang_thaixl) {
+        this.MaTV = maTV;
         this.hinh_thucxl = hinh_thucxl;
         this.so_tien = so_tien;
-        this.NgayXL = NgayXL;
+        this.NgayXL = ngayXL;
         this.trang_thaixl = trang_thaixl;
     }
-
-
 
     public XuLyViPhamEntity() {
     }

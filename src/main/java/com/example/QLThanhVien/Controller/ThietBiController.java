@@ -1,8 +1,10 @@
 package com.example.QLThanhVien.Controller;
 
 
+import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import com.example.QLThanhVien.Enity.ThietBiEntity;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
+import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import com.example.QLThanhVien.Repository.ThietBiRepository;
 import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
 import org.apache.poi.ss.usermodel.*;
@@ -32,7 +34,8 @@ public class ThietBiController {
     @Autowired
     private ThongTinSuDungRepository thongTinSuDungRepository;
 
-
+    @Autowired
+    private ThanhVienRepository tvRepository;
 
 
 
@@ -58,39 +61,6 @@ public class ThietBiController {
 
             thietBiRepository.save(thietBiEntity);
 
-    }
-
-    @PostMapping("/ThietBi.html")
-    public void addDevice(@RequestParam(name = "LoaiTBIndex") String loaiTB, @RequestParam(name = "TenTB") String tenTB, @RequestParam(name = "MoTaTB") String motaTB){
-        int SoLoaiTB= Integer.parseInt(loaiTB)+1;
-        String IdTB;
-        Calendar cal = Calendar.getInstance();
-        // Lấy năm hiện tại
-        int year = cal.get(Calendar.YEAR);
-        int stt= layIdLoaiTB(SoLoaiTB);
-        IdTB = Integer.toString(SoLoaiTB)+Integer.toString(year)+Integer.toString(stt);
-        ThietBiEntity thietBiEntity = new ThietBiEntity(Integer.parseInt(IdTB),tenTB,motaTB);
-        thietBiRepository.save(thietBiEntity);
-    }
-    public int layIdLoaiTB(int loaiTB_selected){
-        Iterable<ThietBiEntity> list= thietBiRepository.findAll();
-        int dem=0;
-        for(ThietBiEntity x : list){
-            if(KtLoaiTB(x,loaiTB_selected)){
-                dem+=1;
-            }
-        }
-        return dem+1;
-    }
-    public boolean KtLoaiTB(ThietBiEntity tb, int loaiTB) {
-        String temp = Integer.toString(tb.getMaTB());
-        char firstChar = temp.charAt(0);
-        int intValue = Character.getNumericValue(firstChar);
-        if (intValue == loaiTB) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @PatchMapping("/ThietBi.html")
@@ -200,6 +170,62 @@ public class ThietBiController {
 
     }
 
+
+
+    @RequestMapping("/MuonThietBi/{maTV}")
+    public String openFormMuon(@PathVariable("maTV") int maTV,Model model) {
+
+        ThanhVienEntity tv=   tvRepository.findById(Long.valueOf(maTV)).orElse(null);
+
+        Iterable<ThietBiEntity> list_TB = thietBiRepository.findAll();
+
+        List<ThietBiEntity> list = getThietBiMuon((List<ThietBiEntity>) list_TB,maTV);
+
+        if(tv !=null){
+            model.addAttribute("thanhVien",tv);
+
+
+
+        }
+
+        System.out.println(list.size());
+
+        model.addAttribute("tbMuon",list);
+        return "MuonThietBi"; // Trả về tên của trang HTML
+    }
+
+
+    public List<ThietBiEntity> getThietBiMuon (List<ThietBiEntity> TB_list, int MaTV){
+
+        List<ThietBiEntity> list = new ArrayList<>();
+
+        Iterable<ThongTinSuDungEntity> list_ttsd = thongTinSuDungRepository.findAll();
+
+        for (ThietBiEntity tb : TB_list){
+            if (CheckThietBiChoMuon((List<ThongTinSuDungEntity>) list_ttsd,tb.getMaTB(),MaTV)){
+                list.add(tb);
+            }
+        }
+
+
+        return list;
+    }
+
+
+    public boolean CheckThietBiChoMuon (List<ThongTinSuDungEntity> list,int idThietBi, int MaTV){
+        for (ThongTinSuDungEntity temp : list){
+            if (temp.getMaTB() != null && temp.getMaTV() != null) {
+                if (temp.getMaTB().getMaTB() == idThietBi) {
+                    if (temp.getTGTra() != null || (temp.getTGDatCho() != null && temp.getMaTV().getMaTV() != MaTV)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+
     public ThongTinSuDungEntity CheckMuonvaDatCho (List<ThongTinSuDungEntity> list,int idThietBi){
         for (ThongTinSuDungEntity temp : list){
             if (temp.getMaTB() != null) {
@@ -222,6 +248,8 @@ public class ThietBiController {
             }
         }
     }
+
+
 
 
 }
