@@ -36,7 +36,7 @@ public class XuLyViPhamController {
     }
 
     @PutMapping("/XuLyViPham.html")
-    public void editXLVP(@RequestParam(name = "MaXL") Integer MaXL, @RequestParam(name = "MaTV") Integer MaTV, @RequestParam(name = "HTXL") String HTXL, @RequestParam(name = "SoTien") Integer SoTien, @RequestParam(name = "NgayXL") String NgayXL, @RequestParam(name = "TrangThaiXL") Integer TrangThaiXL) {
+    public void editXLVP(@RequestParam(name = "MaXL") Integer MaXL, @RequestParam(name = "MaTV") ThanhVienEntity MaTV, @RequestParam(name = "HTXL") String HTXL, @RequestParam(name = "SoTien") Integer SoTien, @RequestParam(name = "NgayXL") String NgayXL, @RequestParam(name = "TrangThaiXL") Integer TrangThaiXL) {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
@@ -51,7 +51,7 @@ public class XuLyViPhamController {
     }
 
     @PostMapping("/XuLyViPham.html")
-    public void addXLVP(@RequestParam(name = "MaTV") Integer MaTV, @RequestParam(name = "HTXL") String HTXL, @RequestParam(name = "SoTien") Integer SoTien, @RequestParam(name = "NgayXL") String NgayXL, @RequestParam(name = "TrangThaiXL") Integer TrangThaiXL){
+    public void addXLVP(@RequestParam(name = "MaTV") ThanhVienEntity MaTV, @RequestParam(name = "HTXL") String HTXL, @RequestParam(name = "SoTien") Integer SoTien, @RequestParam(name = "NgayXL") String NgayXL, @RequestParam(name = "TrangThaiXL") Integer TrangThaiXL){
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {

@@ -151,10 +151,10 @@
                                 </thead>
 
                                 <tbody>
-                                <tr th:each="row, state: ${data}" th:maxl="${row.MaXL}" th:matv="${row.MaTV}" th:hinh_thucxl="${row.hinh_thucxl}" th:so_tien="${row.so_tien}" th:ngayxl="${row.NgayXL}" th:trang_thaixl="${row.trang_thaixl}">
+                                <tr th:each="row, state: ${data}" th:maxl="${row.MaXL}" th:matv="${row.MaTV.MaTV}" th:hinh_thucxl="${row.hinh_thucxl}" th:so_tien="${row.so_tien}" th:ngayxl="${row.NgayXL}" th:trang_thaixl="${row.trang_thaixl}">
                                     <td><input type="checkbox" th:id="'checkbox_' + ${row.MaXL}" name="selectedItems" th:value="${row.MaXL}" class="checkbox_ID larger-checkbox"/></td>
                                     <td th:utext="${row.MaXL}">...</td>
-                                    <td th:utext="${row.MaTV}">...</td>
+                                    <td th:utext="${row.MaTV.MaTV}">...</td>
                                     <td th:utext="${row.hinh_thucxl}">...</td>
                                     <td th:utext="${row.so_tien}">...</td>
                                     <td th:utext="${row.NgayXL}">...</td>
