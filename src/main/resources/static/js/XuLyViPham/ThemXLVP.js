@@ -22,7 +22,6 @@ function saveAdd() {
         const htxl = HTXL.value; 
         const sotien = SoTien.value; 
         const ngayxl = NgayXL.value;
-
         const trangthaixl = TrangThaiXL.selectedIndex;
 
         fetch('/XuLyViPham.html?MaTV=' + matv + '&HTXL=' + htxl + '&SoTien=' + sotien + '&NgayXL=' + ngayxl+ '&TrangThaiXL=' + trangthaixl, {

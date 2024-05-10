@@ -29,7 +29,7 @@
     <link href="../css/tablescumtom.css" rel="stylesheet">
 
     <link href="../css/Css_XLVP/FormThemXLVP.css" rel="stylesheet">
-
+    <link href="../css/Css_XLVP/FormSuaXLVP.css" rel="stylesheet">
 
 
 
@@ -124,7 +124,7 @@
                                     <a class="btn btn-primary btn-circle btn-lg" id="openFormButton" >
                                         <i class="fas fa-plus"></i> <!-- Thêm -->
                                     </a>
-                                    <a class="btn btn-danger btn-circle btn-lg" >
+                                    <a class="btn btn-danger btn-circle btn-lg " onclick="deleteXLVP()">
                                         <i class="fas fa-trash-alt"></i> <!-- Xóa -->
                                     </a>
                                 </div>
@@ -161,7 +161,7 @@
                                     <td th:utext="${row.trang_thaixl}" class="trang_thaixl">...</td>
 
                                     <td>
-                                        <a class="btn btn-success btn-circle btn-lg">
+                                        <a class="btn btn-success btn-circle btn-lg openFormEditXLVP">
                                             <i class="fas fa-pencil-alt"></i> <!-- Sửa -->
                                         </a>
                                     </td> <!-- Sửa đường dẫn ở đây -->
@@ -253,6 +253,44 @@
     </div>
 </div>
 
+
+<!--Form sửa xử lý vi phạm-->
+<div class="container">
+    <div id="editXLVP" class="edit-xlvp">
+        <h2>Sửa thông tin vi phạm</h2>
+        <form id="editxlvpForm">
+            <div class="form-group">
+                <label for="edit_MaXL">Mã xử lý:</label>
+                <input type="text" class="form-control" id="edit_MaXL" value="" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="edit_MaTV">Mã thành viên:</label>
+                <input type="text" class="form-control" id="edit_MaTV" value="" />
+            </div>
+            <div class="form-group">
+                <label for="edit_HTXL">Hình thức xử lý:</label>
+                <input type="text" class="form-control" id="edit_HTXL" value="" />
+            </div>
+            <div class="form-group">
+                <label for="edit_SoTien">Số tiền:</label>
+                <input type="text" class="form-control" id="edit_SoTien" value="" />
+            </div>
+            <div class="form-group">
+                <label for="edit_NgayXL">Ngày xử lý:</label>
+                <input type="text" class="form-control" id="edit_NgayXL" value="" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="edit_TrangThaiXL">Trạng thái xử lý:</label>
+                <select class="form-control" id="edit_TrangThaiXL">
+                    <option value="Chưa xử lý">Chưa xử lý</option>
+                    <option value="Đã xử lý">Đã xử lý</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="saveEdit()">Lưu thay đổi</button>
+            <button type="button" class="btn btn-secondary" onclick="closeFormEdit()">Đóng</button>
+        </form>
+    </div>
+</div>
 
 
 Bootstrap core JavaScript

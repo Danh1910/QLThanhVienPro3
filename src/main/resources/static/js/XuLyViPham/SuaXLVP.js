@@ -1,5 +1,5 @@
+// Danh sách các id mà người dùng đã thực hiện check vào
 const list_id_check = []
-
 
 // Lấy giá trị của trạng thái từ thẻ td và chuyển đổi thành "chưa xử lý" hoặc "đã xử lý"
 // Lấy tất cả các phần tử có class là 'trang_thaixl'
@@ -15,6 +15,9 @@ for (var i = 0; i < elements.length; i++) {
         elements[i].innerText = "Không xác định";
     }
 }
+
+
+
 
 //Hiện giờ ngày tháng năm lên form:
 document.addEventListener("DOMContentLoaded", function() {
@@ -42,11 +45,21 @@ document.addEventListener("DOMContentLoaded", function() {
     showCurrentDateTime();
 });
                                     
+// Hiện form lên 
+function openFormEdit() {
+    document.getElementById("editXLVP").style.display = "block";
+}
+
+// Tắt form
+function closeFormEdit() {
+    document.getElementById("editXLVP").style.display = "none";
+}
+
 
 // thực hiện đổ dữ liệu lên
 document.addEventListener('DOMContentLoaded', function () {
     // Lấy tất cả các nút "Sửa"
-    var editButtons = document.querySelectorAll('.openFormButton');
+    var editButtons = document.querySelectorAll('.openFormEditXLVP');
 
     // Lặp qua từng nút "Sửa"
     editButtons.forEach(function (button) {
@@ -54,28 +67,118 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
 
             // Lấy ID của thiết bị từ thuộc tính data
-            var deviceId = button.closest('tr').getAttribute('idtb');
-            var deviceName = button.closest('tr').getAttribute('tentb');
-            var deviceDescription = button.closest('tr').getAttribute('motatb');
+            var maxl = button.closest('tr').getAttribute('maxl');
+            var matv = button.closest('tr').getAttribute('matv');
+            var hinh_thucxl = button.closest('tr').getAttribute('hinh_thucxl');
+            var so_tien = button.closest('tr').getAttribute('so_tien');
+            var ngayxl = button.closest('tr').getAttribute('ngayxl');
+            var trang_thaixl = button.closest('tr').getAttribute('trang_thaixl');
 
             openFormEdit();
             // Lấy phần tử input bằng id
 
-            var deviceIdInput = document.getElementById('deviceCode');
-            var deviceNameInput = document.getElementById('deviceName');
-            var deviceDescriptionInput = document.getElementById('deviceDescription');
+            var MaXLInput = document.getElementById('edit_MaXL');
+            var MaTVInput = document.getElementById('edit_MaTV');
+            var HTXLInput = document.getElementById('edit_HTXL');
+            var SoTienInput = document.getElementById('edit_SoTien');
+            var NgayXLInput = document.getElementById('edit_NgayXL');
+            var TrangThaiXLInput = document.getElementById('edit_TrangThaiXL');
 
             // Kiểm tra xem phần tử có tồn tại không
-            if (deviceIdInput && deviceNameInput && deviceDescriptionInput) {
+            if (MaXLInput && MaTVInput && HTXLInput && SoTienInput && NgayXLInput && TrangThaiXLInput) {
                 // Set giá trị mới cho trường input
-                deviceIdInput.value = deviceId;
-                deviceNameInput.value = deviceName;
-                deviceDescriptionInput.value = deviceDescription;
+                MaXLInput.value = maxl;
+                MaTVInput.value = matv;
+                HTXLInput.value = hinh_thucxl;
+                SoTienInput.value = so_tien;
+                NgayXLInput.value = ngayxl;
+                if (trang_thaixl === "0") {
+                    TrangThaiXLInput.value = "Chưa xử lý";
+                } else if (trang_thaixl === "1") {
+                    TrangThaiXLInput.value = "Đã xử lý";
+                } else {
+                    TrangThaiXLInput.value = "Không xác định";
+                }
             }
 
         });
     });
 });
+
+// Thực hiện thay đổi thông tin xử lý vi phạm
+function saveEdit() {
+
+    // Lấy phần tử input bằng id
+    var MaXLInput = document.getElementById('edit_MaXL');
+    var MaTVInput = document.getElementById('edit_MaTV');
+    var HTXLInput = document.getElementById('edit_HTXL');
+    var SoTienInput = document.getElementById('edit_SoTien');
+    var NgayXLInput = document.getElementById('edit_NgayXL');
+    var TrangThaiXLInput = document.getElementById('edit_TrangThaiXL');
+
+    if (MaXLInput && MaTVInput && HTXLInput && SoTienInput && NgayXLInput && TrangThaiXLInput) {
+        const MaXL = MaXLInput.value; 
+        const MaTV = MaTVInput.value; 
+        const HTXL = HTXLInput.value; 
+        const SoTien = SoTienInput.value; 
+        const NgayXL = NgayXLInput.value; 
+        const TrangThaiXL = TrangThaiXLInput.selectedIndex; 
+
+        fetch('/XuLyViPham.html?MaXL=' + MaXL + '&MaTV=' + MaTV + '&HTXL=' + HTXL + '&SoTien=' + SoTien + '&NgayXL=' + NgayXL + '&TrangThaiXL=' + TrangThaiXL, {
+            method: 'PUT'
+        })
+        .then(response => {
+            if (response.ok) {
+                closeFormEdit();
+
+                alert("Dữ liệu đã được sửa thành công");
+                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+                
+            } else {
+                console.error('Lỗi khi lưu xử lý vi phạm');
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi khi gửi yêu cầu: ', error);
+        });
+    }
+}
+
+function deleteXLVP() {
+
+    if (list_id_check.length == 0){
+        alert("Vui lòng chọn thiết bị muốn xóa");
+
+        return;
+    }
+
+    const confirmation = confirm("Bạn có chắc chắn muốn xóa không?");
+
+    if (confirmation) {
+        fetch('/XuLyViPham.html', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(list_id_check) // Chuyển danh sách ID thành JSON và gửi đi
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Hệ thống sẽ không xóa các vi phạm chưa được xử lý");
+                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+                
+            } else {
+                console.error('Lỗi khi xóa xử lý vi phạm');
+            }
+            
+        })
+        .catch(error => {
+        console.error('There was a problem with your fetch operation:', error);
+        });
+    } else {
+        console.log("Không xóa")
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     // Lấy tất cả check box

@@ -122,7 +122,7 @@ public class ThanhVienController {
 
     public boolean CheckVP(List<XuLyViPhamEntity> list,int idTV){
         for(XuLyViPhamEntity arr: list){
-            if(arr.getMaTV().getMaTV()==idTV && arr.getTrang_thaixl()==0){
+            if(arr.getMaTV()==idTV && arr.getTrang_thaixl()==0){
                 return false;
             }
         }
