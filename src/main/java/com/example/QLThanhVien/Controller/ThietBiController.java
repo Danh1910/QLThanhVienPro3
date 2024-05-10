@@ -19,10 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 @Controller
@@ -188,11 +187,54 @@ public class ThietBiController {
 
         }
 
-        System.out.println(list.size());
-
         model.addAttribute("tbMuon",list);
         return "MuonThietBi"; // Trả về tên của trang HTML
     }
+
+
+    @PostMapping("/MuonThietBi.html")
+    public ResponseEntity<String> addMuon(@RequestParam (name = "MaTV") Integer MaTV, @RequestParam (name = "MaTB") Integer MaTB, @RequestParam (name = "NgayMuon") String NgayMuon, @RequestParam (name = "NgayTra") String NgayTra){
+
+        ThongTinSuDungEntity thongTinSuDung = new ThongTinSuDungEntity();
+
+        System.out.println(NgayMuon);
+
+        // Set up thông tin truoc khi them vao
+
+        ThanhVienEntity TV = tvRepository.findById(Long.valueOf(MaTV)).orElse(null);
+
+        ThietBiEntity TB = thietBiRepository.findById(MaTB).orElse(null);
+
+        Date ngayMuonDate = new Date();
+
+        Date ngayTraDate = new Date();
+
+        // Định dạng đầu vào
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        try {
+            ngayMuonDate = formatter.parse(NgayMuon);
+            ngayTraDate = formatter.parse(NgayTra);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        if (TV == null || TB == null){
+            return ResponseEntity.ok("Không tìm thấy thành viên hoặc thiết bị");
+        }
+
+        thongTinSuDung.setMaTV(TV);
+        thongTinSuDung.setMaTB(TB);
+        thongTinSuDung.setTGMuon(ngayMuonDate);
+        thongTinSuDung.setTGTra(ngayTraDate);
+
+        thongTinSuDungRepository.save(thongTinSuDung);
+
+
+        return ResponseEntity.ok("Mượn thành công");
+    }
+
+
 
 
     public List<ThietBiEntity> getThietBiMuon (List<ThietBiEntity> TB_list, int MaTV){

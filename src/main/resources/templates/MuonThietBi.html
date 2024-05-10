@@ -6,27 +6,32 @@
     <title>Mượn Thiết Bị</title>
     <!-- Custom styles for this template -->
     <link href="../css/Css_TB/FormMuonThietBi.css" rel="stylesheet"> 
+
+    <script src="../js/ThietBi/MuonThietBi.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 </head>
 <body>
 
-    <form action="/MuonThietBi/{maTV}" th:object="${thanhVien}" method="post">
+    <form th:object="${thanhVien}">
 
 
         <label >Mã Thành Viên:</label>
-        <input type="text" readonly th:value="${thanhVien.MaTV}" class >
+        <input type="text" readonly th:value="${thanhVien.MaTV}" id="inputMaTV">
 
         <label >Tên Thành Viên:</label>
-        <input type="text" readonly th:value="${thanhVien.Ten}" >
+        <input type="text" readonly th:value="${thanhVien.Ten}" id="inputTen" >
 
     
         <label for="device-id">Mã Thiết Bị:</label>
-        <select id="device-id" name="device-id" required>
+        <select id="device-id" name="device-id" required onchange="updateDeviceName()">
             <option th:each="device : ${tbMuon}" th:value="${device.MaTB}" th:text="${device.MaTB}">Mã Thiết Bị</option>
         </select>
         
         
         <label for="device-name">Tên Thiết Bị:</label>
-        <select id="device-name" name="device-name" required>
+        <select id="device-name" name="device-name" required onchange="updateDeviceId()">
             <option th:each="device : ${tbMuon}" th:value="${device.TenTB}" th:text="${device.TenTB}">Mã Thiết Bị</option>
         </select>
     
@@ -36,7 +41,7 @@
         <label for="return-date">Ngày Trả:</label>
         <input type="datetime-local" id="return-date" name="return-date" required>
     
-        <input type="submit" value="Mượn Thiết Bị">
+        <input type="button" value="Mượn Thiết Bị" id="btnSubmit">
     </form>
     
 
