@@ -45,6 +45,33 @@ document.addEventListener('DOMContentLoaded', function () {
 function save_dat_muon(){
 
     var deviceId = document.getElementById();
+    var userId = document.getElementById();
+    var timeDatCho = document.getElementById();
 
+    if (deviceId && userId && timeDatCho) {
+
+        const thietbiId = deviceId.selectedIndex;
+        const thanhvienId = userId.selectedIndex; // Giá trị TenTB
+        const tgianDatCho = timeDatCho.value; // Giá trị MoTaTB
+
+        fetch('/MuonTB.html?LoaiTBIndex=' + thietbiId + '&TenTB=' + thanhvienId + '&MoTaTB=' + tgianDatCho, {
+            method: 'PUT'
+        })
+        .then(response => {
+            if (response.ok) {
+                // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
+                closeFormAdd();
+
+                alert("Thông tin sử dụng đã được thêm thành công");
+                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+                
+            } else {
+                console.error('Lỗi khi thêm thiết bị');
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi khi gửi yêu cầu: ', error);
+        });
+    }
 
 }

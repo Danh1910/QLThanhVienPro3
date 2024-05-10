@@ -45,8 +45,7 @@ public class MuonTBController {
     public void save_dat_muon(@RequestParam(name = "MaTT") Integer maTT, @RequestParam(name = "MaTV") ThanhVienEntity maTV, @RequestParam(name = "MaTB") ThietBiEntity maTB, @RequestParam(name = "TGDatCho") Date tgianDatCho){
         ThongTinSuDungEntity thongTinSuDungEntity = new ThongTinSuDungEntity(maTT,maTV,maTB,tgianDatCho);
 
-        thongTinSuDungEntity.save();
-                ttsdRepository.save();
+                ttsdRepository.save(thongTinSuDungEntity);
     }
 
 }
