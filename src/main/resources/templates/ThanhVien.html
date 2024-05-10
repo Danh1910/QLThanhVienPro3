@@ -113,20 +113,15 @@
                             </div>
                             <div class="col-auto">
                                 <div class="icon-container">
-                                    <a href="#" class="btn btn-primary btn-circle btn-lg">
-                                        <i class="fab fa-facebook-f"></i>
+                                    <a class="btn btn-primary btn-circle btn-lg" id="addButton">
+                                        <i class="fas fa-plus"></i> <!-- Thêm -->
                                     </a>
-                                    <a href="#" class="btn btn-success btn-circle btn-lg">
-                                        <i class="fas fa-check"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-info btn-circle btn-lg">
-                                        <i class="fas fa-info-circle"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-warning btn-circle btn-lg">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger btn-circle btn-lg">
-                                        <i class="fas fa-trash"></i>
+                                    <label for="excelFileInput" class="btn btn-info btn-circle btn-lg" style="margin-left: 10px;">
+                                        <i class="fas fa-file-excel"></i> <!-- Icon file Excel -->
+                                        <input type="file" id="excelFileInput" class="file-input" accept=".xlsx, .xls" />
+                                    </label>
+                                    <a class="btn btn-danger btn-circle btn-lg" onclick="deleteThanhVien()">
+                                        <i class="fas fa-trash-alt"></i> <!-- Xóa -->
                                     </a>
                                 </div>
                             </div>

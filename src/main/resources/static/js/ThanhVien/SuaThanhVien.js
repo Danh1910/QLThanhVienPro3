@@ -46,8 +46,8 @@ function saveChanges() {
 //                            window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
                             Swal.fire({
                               title: "Good job!",
-                              text: "You clicked the button!",
-                              icon: "success"
+                              text: "Edit",
+                              icon: "Sửa thành công"
                             }).then((result) => {
                               if (result.isConfirmed) {
                                 window.location.reload();
@@ -68,7 +68,7 @@ function saveChanges() {
         }
 }
 
-function deleteThietBi() {
+function deleteThanhVien() {
 
     if (list_id_check.length == 0){
         alert("Vui lòng chọn thành viên muốn xóa");
@@ -88,8 +88,17 @@ function deleteThietBi() {
         })
         .then(response => {
             if (response.ok) {
-                alert("Hệ thống sẽ không xóa thiết bị đang được mượn hoặc đang được đặt chỗ");
-                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+//                alert("Hệ thống sẽ không xóa thiết bị đang được mượn hoặc đang được đặt chỗ");
+//                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+                Swal.fire({
+                  icon: "warning",
+                  title: "Warning",
+                  text: "Hệ thống sẽ không xóa thiết bị đang được mượn hoặc đang được đặt chỗ",
+                }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                  window.location.reload();
+                                                }
+                                              })
 
             } else {
                 console.error('Lỗi khi xóa thiết bị');
