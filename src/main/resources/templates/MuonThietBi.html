@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,41 +9,38 @@
 </head>
 <body>
 
-<form action="#" method="post">
-
-    <label for="member-id">Mã Thành Viên:</label>
-    <input type="text" id="member-id" name="member-id" class="member" readonly value="Giá trị mặc định" required>
-
-    <label for="borrower">Tên Thành Viên:</label>
-    <input type="text" id="borrower" name="borrower" class="member" readonly value="Giá trị mặc định" required>
+    <form action="/MuonThietBi/{maTV}" th:object="${thanhVien}" method="post">
 
 
-    <label for="device-id">Mã Thiết Bị:</label>
-    <select id="device-id" name="device-id" required>
-        <option value="">Chọn Mã Thiết Bị</option>
-        <option value="device1">Mã Thiết Bị 1</option>
-        <option value="device2">Mã Thiết Bị 2</option>
-        <!-- Thêm các tùy chọn khác nếu cần -->
-    </select>
-    
-    <label for="device-name">Tên Thiết Bị:</label>
-    <select id="device-name" name="device-name" required>
-        <option value="">Chọn Tên Thiết Bị</option>
-        <option value="device1">Tên Thiết Bị 1</option>
-        <option value="device2">Tên Thiết Bị 2</option>
-        <!-- Thêm các tùy chọn khác nếu cần -->
-    </select>
+        <label >Mã Thành Viên:</label>
+        <input type="text" readonly th:value="${thanhVien.MaTV}" class >
+
+        <label >Tên Thành Viên:</label>
+        <input type="text" readonly th:value="${thanhVien.Ten}" >
 
     
-    <label for="borrow-date">Ngày Mượn:</label>
-    <input type="datetime-local" id="borrow-date" name="borrow-date" required>
+        <label for="device-id">Mã Thiết Bị:</label>
+        <select id="device-id" name="device-id" required>
+            <option th:each="device : ${tbMuon}" th:value="${device.MaTB}" th:text="${device.MaTB}">Mã Thiết Bị</option>
+        </select>
+        
+        
+        <label for="device-name">Tên Thiết Bị:</label>
+        <select id="device-name" name="device-name" required>
+            <option th:each="device : ${tbMuon}" th:value="${device.TenTB}" th:text="${device.TenTB}">Mã Thiết Bị</option>
+        </select>
     
-    <label for="return-date">Ngày Trả:</label>
-    <input type="datetime-local" id="return-date" name="return-date" required>
+        <label for="borrow-date">Ngày Mượn:</label>
+        <input type="datetime-local" id="borrow-date" name="borrow-date" required>
+        
+        <label for="return-date">Ngày Trả:</label>
+        <input type="datetime-local" id="return-date" name="return-date" required>
     
-
-    <input type="submit" value="Mượn Thiết Bị">
-</form>
+        <input type="submit" value="Mượn Thiết Bị">
+    </form>
+    
 
 </body>
 </html>
+
+

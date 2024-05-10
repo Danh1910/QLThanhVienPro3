@@ -168,7 +168,7 @@
                                     </td> <!-- Sửa đường dẫn ở đây -->
 
                                     <td>
-                                        <a href = "/MuonThietBi.html" class="btn btn-primary btn-circle btn-lg"> <!-- Thay đổi màu nền của nút thành màu xanh dương -->
+                                        <a th:href ="@{'/MuonThietBi/' +${row.MaTV}(maTV=${row.MaTV})}"  class="btn btn-primary btn-circle btn-lg openFormMuon"> <!-- Thay đổi màu nền của nút thành màu xanh dương -->
                                             <i class="fas fa-toolbox"></i> <!-- Sử dụng biểu tượng "toolbox" thay vì "pencil-alt" -->
                                         </a>
                                     </td>
