@@ -38,14 +38,22 @@ function saveChanges() {
 
             fetch('/ThanhVien.html?MaTV=' + maTV + '&Ten=' + tenTV + '&Khoa=' + khoa + '&Nganh=' + nganh + '&SDT=' + sdt + '&Email=' + email + '&Password=' + password , {
                 method: 'PUT'
-            });
+            })
             .then(response => {
                         if (response.ok) {
                             // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
                             closeFormEdit();
+//                            window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+                            Swal.fire({
+                              title: "Good job!",
+                              text: "You clicked the button!",
+                              icon: "success"
+                            }).then((result) => {
+                              if (result.isConfirmed) {
+                                window.location.reload();
+                              }
+                            })
 
-                            alert("Dữ liệu đã được sửa thành công");
-                            window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
 
                         } else {
                             console.error('Lỗi khi lưu thiết bị');
@@ -60,6 +68,43 @@ function saveChanges() {
         }
 }
 
+function deleteThietBi() {
+
+    if (list_id_check.length == 0){
+        alert("Vui lòng chọn thành viên muốn xóa");
+
+        return;
+    }
+
+    const confirmation = confirm("Bạn có chắc chắn muốn xóa không?");
+
+    if (confirmation) {
+        fetch('/ThanhVien.html', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(list_id_check) // Chuyển danh sách ID thành JSON và gửi đi
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Hệ thống sẽ không xóa thiết bị đang được mượn hoặc đang được đặt chỗ");
+                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+
+            } else {
+                console.error('Lỗi khi xóa thiết bị');
+            }
+
+        })
+        .catch(error => {
+        console.error('There was a problem with your fetch operation:', error);
+        });
+    } else {
+        console.log("Không xóa")
+    }
+
+
+}
 
 
 // thực hiện đổ dữ liệu lên
