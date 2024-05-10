@@ -3,6 +3,7 @@ package com.example.QLThanhVien.Controller;
 import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import com.example.QLThanhVien.Enity.ThietBiEntity;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
+import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThietBiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
@@ -41,12 +44,19 @@ public class MuonTBController {
         return "MuonTB.html";
     }
 
-    @PutMapping("/MuonTB.html")
-    public void save_dat_muon(@RequestParam(name = "MaTT") Integer maTT, @RequestParam(name = "MaTV") ThanhVienEntity maTV, @RequestParam(name = "MaTB") ThietBiEntity maTB, @RequestParam(name = "TGDatCho") Date tgianDatCho) {
-        ThongTinSuDungEntity thongTinSuDungEntity = new ThongTinSuDungEntity(maTT, maTV, maTB, tgianDatCho);
+    @PostMapping("/MuonTB.html")
+    public void addThongTin(@RequestParam(name = "MaTV") ThanhVienEntity MaTV, @RequestParam(name = "MaTB") ThietBiEntity MaTB, @RequestParam(name = "TGianDatCho") String TGianDatCho){
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            date = format.parse(TGianDatCho);
 
-//        thongTinSuDungEntity.save();
-//                ttsdRepository.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        ThongTinSuDungEntity thongTinSuDungEntity = new ThongTinSuDungEntity(MaTV,MaTB,date);
+        ttsdRepository.save(thongTinSuDungEntity);
     }
 
 }
