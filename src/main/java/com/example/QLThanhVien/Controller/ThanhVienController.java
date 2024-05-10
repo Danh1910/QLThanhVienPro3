@@ -6,11 +6,20 @@ package com.example.QLThanhVien.Controller;
 
 
 import com.example.QLThanhVien.Enity.ThanhVienEntity;
+import com.example.QLThanhVien.Enity.ThietBiEntity;
+import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
+import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThanhVienRepository;
+import com.example.QLThanhVien.Repository.ThietBiRepository;
+import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
+import com.example.QLThanhVien.Repository.XuLyViPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -21,6 +30,15 @@ public class ThanhVienController {
 
     @Autowired
     private ThanhVienRepository tvRepository;
+
+    @Autowired
+    private ThietBiRepository tbRepository;
+
+    @Autowired
+    private ThongTinSuDungRepository ttsdRepository;
+
+    @Autowired
+    private XuLyViPhamRepository  xlvpRepository;
 
 //    @GetMapping("/ThanhVien") // Đổi URL thành /thanh-vien/all
 //    public String getAll(Model m)
@@ -47,6 +65,68 @@ public class ThanhVienController {
 
         tvRepository.save(tvEntity);
 
+    }
+
+    @DeleteMapping("/ThanhVien.html")
+    public void deleteThanhVien(@RequestBody List<Integer> list_id){
+
+        for (Integer id : list_id){
+
+            // Danh sach thong tin su dung
+            Iterable<ThongTinSuDungEntity> listTT = ttsdRepository.findAll();
+
+            Iterable<XuLyViPhamEntity> listVP = xlvpRepository.findAll();
+
+            // Danh sách thiet bi
+            Optional<ThanhVienEntity> temp = tvRepository.findById(Long.valueOf(id));
+
+            if (temp.isPresent()) {
+
+                // Ep kieu thanh kieu thietbiEntity
+                ThanhVienEntity tVien = temp.get();
+
+                if(CheckMuonvaDatCho((List<ThongTinSuDungEntity>) listTT,tVien.getMaTV()) && CheckVP((List<XuLyViPhamEntity>) listVP,tVien.getMaTV())){
+                    tvRepository.deleteById(Long.valueOf(tVien.getMaTV()));
+                }
+
+
+            }
+        }
+
+    }
+    public boolean CheckMuonvaDatCho (List<ThongTinSuDungEntity> list,int idTV){
+        for (ThongTinSuDungEntity temp : list){
+            if (temp.getMaTV() != null) {
+                if (temp.getMaTV().getMaTV() == idTV) {
+                    if (temp.getTGVao() == null) {
+                        return false;
+                    }
+                }
+            }
+        }
+        for (ThongTinSuDungEntity temp : list){
+            if (temp.getMaTV() != null) {
+                if (temp.getMaTV().getMaTV() == idTV) {
+                    if (temp.getTGVao() != null) {
+                        List<Integer> arr= tvRepository.getIDByMaTV(idTV);
+                        for(Integer a:arr){
+                            ttsdRepository.deleteById(a);
+                        }
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean CheckVP(List<XuLyViPhamEntity> list,int idTV){
+        for(XuLyViPhamEntity arr: list){
+            if(arr.getMaTV().getMaTV()==idTV && arr.getTrang_thaixl()==0){
+                return false;
+            }
+        }
+        return true;
     }
 
 

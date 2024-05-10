@@ -6,9 +6,6 @@ function closeFormAdd() {
     document.getElementById("addForm").style.display = "none";
 }
 
-function ShowChooseFile(){
-
-}
 
 function saveAdd() {
     // Lấy phần tử input bằng id
@@ -28,7 +25,7 @@ function saveAdd() {
         .then(response => {
             if (response.ok) {
                 // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
-                closeFormEdit();
+                closeFormAdd();
 
                 alert("Thiết bị đã được thêm thành công");
                 window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
@@ -41,7 +38,6 @@ function saveAdd() {
             console.error('Lỗi khi gửi yêu cầu: ', error);
         });
     }
-    // closeFormAdd();
 }
 var addButton = document.getElementById('addButton');
 
