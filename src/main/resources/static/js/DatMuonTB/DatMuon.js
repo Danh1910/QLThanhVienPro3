@@ -41,3 +41,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+function save_dat_muon(){
+
+    var deviceId = document.getElementById();
+
+
+}

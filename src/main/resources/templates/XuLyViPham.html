@@ -124,10 +124,6 @@
                                     <a class="btn btn-primary btn-circle btn-lg" id="openFormButton" >
                                         <i class="fas fa-plus"></i> <!-- Thêm -->
                                     </a>
-                                    <label for="excelFileInput" class="btn btn-info btn-circle btn-lg" style="margin-left: 10px;">
-                                        <i class="fas fa-file-excel"></i> <!-- Icon file Excel -->
-                                        <input type="file" id="excelFileInput"  />
-                                    </label>
                                     <a class="btn btn-danger btn-circle btn-lg" >
                                         <i class="fas fa-trash-alt"></i> <!-- Xóa -->
                                     </a>
@@ -237,16 +233,19 @@
                 <input type="text" class="form-control" id="HTXL" value="" />
             </div>
             <div class="form-group">
-                <label for="SoTien">Mô tả thiết bị:</label>
+                <label for="SoTien">Số tiền:</label>
                 <input type="text" class="form-control" id="SoTien" value="" />
             </div>
             <div class="form-group">
                 <label for="NgayXL">Ngày xử lý:</label>
-                <input type="text" class="form-control" id="NgayXL" value="" />
+                <input type="text" class="form-control" id="NgayXL" value="" readonly/>
             </div>
             <div class="form-group">
                 <label for="TrangThaiXL">Trạng thái xử lý:</label>
-                <input type="text" class="form-control" id="TrangThaiXL" value="" />
+                <select class="form-control" id="TrangThaiXL">
+                    <option value="Chưa xử lý">Chưa xử lý</option>
+                    <option value="Đã xử lý">Đã xử lý</option>
+                </select>
             </div>
             <button type="button" class="btn btn-primary" onclick="saveAdd()">Thêm</button>
             <button type="button" class="btn btn-secondary" onclick="closeFormAdd()">Đóng</button>

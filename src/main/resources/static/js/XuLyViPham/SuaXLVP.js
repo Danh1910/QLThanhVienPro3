@@ -1,3 +1,5 @@
+const list_id_check = []
+
 
 // Lấy giá trị của trạng thái từ thẻ td và chuyển đổi thành "chưa xử lý" hoặc "đã xử lý"
 // Lấy tất cả các phần tử có class là 'trang_thaixl'
@@ -13,6 +15,32 @@ for (var i = 0; i < elements.length; i++) {
         elements[i].innerText = "Không xác định";
     }
 }
+
+//Hiện giờ ngày tháng năm lên form:
+document.addEventListener("DOMContentLoaded", function() {
+    // Lấy thẻ input của trường ngày xử lý
+    var ngayXuLyInput = document.getElementById("NgayXL");
+
+    // Hàm để lấy ngày và giờ hiện tại
+    function getCurrentDateTime() {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, "0");
+        var day = now.getDate().toString().padStart(2, "0");
+        var hours = now.getHours().toString().padStart(2, "0");
+        var minutes = now.getMinutes().toString().padStart(2, "0");
+        var seconds = now.getSeconds().toString().padStart(2, "0");
+        return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+    }
+
+    // Hiển thị ngày và giờ hiện tại trong trường nhập liệu khi form được mở
+    function showCurrentDateTime() {
+        ngayXuLyInput.value = getCurrentDateTime();
+    }
+
+    // Gọi hàm hiển thị ngày và giờ khi form được mở
+    showCurrentDateTime();
+});
                                     
 
 // thực hiện đổ dữ liệu lên
