@@ -14,6 +14,7 @@ public class XuLyViPhamEntity {
 
     @Getter
     @Setter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="MaXL")
@@ -21,8 +22,10 @@ public class XuLyViPhamEntity {
 
     @Getter
     @Setter
-    @Column(name="MaTV")
-    private Integer MaTV;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "MaTV", nullable = false, foreignKey = @ForeignKey(name = "fk_XuLyViPhamDTO_ThanhVienDTO"))
+    private ThanhVienEntity MaTV;
 
     @Getter
     @Setter
@@ -44,7 +47,7 @@ public class XuLyViPhamEntity {
     @Column(name="trang_thaixl")
     private Integer trang_thaixl;
     
-    public XuLyViPhamEntity(Integer MaXL, Integer MaTV, String hinh_thucxl, Integer so_tien, Date NgayXL, Integer trang_thaixl){
+    public XuLyViPhamEntity(Integer MaXL, ThanhVienEntity MaTV, String hinh_thucxl, Integer so_tien, Date NgayXL, Integer trang_thaixl){
         this.MaXL = MaXL;
         this.MaTV = MaTV;
         this.hinh_thucxl = hinh_thucxl;
