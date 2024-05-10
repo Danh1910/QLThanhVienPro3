@@ -28,7 +28,7 @@
     <!-- Custom styles for this template -->
     <link href="../css/tablescumtom.css" rel="stylesheet">
 
-
+    <link href="../css/Css_TV/FormSuaTV.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -66,7 +66,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="ThanhVien.html">
+            <a class="nav-link" href="XuLyViPham.html">
                 <i class="fas fa-exclamation-triangle"></i>
                 <span>Xử lý vi phạm</span></a>
         </li>
@@ -113,20 +113,15 @@
                             </div>
                             <div class="col-auto">
                                 <div class="icon-container">
-                                    <a href="#" class="btn btn-primary btn-circle btn-lg">
-                                        <i class="fab fa-facebook-f"></i>
+                                    <a class="btn btn-primary btn-circle btn-lg" id="addButton">
+                                        <i class="fas fa-plus"></i> <!-- Thêm -->
                                     </a>
-                                    <a href="#" class="btn btn-success btn-circle btn-lg">
-                                        <i class="fas fa-check"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-info btn-circle btn-lg">
-                                        <i class="fas fa-info-circle"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-warning btn-circle btn-lg">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger btn-circle btn-lg">
-                                        <i class="fas fa-trash"></i>
+                                    <label for="excelFileInput" class="btn btn-info btn-circle btn-lg" style="margin-left: 10px;">
+                                        <i class="fas fa-file-excel"></i> <!-- Icon file Excel -->
+                                        <input type="file" id="excelFileInput" class="file-input" accept=".xlsx, .xls" />
+                                    </label>
+                                    <a class="btn btn-danger btn-circle btn-lg" onclick="deleteThanhVien()">
+                                        <i class="fas fa-trash-alt"></i> <!-- Xóa -->
                                     </a>
                                 </div>
                             </div>
@@ -139,6 +134,7 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
+                                    <th style="width: 50px;"><input type="checkbox" name="selectedItems" id="checkAll" class="larger-checkbox" style="margin-top: 5px;"/></th>
                                     <th>Mã Thành Viên</th>
                                     <th>Họ Tên</th>
                                     <th>Khoa</th>
@@ -146,13 +142,16 @@
                                     <th>Số Điện Thoại</th>
                                     <th>Password</th>
                                     <th>Email</th>
-                                    <th>Edit</th>
+                                    <th>Sửa</th>
+                                    <th>Mượn</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
 
-                                <tr th:each="row, state: ${data}">
+                                <tr th:each="row, state: ${data}" th:idtv="${row.MaTV}" th:tentv="${row.Ten}" th:khoa="${row.Khoa}" th:nganh="${row.Nganh}" th:sdt="${row.SDT}" th:email="${row.Email}" th:password="${row.Password}">
+                                    <td><input type="checkbox" th:id="'checkbox_' + ${row.MaTV}" name="selectedItems" th:value="${row.MaTV}" class="checkbox_ID larger-checkbox"/></td>
+
                                     <td th:utext="${row.MaTV}">...</td>
                                     <td th:utext="${row.Ten}">...</td>
                                     <td th:utext="${row.Khoa}">...</td>
@@ -160,7 +159,22 @@
                                     <td th:utext="${row.SDT}">...</td>
                                     <td th:utext="${row.Password}">...</td>
                                     <td th:utext="${row.Email}">...</td>
-                                    <td><a th:href="@{'/edit/' + ${row.MaTV}}">Edit</a></td> <!-- Sửa đường dẫn ở đây -->
+
+                                    <td>
+                                        <a class="btn btn-success btn-circle btn-lg openFormButton">
+                                            <i class="fas fa-pencil-alt"></i> <!-- Sửa -->
+                                        </a>
+
+                                    </td> <!-- Sửa đường dẫn ở đây -->
+
+                                    <td>
+                                        <a th:href ="@{'/MuonThietBi/' +${row.MaTV}(maTV=${row.MaTV})}"  class="btn btn-primary btn-circle btn-lg openFormMuon"> <!-- Thay đổi màu nền của nút thành màu xanh dương -->
+                                            <i class="fas fa-toolbox"></i> <!-- Sử dụng biểu tượng "toolbox" thay vì "pencil-alt" -->
+                                        </a>
+                                    </td>
+
+
+
                                 </tr>
 
 
@@ -192,12 +206,90 @@
 </div>
 <!-- End of Page Wrapper -->
 
+
+<div class="container">
+    <div id="editForm" class="edit-form">
+        <h2>Sửa thông tin thành viên</h2>
+        <form id="personForm">
+            <div class="form-group">
+                <label for="personCode">Mã thành viên:</label>
+                <input type="text" class="form-control" id="personCode" value="Mã thành viên" readonly />
+            </div>
+            <div class="form-group">
+                <label for="personName">Tên thành viên:</label>
+                <input type="text" class="form-control" id="personName" value="Tên thành viên" />
+            </div>
+            <div class="form-group">
+                <label for="personName">Khoa:</label>
+                <input type="text" class="form-control" id="personKhoa" value="Khoa thành viên"  />
+            </div>
+            <div class="form-group">
+                <label for="personName">Ngành:</label>
+                <input type="text" class="form-control" id="personNganh" value="Ngành thành viên"  />
+            </div>
+            <div class="form-group">
+                <label for="personSDT">SDT:</label>
+                <input type="text" class="form-control" id="personSDT" value="SDT thành viên"  />
+            </div>
+            <div class="form-group">
+                <label for="personName">Email:</label>
+                <input type="email" class="form-control" id="personEmail" value="Email thành viên"  />
+            </div>
+            <div class="form-group">
+                <label for="personName">Password:</label>
+                <input type="text" class="form-control" id="personPassword" value="Password thành viên"  />
+            </div>
+            <button type="button" class="btn btn-primary" onclick="saveChanges()">Lưu thay đổi</button>
+            <button type="button" class="btn btn-secondary" onclick="closeFormEdit()">Đóng</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div id="addForm" class="add-form">
+        <h2>Thêm thành viên</h2>
+        <form id="addPersonForm">
+            <div class="form-group">
+                <label for="personCode">Mã thành viên:</label>
+                <input type="text" class="form-control" id="addPersonCode" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personName">Tên thành viên:</label>
+                <input type="text" class="form-control" id="addPersonName" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personKhoa">Khoa:</label>
+                <input type="text" class="form-control" id="addPersonKhoa" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personNganh">Ngành:</label>
+                <input type="text" class="form-control" id="addPersonNganh" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personSDT">SDT:</label>
+                <input type="text" class="form-control" id="addPersonSDT" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personEmail">Email:</label>
+                <input type="email" class="form-control" id="addPersonEmail" value="" />
+            </div>
+            <div class="form-group">
+                <label for="personPassword">Password:</label>
+                <input type="text" class="form-control" id="addPersonPassword" value="" />
+            </div>
+            <button type="button" class="btn btn-primary" onclick="saveAdd()">Lưu thay đổi</button>
+            <button type="button" class="btn btn-secondary" onclick="closeFormAdd()">Đóng</button>
+        </form>
+    </div>
+</div>
+
+
+
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -217,6 +309,7 @@
     </div>
 </div>
 
+
 Bootstrap core JavaScript
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -233,6 +326,13 @@ Bootstrap core JavaScript
 
 <!-- Page level custom scripts -->
 <script src="../js/demo/datatables-demo.js"></script>
+
+<script src="../js/ThanhVien/SuaThanhVien.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
 
 </body>
 

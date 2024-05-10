@@ -27,10 +27,8 @@
     <link href="../css/tablescumtom.css" rel="stylesheet">
 	<style>
 		.dropdown {
-	        width: 50%;
 	        min-width: 15em;
 	        position: relative;
-	        margin: 2em;
 	    }
 	    
 	    .dropdown * {
@@ -38,14 +36,14 @@
 	    }
 	    
 	    .select {
-	        background: #2a2f3b;
+	        background: #207ac0;
 	        color: white;
 	        display: flex;
 	        justify-content: space-between;
 	        align-items: center;
-	        border: 2px #2a2f3b solid;
+	        border: 2px #207ac0 solid;
 	        border-radius: 0.5em;
-	        padding: 1em;
+	        padding: 0.5em;
 	        cursor: pointer;
 	        transition: background 0.3s;
 	    }
@@ -56,7 +54,7 @@
 	    }
 	
 	    .select:hover {
-	        background: #323741;
+	        background: #17598d;
 	    }
 	
 	    .caret {
@@ -75,13 +73,13 @@
 	    .menu {
 	        list-style: none;
 	        padding: 0.2em 0.5em;
-	        background: #323741;
-	        border: 1px #363a43 solid;
+	        background: #207ac0;
+	        border: 1px #207ac0 solid;
 	        box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
 	        border-radius: 0.5em;
-	        color: #9fa5b5;
+	        color: white;
 	        position: absolute;
-	        top: 4.3em;
+	        top: 3.2em;
 	        left: 50%;
 	        width: 100%;
 	        transform: translateX(-50%);
@@ -99,11 +97,11 @@
 	    }
 	
 	    .menu li:hover {
-	        background: #2a2d35;
+	        background: #26489a;
 	    }
 	
 	    .activecbx {
-	        background: #23242a;
+	        background: #26489a;
 	    }
 	
 	    .menu-open {
@@ -148,7 +146,7 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="ThanhVien.html">
+                <a class="nav-link" href="XuLyViPham.html">
                     <i class="fas fa-exclamation-triangle"></i>
                     <span>Xử lý vi phạm</span></a>
             </li>
@@ -160,7 +158,11 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
                     <span>Thống kê</span></a>
             </li>
 
-
+			<li class="nav-item">
+	            <a class="nav-link" href="ThongTinTV.html">
+	                <i class="fas fa-chart-bar"></i>
+	                <span>User</span></a>
+	        </li>
 
 
             <!-- Divider -->
@@ -193,28 +195,58 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 						
 						<div class="card-body">
 						<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+							<div class="input-group">
+								<div class="dropdown">
+					                <div class="select">
+					                    <span class="selected" id="khoahaynganh">Theo Khoa</span>
+					                    <div class="caret"></div>
+					                </div>
+					                <ul class="menu">
+			                            <li class="activecbx">Theo Khoa</li>
+			                            <li>Theo Ngành</li>
+					                </ul>
+				            	</div>
+				            	&nbsp&nbsp&nbsp
+	                            <input id="searchInput" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+	                                aria-label="Search" aria-describedby="basic-addon2" style="margin-top: 3px;">
+	                            <div class="input-group-append">
+	                                <button id="searchButton" class="btn btn-primary" type="button">
+	                                    <i class="fas fa-search fa-sm"></i>
+	                                </button>
+	                            </div>
+				            	&nbsp&nbsp&nbsp
+	                        	<input id="reloadbtn" type="button" value="Dọn" class="btn btn-secondary btn-icon-split" style="padding-left: 1em;padding-right: 1em;">
+	                        
+							</div><br>
 	                        <div class="input-group">
-	                            <label>Ngày bắt đầu: </label>&nbsp&nbsp&nbsp
-	                            <input type="date" class="form-control bg-light border-0 small" placeholder="Search for..."
+								<div class="dropdown">
+					                <div class="select">
+					                    <span class="selected" id="nhacungcap">Thời gian vào</span>
+					                    <div class="caret"></div>
+					                </div>
+					                <ul class="menu">
+			                            <li class="activecbx">Thời gian vào</li>
+			                            <li>Thời gian mượn</li>
+			                            <li>Thời gian trả</li>
+					                </ul>
+				            	</div>
+				            	&nbsp&nbsp&nbsp
+	                            &nbsp&nbsp&nbsp<label>Ngày bắt đầu: </label>&nbsp&nbsp&nbsp
+	                            <input type="date" class="form-control bg-light border-0 small"
                                 aria-describedby="basic-addon2">
                                 &nbsp&nbsp&nbsp
                                 &nbsp&nbsp&nbsp
                                 &nbsp&nbsp&nbsp
                                 <label>Ngày Kết Thúc: </label>&nbsp&nbsp&nbsp
-	                            <input type="date" class="form-control bg-light border-0 small" placeholder="Search for..."
+	                            <input type="date" class="form-control bg-light border-0 small"
                                 aria-describedby="basic-addon2">
+                                
+                                &nbsp&nbsp&nbsp
+                                <input type="button" value="Lọc" class="btn btn-warning btn-icon-split" style="padding-left: 1em;padding-right: 1em;">
+	                        	&nbsp&nbsp&nbsp
+	                        	<input id="reloadbtn" type="button" value="Dọn" class="btn btn-secondary btn-icon-split" style="padding-left: 1em;padding-right: 1em;">
 	                        </div>
-	                        <div class="dropdown">
-				                <div class="select">
-				                    <span class="selected" id="nhacungcap">Theo Khoa</span>
-				                    <div class="caret"></div>
-				                </div>
-				                <ul class="menu">
-		                            <li class="activecbx">Theo Khoa</li>
-		                            <li>Theo Ngành</li>
-		                            <li>Theo Mượn</li>
-				                </ul>
-				            </div>
+	                        
 	                    </form>
 						</div>
                 	</div>
@@ -231,6 +263,7 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 		                                    <th>Thời gian vào</th>
 		                                    <th>Thời gian mượn</th>
 		                                    <th>Thời gian trả</th>
+		                                    <th>Thời đặt chổ</th>
 		                                </tr>
 	                                </thead>
 	                                <tbody>
@@ -241,6 +274,7 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 		                                    <td th:utext="${row.TGVao}">...</td>
 		                                    <td th:utext="${row.TGMuon}">...</td>
 		                                    <td th:utext="${row.TGTra}">...</td>
+		                                    <td th:utext="${row.TGDatCho}">...</td>
 		                                </tr>
 	                                </tbody>
 	                            </table>
@@ -248,40 +282,7 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 	                    </div>
 					</div>
                 </div>
-                <script>
-					const dropdowns = document.querySelectorAll('.dropdown');
-
-				    dropdowns.forEach(dropdown => {
-				        const select = dropdown.querySelector('.select');
-				        const caret = dropdown.querySelector('.caret');
-				        const menu = dropdown.querySelector('.menu');
-				        const options = dropdown.querySelectorAll('.menu li');
-				        const selected = dropdown.querySelector('.selected');
-				
-				        select.addEventListener('click', () => {
-				            select.classList.toggle('select-clicked');
-				            caret.classList.toggle('caret-rotate');
-				            menu.classList.toggle('menu-open');
-				        });
-				
-				        options.forEach(option => {
-				            option.addEventListener('click', () => {
-				                selected.innerText = option.innerText;
-				                select.classList.remove('select-clicked');
-				                caret.classList.remove('caret-rotate');
-				                menu.classList.remove('menu-open');
-				
-				                // Remove 'active' class from all options
-				                options.forEach(opt => {
-				                    opt.classList.remove('activecbx');
-				                });
-				
-				                // Add 'active' class to the clicked option
-				                option.classList.add('activecbx');
-				            });
-				        });
-				    });
-				</script>
+                
                 <!-- /.container-fluid -->
 
             </div>
@@ -296,7 +297,6 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
                 </div>
             </footer>
             <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
 
@@ -330,20 +330,9 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
     
 
 	<!-- Page level plugins -->
@@ -352,6 +341,9 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 	
 	<!-- Page level custom scripts -->
 	<script src="../js/demo/datatables-demo.js"></script>
+	
+	
+	<script src="../js/ThongKe/ThongKe.js"></script>
 
 </body>
 

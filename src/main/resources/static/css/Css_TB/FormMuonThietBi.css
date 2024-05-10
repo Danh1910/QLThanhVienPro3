@@ -1,0 +1,40 @@
+ /* Thiết lập kiểu CSS cho form */
+form {
+    margin: 50px auto;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+input[type="text"], input[type="datetime-local"], input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+}
+input[type="submit"] {
+    background-color: #007bff; /* Màu xanh dương */
+    color: #fff;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Màu xanh dương nhạt khi hover */
+}
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.member {
+    background-color: #cccccc; /* Màu xám đậm */
+}

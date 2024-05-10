@@ -6,12 +6,10 @@ package com.example.QLThanhVien.Repository;
 
 import com.example.QLThanhVien.Enity.ThanhVienEnity;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository; 
 /**
  *
  * @author ASUS
  */
 
-public interface ThanhVienRepository extends CrudRepository<ThanhVienEnity, Long> {
-    // Tạo một phương thức truy vấn để tìm thành viên bằng mã thành viên
-//    ThanhVienEnity findByMaTV(Integer maTV);
-}
+public interface ThanhVienRepository extends CrudRepository<ThanhVienEnity,Long>{}

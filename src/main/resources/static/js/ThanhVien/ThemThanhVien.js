@@ -29,7 +29,7 @@ function saveAdd() {
 
                 alert("Thiết bị đã được thêm thành công");
                 window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
-                
+
             } else {
                 console.error('Lỗi khi thêm thiết bị');
             }

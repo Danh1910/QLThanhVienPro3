@@ -28,12 +28,9 @@
     <!-- Custom styles for this template -->
     <link href="../css/tablescumtom.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="../css/Css_TB/FormSuaTB.css" rel="stylesheet">
+    <link href="../css/Css_XLVP/FormThemXLVP.css" rel="stylesheet">
+    <link href="../css/Css_XLVP/FormSuaXLVP.css" rel="stylesheet">
 
-    
-    <!-- Custom styles for this template -->
-    <link href="../css/Css_TB/FormThemTB.css" rel="stylesheet">
 
 
 
@@ -66,14 +63,14 @@
         </li>
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="ThietBi.html">
                 <i class="fas fa-desktop"></i>
                 <span>Thiết bị </span></a>
         </li>
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" href="XuLyViPham.html">
                 <i class="fas fa-exclamation-triangle"></i>
                 <span>Xử lý vi phạm</span></a>
@@ -104,7 +101,7 @@
     </ul>
     <!-- End of Sidebar -->
 
-    
+
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -120,22 +117,17 @@
                     <div class="card-header py-3">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h2 th:text="${message}" class="m-0 font-weight-bold text-primary">DataTables Example</h2>
+                                <h2  class="m-0 font-weight-bold text-primary">XỬ LÝ VI PHẠM</h2>
                             </div>
                             <div class="col-auto">
                                 <div class="icon-container">
-                                    <a class="btn btn-primary btn-circle btn-lg" id="addButton">
+                                    <a class="btn btn-primary btn-circle btn-lg" id="openFormButton" >
                                         <i class="fas fa-plus"></i> <!-- Thêm -->
                                     </a>
-                                    <label for="excelFileInput" class="btn btn-info btn-circle btn-lg" style="margin-left: 10px;">
-                                        <i class="fas fa-file-excel"></i> <!-- Icon file Excel -->
-                                        <input type="file" id="excelFileInput" class="file-input" accept=".xlsx, .xls" />
-                                    </label>
-                                    <a class="btn btn-danger btn-circle btn-lg" onclick="deleteThietBi()">
+                                    <a class="btn btn-danger btn-circle btn-lg " onclick="deleteXLVP()">
                                         <i class="fas fa-trash-alt"></i> <!-- Xóa -->
                                     </a>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -148,22 +140,28 @@
                                 <thead>
                                 <tr>
                                     <th style="width: 50px;"><input type="checkbox" name="selectedItems" id="checkAll" class="larger-checkbox" style="margin-top: 5px;"/></th>
-                                    <th>Mã thiết bị</th>
-                                    <th>Tên thiết bị</th>
-                                    <th>Mô tả thiết bị</th>
+                                    <th>Mã xử lý</th>
+                                    <th>Mã thành viên</th>
+                                    <th>Hình thức xử lý</th>
+                                    <th>Số tiền</th>
+                                    <th>Ngày xử lý</th>
+                                    <th>Trạng thái xử lý</th>
                                     <th></th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
+                                <tr th:each="row, state: ${data}" th:maxl="${row.MaXL}" th:matv="${row.MaTV.MaTV}" th:hinh_thucxl="${row.hinh_thucxl}" th:so_tien="${row.so_tien}" th:ngayxl="${row.NgayXL}" th:trang_thaixl="${row.trang_thaixl}">
+                                    <td><input type="checkbox" th:id="'checkbox_' + ${row.MaXL}" name="selectedItems" th:value="${row.MaXL}" class="checkbox_ID larger-checkbox"/></td>
+                                    <td th:utext="${row.MaXL}">...</td>
+                                    <td th:utext="${row.MaTV.MaTV}">...</td>
+                                    <td th:utext="${row.hinh_thucxl}">...</td>
+                                    <td th:utext="${row.so_tien}">...</td>
+                                    <td th:utext="${row.NgayXL}">...</td>
+                                    <td th:utext="${row.trang_thaixl}" class="trang_thaixl">...</td>
 
-                                <tr th:each="row, state: ${data}" th:idtb="${row.MaTB}" th:tentb="${row.TenTB}" th:motatb="${row.MoTaTB}">
-                                    <td><input type="checkbox" th:id="'checkbox_' + ${row.MaTB}" name="selectedItems" th:value="${row.MaTB}" class="checkbox_ID larger-checkbox"/></td>
-                                    <td th:utext="${row.MaTB}">...</td>
-                                    <td th:utext="${row.TenTB}">...</td>
-                                    <td th:utext="${row.MoTaTB}">...</td>
                                     <td>
-                                        <a class="btn btn-success btn-circle btn-lg openFormButton">
+                                        <a class="btn btn-success btn-circle btn-lg openFormEditXLVP">
                                             <i class="fas fa-pencil-alt"></i> <!-- Sửa -->
                                         </a>
                                     </td> <!-- Sửa đường dẫn ở đây -->
@@ -184,7 +182,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2020</span>
+                    <span>Copyright &copy; Your Website 2024</span>
                 </div>
             </div>
         </footer>
@@ -221,61 +219,81 @@
     </div>
 </div>
 
-<!--Form them thiết bi-->
+<!--Form thêm xử lý vi phạm-->
 <div class="container">
-    <div id="addForm" class="add-form">
-        <h2>Thêm thiết bị</h2>
-        <form id="adddeviceForm">
+    <div id="addXLVP" class="add-xlvp">
+        <h2>Thêm xử lý vi phạm</h2>
+        <form id="addxlvpForm">
             <div class="form-group">
-                <label for="deviceCode">Loại thiết bị:</label>
-                <select class="form-control" id="adddeviceCode">
-                    <option value="Micro">Micro</option>
-                    <option value="Máy chiếu">Máy chiếu</option>
-                    <option value="Máy ảnh">Máy ảnh</option>
-                    <option value="Cassette">Cassette</option>
-                    <option value="Tivi">Tivi</option>
-                    <option value="Quạt đứng">Quạt đứng</option>
+                <label for="MaTV">Mã thành viên:</label>
+                <input type="text" class="form-control" id="MaTV" value="" />
+            </div>
+            <div class="form-group">
+                <label for="HTXL">Hình thức xử lý:</label>
+                <input type="text" class="form-control" id="HTXL" value="" />
+            </div>
+            <div class="form-group">
+                <label for="SoTien">Số tiền:</label>
+                <input type="text" class="form-control" id="SoTien" value="" />
+            </div>
+            <div class="form-group">
+                <label for="NgayXL">Ngày xử lý:</label>
+                <input type="text" class="form-control" id="NgayXL" value="" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="TrangThaiXL">Trạng thái xử lý:</label>
+                <select class="form-control" id="TrangThaiXL">
+                    <option value="Chưa xử lý">Chưa xử lý</option>
+                    <option value="Đã xử lý">Đã xử lý</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="deviceName">Tên thiết bị:</label>
-                <input type="text" class="form-control" id="adddeviceName" value="" />
-            </div>
-            <div class="form-group">
-                <label for="deviceDescription">Mô tả thiết bị:</label>
-                <textarea class="form-control" id="adddeviceDescription" rows="3"></textarea>
-            </div>
-            <button type="button" class="btn btn-primary" onclick="saveAdd()">Lưu thay đổi</button>
+            <button type="button" class="btn btn-primary" onclick="saveAdd()">Thêm</button>
             <button type="button" class="btn btn-secondary" onclick="closeFormAdd()">Đóng</button>
         </form>
     </div>
 </div>
 
-<!--Form sửa thiết bi-->
+
+<!--Form sửa xử lý vi phạm-->
 <div class="container">
-    <div id="editForm" class="edit-form">
-        <h2>Sửa thông tin thiết bị</h2>
-        <form id="deviceForm">
+    <div id="editXLVP" class="edit-xlvp">
+        <h2>Sửa thông tin vi phạm</h2>
+        <form id="editxlvpForm">
             <div class="form-group">
-                <label for="deviceCode">Mã thiết bị:</label>
-                <input type="text" class="form-control" id="deviceCode" value="Mã thiết bị hiện tại" readonly />
+                <label for="edit_MaXL">Mã xử lý:</label>
+                <input type="text" class="form-control" id="edit_MaXL" value="" readonly/>
             </div>
             <div class="form-group">
-                <label for="deviceName">Tên thiết bị:</label>
-                <input type="text" class="form-control" id="deviceName" value="Tên thiết bị hiện tại" />
+                <label for="edit_MaTV">Mã thành viên:</label>
+                <input type="text" class="form-control" id="edit_MaTV" value="" />
             </div>
             <div class="form-group">
-                <label for="deviceDescription">Mô tả thiết bị:</label>
-                <textarea class="form-control" id="deviceDescription" rows="3">Mô tả hiện tại của thiết bị</textarea>
+                <label for="edit_HTXL">Hình thức xử lý:</label>
+                <input type="text" class="form-control" id="edit_HTXL" value="" />
             </div>
-            <button type="button" class="btn btn-primary" onclick="saveChanges()">Lưu thay đổi</button>
+            <div class="form-group">
+                <label for="edit_SoTien">Số tiền:</label>
+                <input type="text" class="form-control" id="edit_SoTien" value="" />
+            </div>
+            <div class="form-group">
+                <label for="edit_NgayXL">Ngày xử lý:</label>
+                <input type="text" class="form-control" id="edit_NgayXL" value="" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="edit_TrangThaiXL">Trạng thái xử lý:</label>
+                <select class="form-control" id="edit_TrangThaiXL">
+                    <option value="Chưa xử lý">Chưa xử lý</option>
+                    <option value="Đã xử lý">Đã xử lý</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="saveEdit()">Lưu thay đổi</button>
             <button type="button" class="btn btn-secondary" onclick="closeFormEdit()">Đóng</button>
         </form>
     </div>
 </div>
 
 
-
+Bootstrap core JavaScript
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -292,11 +310,8 @@
 <!-- Page level custom scripts -->
 <script src="../js/demo/datatables-demo.js"></script>
 
-<script src="../js/ThietBi/SuaThietBi.js"></script>
-
-<script src="../js/ThietBi/FileExcel.js"></script>
-
-<script src="../js/ThietBi/ThemThietBi.js"></script>
+<script src="../js/XuLyViPham/SuaXLVP.js"></script>
+<script src="../js/XuLyViPham/ThemXLVP.js"></script>
 
 </body>
 

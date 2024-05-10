@@ -17,14 +17,11 @@ function closeFormEdit() {
 function saveChanges() {
 
     // Lấy phần tử input bằng id
-
     var deviceId = document.getElementById('deviceCode');
     var deviceName = document.getElementById('deviceName');
     var deviceDescription = document.getElementById('deviceDescription');
-
     
     if (deviceId && deviceName && deviceDescription) {
-
         const maTB = deviceId.value; // Giá trị MaTB
         const tenTB = deviceName.value; // Giá trị TenTB
         const moTaTB = deviceDescription.value; // Giá trị MoTaTB
@@ -47,10 +44,6 @@ function saveChanges() {
         .catch(error => {
             console.error('Lỗi khi gửi yêu cầu: ', error);
         });
-
-        
-
-        
     }
 }
 
@@ -89,8 +82,6 @@ function deleteThietBi() {
     } else {
         console.log("Không xóa")
     }
-
-    
 }
 
 
