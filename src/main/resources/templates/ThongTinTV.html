@@ -69,7 +69,13 @@
         <li class="nav-item">
             <a class="nav-link" href="XemViPham.html">
                 <i class="fas fa-desktop"></i>
-                <span>Xem vi phạm</span></a>
+                <span>Vi phạm</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="XemThietBiDuocMuon.html">
+                <i class="fas fa-desktop"></i>
+                <span>Thiết bị được mượn</span></a>
         </li>
 
 
@@ -287,40 +293,42 @@
                         <form>
                             <div class="form-group">
                                 <label>MSSV</label>
-                                <input type="text" class="form-control" value="3121410104" readonly>
+                                <input type="text" id="maTV" class="form-control" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Tên</label>
-                                <input type="text" class="form-control" value="Trần Trung Kiệt" readonly>
+                                <input type="text" id="ten" class="form-control" th:value="${ten}">
                             </div>
                             <div class="form-group">
                                 <label>Khoa</label>
-                                <input type="text" class="form-control" value="CNTT" readonly>
+                                <input type="text" id="khoa" class="form-control" th:value="${khoa}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Ngành</label>
-                                <input type="text" class="form-control" value="KTPM" readonly>
+                                <input type="text" id="nganh" class="form-control" th:value="${nganh}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Mật khẩu</label>
-                                <input type="text" class="form-control" value="" readonly>
+                                <input type="text" id="password" class="form-control" th:value="${password}">
                                 <div class="change_pass">
-                                    <a class="btn btn-danger btn-circle btn-lg" onclick="">
-                                        <i class="fas fa-trash-alt"></i> <!-- Xóa -->
-                                    </a>
+<!--                                    <a class="btn btn-danger btn-circle btn-lg" onclick="">-->
+<!--                                        <i class="fas fa-eye"></i> &lt;!&ndash; Xóa &ndash;&gt;-->
+<!--                                    </a>-->
                                 </div>
 
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="text" class="form-control" value="">
+                                <input type="text" id="email" class="form-control" th:value="${email}">
                             </div>
+
                             <div class="form-group">
                                 <label>Số điện thoại</label>
-                                <input type="text" class="form-control" value="">
+                                <input type="text" id="sdt" class="form-control" th:value="${sdt}">
                             </div>
-                            <button type="button" class="btn btn-primary" onclick="">Lưu</button>
+                            <button type="button" class="btn btn-primary" onclick="saveChanges()">Lưu</button>
                             <button type="button" class="btn btn-secondary" onclick="">Hủy</button>
+
                         </form>
 
                     </div>
@@ -396,6 +404,57 @@ Bootstrap core JavaScript
 
 <!-- Page level custom scripts -->
 <script src="../js/demo/datatables-demo.js"></script>
+
+
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var maTV = urlParams.get('maTV');
+        document.getElementById("maTV").value = maTV;
+    });
+</script>
+
+<script>
+    function saveChanges() {
+        // Lấy phần tử input bằng id
+        var maTVInput = document.getElementById('maTV');
+        var tenInput = document.getElementById('ten');
+        var khoaInput = document.getElementById('khoa');
+        var nganhInput = document.getElementById('nganh');
+        var passwordInput = document.getElementById('password');
+        var emailInput = document.getElementById('email');
+        var sdtInput = document.getElementById('sdt');
+
+        // Kiểm tra xem các phần tử input có tồn tại không
+        if (maTVInput && tenInput && khoaInput && nganhInput && emailInput && sdtInput) {
+            const maTV = maTVInput.value; // Lấy giá trị mã thành viên
+            const ten = tenInput.value; // Lấy giá trị tên
+            const khoa = khoaInput.value; // Lấy giá trị khoa
+            const nganh = nganhInput.value; // Lấy giá trị ngành
+            const password = passwordInput.value; // Lấy giá trị ngành
+            const email = emailInput.value; // Lấy giá trị email
+            const sdt = sdtInput.value; // Lấy giá trị số điện thoại
+
+            // Gửi yêu cầu PUT đến endpoint "/ThongTinTV.html" với các tham số tương ứng
+            fetch('/ThongTinTV.html?maTV=' + maTV + '&ten=' + ten + '&khoa=' + khoa + '&password=' + password + '&nganh=' + nganh + '&email=' + email + '&sdt=' + sdt, {
+                method: 'PUT'
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Nếu yêu cầu thành công, bạn có thể thực hiện các thao tác sau khi lưu dữ liệu thành công
+                    // Ví dụ: hiển thị thông báo, làm mới trang, đóng form, vv.
+                    alert("Thông tin đã được cập nhật thành công");
+                    window.location.reload(); // Làm mới trang sau khi lưu thành công
+                } else {
+                    console.error('Lỗi khi lưu thông tin thành viên');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi khi gửi yêu cầu: ', error);
+            });
+        }
+    }
+</script>
 
 </body>
 

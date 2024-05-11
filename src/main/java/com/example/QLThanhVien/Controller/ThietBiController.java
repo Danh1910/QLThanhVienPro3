@@ -1,26 +1,26 @@
 package com.example.QLThanhVien.Controller;
 
 
+import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import com.example.QLThanhVien.Enity.ThietBiEntity;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
+import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import com.example.QLThanhVien.Repository.ThietBiRepository;
 import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.data.repository.config.RepositoryConfigurationExtension;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 
 @Controller
@@ -31,6 +31,9 @@ public class ThietBiController {
 
     @Autowired
     private ThongTinSuDungRepository thongTinSuDungRepository;
+
+    @Autowired
+    private ThanhVienRepository tvRepository;
 
 
 
@@ -58,39 +61,6 @@ public class ThietBiController {
 
             thietBiRepository.save(thietBiEntity);
 
-    }
-
-    @PostMapping("/ThietBi.html")
-    public void addDevice(@RequestParam(name = "LoaiTBIndex") String loaiTB, @RequestParam(name = "TenTB") String tenTB, @RequestParam(name = "MoTaTB") String motaTB){
-        int SoLoaiTB= Integer.parseInt(loaiTB)+1;
-        String IdTB;
-        Calendar cal = Calendar.getInstance();
-        // Lấy năm hiện tại
-        int year = cal.get(Calendar.YEAR);
-        int stt= layIdLoaiTB(SoLoaiTB);
-        IdTB = Integer.toString(SoLoaiTB)+Integer.toString(year)+Integer.toString(stt);
-        ThietBiEntity thietBiEntity = new ThietBiEntity(Integer.parseInt(IdTB),tenTB,motaTB);
-        thietBiRepository.save(thietBiEntity);
-    }
-    public int layIdLoaiTB(int loaiTB_selected){
-        Iterable<ThietBiEntity> list= thietBiRepository.findAll();
-        int dem=0;
-        for(ThietBiEntity x : list){
-            if(KtLoaiTB(x,loaiTB_selected)){
-                dem+=1;
-            }
-        }
-        return dem+1;
-    }
-    public boolean KtLoaiTB(ThietBiEntity tb, int loaiTB) {
-        String temp = Integer.toString(tb.getMaTB());
-        char firstChar = temp.charAt(0);
-        int intValue = Character.getNumericValue(firstChar);
-        if (intValue == loaiTB) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @PatchMapping("/ThietBi.html")
@@ -167,15 +137,19 @@ public class ThietBiController {
 
 
     @DeleteMapping("/ThietBi.html")
-    public void deleteDevice(@RequestBody List<Integer> list_id){
+    public ResponseEntity<String> deleteDevice(@RequestBody List<Integer> list_id){
+
+        int dem = 0;
+
 
         for (Integer id : list_id){
 
             // Danh sach thong tin su dung
-            Iterable<ThongTinSuDungEntity> list = thongTinSuDungRepository.findAll();
+            List<ThongTinSuDungEntity> list = thongTinSuDungRepository.LayThongTinSuDungTB();
 
-            // Danh sách thiet bi
+            // Lay thiet bi
             Optional<ThietBiEntity> temp = thietBiRepository.findById(id);
+
 
             if (temp.isPresent()) {
 
@@ -188,17 +162,27 @@ public class ThietBiController {
 
                 if (thongTinSuDung != null){
                     System.out.println(thongTinSuDung.getMaTB().getMaTB());
+                    dem++;
                 }
                 else{
                     XoaHetThongTinSuDung((List<ThongTinSuDungEntity>) list,id);
                     thietBiRepository.delete(thietBi);
+
                 }
 
 
             }
         }
 
+        if (dem != 0){
+            return ResponseEntity.ok("Hệ thống sẽ không xóa 1 số thiết bị đang được đặt chỗ hoặc đang được mượn");
+        }
+
+        return ResponseEntity.ok("Đã xóa thiết bị thành công");
+
     }
+
+
 
     public ThongTinSuDungEntity CheckMuonvaDatCho (List<ThongTinSuDungEntity> list,int idThietBi){
         for (ThongTinSuDungEntity temp : list){
@@ -222,6 +206,45 @@ public class ThietBiController {
             }
         }
     }
+
+    @PostMapping("/ThietBi.html")
+    public void addDevice(@RequestParam(name = "LoaiTBIndex") String loaiTB, @RequestParam(name = "TenTB") String tenTB, @RequestParam(name = "MoTaTB") String motaTB){
+        int SoLoaiTB= Integer.parseInt(loaiTB)+1;
+        String IdTB;
+        Calendar cal = Calendar.getInstance();
+        // Lấy năm hiện tại
+        int year = cal.get(Calendar.YEAR);
+        int stt= layIdLoaiTB(SoLoaiTB);
+        IdTB = Integer.toString(SoLoaiTB)+Integer.toString(year)+Integer.toString(stt);
+        ThietBiEntity thietBiEntity = new ThietBiEntity(Integer.parseInt(IdTB),tenTB,motaTB);
+        thietBiRepository.save(thietBiEntity);
+    }
+    public int layIdLoaiTB(int loaiTB_selected){
+        Iterable<ThietBiEntity> list= thietBiRepository.findAll();
+        int dem=0;
+        for(ThietBiEntity x : list){
+            if(KtLoaiTB(x,loaiTB_selected)){
+                dem+=1;
+            }
+        }
+        return dem+1;
+    }
+    public boolean KtLoaiTB(ThietBiEntity tb, int loaiTB) {
+        String temp = Integer.toString(tb.getMaTB());
+        char firstChar = temp.charAt(0);
+        int intValue = Character.getNumericValue(firstChar);
+        if (intValue == loaiTB) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+
+
+
 
 
 }

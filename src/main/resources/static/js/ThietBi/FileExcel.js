@@ -25,11 +25,11 @@ function AddExcel(selectedFile){
        
     })
     .then(response => {
-        if (response.ok) {
-           console.log("Gửi yêu cầu thành công")
-        } else {
-            console.error('Lỗi khi xóa thiết bị');
+        if (!response.ok) {
+            alert ("Không được");
+            throw new Error('Network response was not ok');
         }
+        return response.text();
         
     })
     .then(data => {

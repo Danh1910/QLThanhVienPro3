@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Quản lý thiết bị</title>
+    <title>Thiết bị được mượn</title>
 
     <!-- Custom fonts for this template -->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -73,17 +73,18 @@
                 <span>Đặt mượn thiết bị</span></a>
         </li>
 
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="XemViPham.html">
                 <i class="fas fa-desktop"></i>
                 <span>Vi phạm</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="XemTBDuocMuon.html">
+        <li class="nav-item active">
+            <a class="nav-link" href="XemThietBiDuocMuon.html">
                 <i class="fas fa-desktop"></i>
                 <span>Thiết bị được mượn</span></a>
         </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -111,7 +112,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
 
-                <h2 class="m-0 font-weight-bold text-primary">Xem vi phạm</h2>
+                <h2 class="m-0 font-weight-bold text-primary">Thiết bị được mượn</h2>
 
 
                 <!-- Topbar Navbar -->
@@ -378,34 +379,6 @@
     </div>
 </div>
 
-
-<!--Form đặt mượn thiết bi-->
-<div class="container">
-    <div id="editForm" class="edit-form">
-        <h2>Đặt mượn thiết bị</h2>
-        <form id="deviceForm">
-            <div class="form-group">
-                <label for="deviceCode">Mã thiết bị:</label>
-                <input type="text" class="form-control" id="deviceCode" value="Mã thiết bị hiện tại" readonly />
-            </div>
-            <div class="form-group">
-                <label for="deviceName">Tên thiết bị:</label>
-                <input type="text" class="form-control" id="deviceName" value="Tên thiết bị hiện tại" readonly />
-            </div>
-            <div>
-                <label for="deviceName">Tình trạng đặt chỗ:</label>
-                <input type="text" class="form-control" id="" value="Chưa đặt" readonly />
-            </div>
-            <div class="setup_time">
-                <label for="deviceName">Chọn thời gian:</label>
-                <input type="datetime-local" id="borrow-date" name="borrow-date" required>
-
-                </div>
-            <button type="button" class="btn btn-primary" onclick="save_dat_muon()">OK</button>
-            <button type="button" class="btn btn-secondary" onclick="closeFormEdit()">Close</button>
-        </form>
-    </div>
-</div>
 
 
 

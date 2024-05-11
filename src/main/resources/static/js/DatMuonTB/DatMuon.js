@@ -9,6 +9,7 @@ function closeFormEdit() {
     document.getElementById("editForm").style.display = "none";
 }
 
+
 // thực hiện đổ dữ liệu lên
 document.addEventListener('DOMContentLoaded', function () {
     // Lấy tất cả các nút "Sửa"
@@ -21,57 +22,56 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Lấy ID của thiết bị từ thuộc tính data
             var deviceId = button.closest('tr').getAttribute('idtb');
-            var deviceName = button.closest('tr').getAttribute('tentb');
 
 
             openFormEdit();
             // Lấy phần tử input bằng id
 
-            var deviceIdInput = document.getElementById('deviceCode');
-            var deviceNameInput = document.getElementById('deviceName');
+            var deviceIdInput = document.getElementById('MaTB');
 
 
             // Kiểm tra xem phần tử có tồn tại không
             if (deviceIdInput && deviceNameInput) {
                 // Set giá trị mới cho trường input
                 deviceIdInput.value = deviceId;
-                deviceNameInput.value = deviceName;
             }
 
         });
     });
 });
 
-function save_dat_muon(){
+function AddThongTin() {
+    // Lấy phần tử input bằng id
 
-    var deviceId = document.getElementById();
-    var userId = document.getElementById();
-    var timeDatCho = document.getElementById();
+    var MaTV = document.getElementById('MaTV');
+    var MaTB = document.getElementById('MaTB');
+    var TGianDatCho = document.getElementById('tgianDatCho');
 
-    if (deviceId && userId && timeDatCho) {
 
-        const thietbiId = deviceId.selectedIndex;
-        const thanhvienId = userId.selectedIndex; // Giá trị TenTB
-        const tgianDatCho = timeDatCho.value; // Giá trị MoTaTB
+    if (MaTV && MaTB && TGianDatCho) {
 
-        fetch('/MuonTB.html?LoaiTBIndex=' + thietbiId + '&TenTB=' + thanhvienId + '&MoTaTB=' + tgianDatCho, {
-            method: 'PUT'
+        const matv = MaTV.value;
+        const matb = MaTB.value; 
+        const tgiandatcho = TGianDatCho.value; 
+
+
+        fetch('/MuonTB.html?MaTV=' + matv + '&MaTB=' + matb + '&TGianDatCho=' + tgiandatcho, {
+            method: 'POST'
         })
         .then(response => {
             if (response.ok) {
                 // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
-                closeFormAdd();
+                closeFormEdit();
 
                 alert("Thông tin sử dụng đã được thêm thành công");
                 window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
                 
             } else {
-                console.error('Lỗi khi thêm thiết bị');
+                console.error('Lỗi khi thêm thông tin sử dụng');
             }
         })
         .catch(error => {
             console.error('Lỗi khi gửi yêu cầu: ', error);
         });
     }
-
 }

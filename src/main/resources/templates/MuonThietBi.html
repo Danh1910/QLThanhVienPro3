@@ -1,49 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mượn Thiết Bị</title>
     <!-- Custom styles for this template -->
     <link href="../css/Css_TB/FormMuonThietBi.css" rel="stylesheet"> 
+
+    <script src="../js/ThietBi/MuonThietBi.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 </head>
 <body>
 
-<form action="#" method="post">
-
-    <label for="member-id">Mã Thành Viên:</label>
-    <input type="text" id="member-id" name="member-id" class="member" readonly value="Giá trị mặc định" required>
-
-    <label for="borrower">Tên Thành Viên:</label>
-    <input type="text" id="borrower" name="borrower" class="member" readonly value="Giá trị mặc định" required>
+    <form th:object="${thanhVien}">
 
 
-    <label for="device-id">Mã Thiết Bị:</label>
-    <select id="device-id" name="device-id" required>
-        <option value="">Chọn Mã Thiết Bị</option>
-        <option value="device1">Mã Thiết Bị 1</option>
-        <option value="device2">Mã Thiết Bị 2</option>
-        <!-- Thêm các tùy chọn khác nếu cần -->
-    </select>
-    
-    <label for="device-name">Tên Thiết Bị:</label>
-    <select id="device-name" name="device-name" required>
-        <option value="">Chọn Tên Thiết Bị</option>
-        <option value="device1">Tên Thiết Bị 1</option>
-        <option value="device2">Tên Thiết Bị 2</option>
-        <!-- Thêm các tùy chọn khác nếu cần -->
-    </select>
+        <label >Mã Thành Viên:</label>
+        <input type="text" readonly th:value="${thanhVien.MaTV}" id="inputMaTV">
+
+        <label >Tên Thành Viên:</label>
+        <input type="text" readonly th:value="${thanhVien.Ten}" id="inputTen">
+
+        <label >Mã thiết bị:</label>
+        <input type="text" id="searchID" placeholder="Nhập từ khóa..." required>
+        <div id="suggestions"></div>
+
+        <label >Tên thiết bị:</label>
+        <input type="text" id="NameTB" value="" readonly>
 
     
-    <label for="borrow-date">Ngày Mượn:</label>
-    <input type="datetime-local" id="borrow-date" name="borrow-date" required>
+        <label for="borrow-date">Ngày Mượn:</label>
+        <input type="datetime-local" id="borrow-date" name="borrow-date" required>
+        
+        <label for="return-date">Ngày Trả:</label>
+        <input type="datetime-local" id="return-date" name="return-date" required>
     
-    <label for="return-date">Ngày Trả:</label>
-    <input type="datetime-local" id="return-date" name="return-date" required>
+        <input type="button" value="Mượn Thiết Bị" id="btnSubmit">
+    </form>
     
-
-    <input type="submit" value="Mượn Thiết Bị">
-</form>
 
 </body>
 </html>
+
+
