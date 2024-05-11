@@ -19,8 +19,7 @@ label {
 
 input[type="text"],
 input[type="datetime-local"],
-input[type="button"],
-select {
+input[type="button"]{
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -41,15 +40,13 @@ input[type="button"]:hover {
     
 }
 
-.member {
-    background-color: #cccccc; /* Màu xám đậm */
-}
+
 
 select {
     font-size: 16px; /* Chỉnh kích thước chữ */
 }
 
-#inputMaTV, #inputTen, #borrow-date{
+#inputMaTV, #inputTen, #borrow-date, #NameTB{
     background-color: rgb(201, 202, 202);
 }
 

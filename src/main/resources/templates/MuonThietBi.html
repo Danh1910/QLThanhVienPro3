@@ -21,11 +21,14 @@
         <input type="text" readonly th:value="${thanhVien.MaTV}" id="inputMaTV">
 
         <label >Tên Thành Viên:</label>
-        <input type="text" readonly th:value="${thanhVien.Ten}" id="inputTen" >
+        <input type="text" readonly th:value="${thanhVien.Ten}" id="inputTen">
 
         <label >Mã thiết bị:</label>
         <input type="text" id="searchID" placeholder="Nhập từ khóa..." required>
         <div id="suggestions"></div>
+
+        <label >Tên thiết bị:</label>
+        <input type="text" id="NameTB" value="" readonly>
 
     
         <label for="borrow-date">Ngày Mượn:</label>

@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function (){
 
     // Code bắt sự kiện và tìm kiếm
     const searchInput = document.getElementById('searchID');
+    const NameTB = document.getElementById('NameTB');
     const suggestions = document.getElementById('suggestions');
     
     searchInput.addEventListener('input', function() {
@@ -140,6 +141,7 @@ document.addEventListener('DOMContentLoaded', function (){
         suggestionElement.textContent = suggestion;
         suggestionElement.addEventListener('click', function() {
             searchInput.value = suggestion;
+            
             suggestions.style.display = 'none';
         });
         suggestions.appendChild(suggestionElement);
@@ -162,10 +164,10 @@ document.addEventListener('DOMContentLoaded', function (){
             return;
         }
 
-       
-
+    
         ListTB.forEach(element => {
             if (ID.value == element.maTB.toString()){
+                NameTB.value = element.tenTB;
                 found = true; // Đánh dấu là đã tìm thấy
                 return; // Kết thúc vòng lặp
             }
