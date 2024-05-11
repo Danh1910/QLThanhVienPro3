@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             // Kiểm tra xem phần tử có tồn tại không
-            if (deviceIdInput && deviceNameInput) {
+            if (deviceIdInput) {
                 // Set giá trị mới cho trường input
                 deviceIdInput.value = deviceId;
             }

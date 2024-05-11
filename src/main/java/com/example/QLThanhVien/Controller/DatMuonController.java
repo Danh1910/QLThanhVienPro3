@@ -5,6 +5,8 @@ import com.example.QLThanhVien.Enity.ThietBiEntity;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
 import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThietBiRepository;
+
+import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
-public class MuonTBController {
+public class DatMuonController {
     @Autowired
     private ThanhVienRepository tvRepository;
 
@@ -58,5 +60,17 @@ public class MuonTBController {
         ThongTinSuDungEntity thongTinSuDungEntity = new ThongTinSuDungEntity(MaTV,MaTB,date);
         ttsdRepository.save(thongTinSuDungEntity);
     }
+
+    // public ThongTinSuDungEntity CheckDatCho(List<ThongTinSuDungEntity> list, int idtb, Date datcho ){
+    //     for (ThongTinSuDungEntity temp: list){
+    //         if (temp.getMaTB().getMaTB() != null) {
+    //             if (temp.getTGDatCho() != null ) {
+    //                 return temp;
+    //             }
+    //         }
+    //     }
+
+    //     return null;
+    // }
 
 }
