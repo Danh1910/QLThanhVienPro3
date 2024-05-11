@@ -6,7 +6,6 @@ import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
 import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThietBiRepository;
 
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 @Controller
 public class DatMuonController {
@@ -56,21 +55,33 @@ public class DatMuonController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        
+        if (CheckDatCho(MaTB, date)) {
 
-        ThongTinSuDungEntity thongTinSuDungEntity = new ThongTinSuDungEntity(MaTV,MaTB,date);
-        ttsdRepository.save(thongTinSuDungEntity);
+            ThongTinSuDungEntity thongTinSuDungEntity = new ThongTinSuDungEntity(MaTV,MaTB,date);
+            ttsdRepository.save(thongTinSuDungEntity);
+        }
     }
 
-    // public ThongTinSuDungEntity CheckDatCho(List<ThongTinSuDungEntity> list, int idtb, Date datcho ){
-    //     for (ThongTinSuDungEntity temp: list){
-    //         if (temp.getMaTB().getMaTB() != null) {
-    //             if (temp.getTGDatCho() != null ) {
-    //                 return temp;
-    //             }
-    //         }
-    //     }
-
-    //     return null;
-    // }
+    public boolean CheckDatCho(ThietBiEntity MaTB, Date TGianDatCho){
+        // Lấy danh sách thông tin sử dụng từ repository hoặc cơ sở dữ liệu
+        Iterable<ThongTinSuDungEntity> list = ttsdRepository.findAll();
+    
+        // Lặp qua danh sách để kiểm tra xem có thiết bị nào đã được đặt chỗ trong khoảng thời gian này chưa
+        for (ThongTinSuDungEntity temp: list){
+            // Kiểm tra xem thiết bị đã được đặt chỗ chưa và có trùng với MaTB không
+            if (temp.getMaTB() == MaTB && temp.getTGDatCho() != null) {
+                // Nếu có thì kiểm tra xem TGianDatCho có trùng với TGianDatCho của đặt chỗ hiện tại không
+                if (temp.getTGDatCho().equals(TGianDatCho)) {
+                    // Nếu có thì thông báo là không thể đặt thêm chỗ và trả về false
+                    System.out.println("Không thể đặt thêm chỗ vì thiết bị đã được đặt chỗ trong khoảng thời gian này.");
+                    return false;
+                }
+            }
+        }
+    
+        // Nếu không có thông tin sử dụng nào trùng với MaTB và TGianDatCho thì có thể đặt chỗ, trả về true
+        return true;
+    }
 
 }
