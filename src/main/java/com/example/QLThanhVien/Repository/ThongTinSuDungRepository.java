@@ -22,4 +22,9 @@ public interface ThongTinSuDungRepository extends CrudRepository<ThongTinSuDungE
 			+ "JOIN thanhvien tv ON tsd.MaTV = tv.MaTV "
 			+ "WHERE tv.Nganh LIKE %:nganh%", nativeQuery = true)
 	List<ThongTinSuDungEntity> findByMaTVNganhContaining(@Param("nganh") String nganh);
+
+	@Query(value = "SELECT tsd.* "
+			+ "FROM thongtinsd tsd "
+			+ "WHERE tsd.MaTB", nativeQuery = true)
+	List<ThongTinSuDungEntity> LayThongTinSuDungTB();
 }

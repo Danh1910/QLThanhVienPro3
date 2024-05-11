@@ -23,17 +23,10 @@
         <label >Tên Thành Viên:</label>
         <input type="text" readonly th:value="${thanhVien.Ten}" id="inputTen" >
 
-    
-        <label for="device-id">Mã Thiết Bị:</label>
-        <select id="device-id" name="device-id" required onchange="updateDeviceName()">
-            <option th:each="device : ${tbMuon}" th:value="${device.MaTB}" th:text="${device.MaTB}">Mã Thiết Bị</option>
-        </select>
-        
-        
-        <label for="device-name">Tên Thiết Bị:</label>
-        <select id="device-name" name="device-name" required onchange="updateDeviceId()">
-            <option th:each="device : ${tbMuon}" th:value="${device.TenTB}" th:text="${device.TenTB}">Mã Thiết Bị</option>
-        </select>
+        <label >Mã thiết bị:</label>
+        <input type="text" id="searchID" placeholder="Nhập từ khóa..." required>
+        <div id="suggestions"></div>
+
     
         <label for="borrow-date">Ngày Mượn:</label>
         <input type="datetime-local" id="borrow-date" name="borrow-date" required>

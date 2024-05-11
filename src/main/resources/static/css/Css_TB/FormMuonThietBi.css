@@ -8,11 +8,13 @@ form {
     border-radius: 5px;
     font-size: 16px; /* Chỉnh kích thước chữ */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    position: relative;
 }
 
 label {
     display: block;
     margin-bottom: 10px;
+    margin-top: 25px;
 }
 
 input[type="text"],
@@ -24,7 +26,6 @@ select {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    margin-bottom: 25px;
     font-size: 16px; /* Chỉnh kích thước chữ */
 }
 
@@ -32,10 +33,12 @@ input[type="button"] {
     background-color: #007bff; /* Màu xanh dương */
     color: #fff;
     cursor: pointer;
+    margin-top: 25px;
 }
 
 input[type="button"]:hover {
     background-color: #0056b3; /* Màu xanh dương nhạt khi hover */
+    
 }
 
 .member {
@@ -49,3 +52,26 @@ select {
 #inputMaTV, #inputTen, #borrow-date{
     background-color: rgb(201, 202, 202);
 }
+
+
+/* CSS của phần tìm kiếm mã thiết bị */
+#searchInput {
+    padding: 10px;
+    font-size: 16px;
+  }
+#suggestions {
+    width: 92%;
+    display: none;
+    border: 1px solid #ccc;
+    border-top: none;
+    position: absolute; /* Đặt vị trí tuyệt đối để sử dụng z-index */
+    z-index: 1; /* Thiết lập giá trị z-index để phần tử nổi lên trên */
+    background-color: #ffffff;
+  }
+.suggestion {
+    padding: 10px;
+    cursor: pointer;
+  }
+.suggestion:hover {
+    background-color: #f0f0f0;
+  }
