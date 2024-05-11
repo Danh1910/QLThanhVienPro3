@@ -48,9 +48,10 @@ public class DatMuonController {
     @PostMapping("/MuonTB.html")
     public void addThongTin(@RequestParam(name = "MaTV") ThanhVienEntity MaTV, @RequestParam(name = "MaTB") ThietBiEntity MaTB, @RequestParam(name = "TGianDatCho") String TGianDatCho){
         Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         try {
-            date = format.parse(TGianDatCho);
+            date = dateFormat.parse(TGianDatCho);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -64,16 +65,22 @@ public class DatMuonController {
     }
 
     public boolean CheckDatCho(ThietBiEntity MaTB, Date TGianDatCho){
-        // Lấy danh sách thông tin sử dụng từ repository hoặc cơ sở dữ liệu
+        
         Iterable<ThongTinSuDungEntity> list = ttsdRepository.findAll();
     
-        // Lặp qua danh sách để kiểm tra xem có thiết bị nào đã được đặt chỗ trong khoảng thời gian này chưa
+        
+       
         for (ThongTinSuDungEntity temp: list){
-            // Kiểm tra xem thiết bị đã được đặt chỗ chưa và có trùng với MaTB không
+            
+            
             if (temp.getMaTB() == MaTB && temp.getTGDatCho() != null) {
-                // Nếu có thì kiểm tra xem TGianDatCho có trùng với TGianDatCho của đặt chỗ hiện tại không
+                System.out.print(temp.getMaTB().getTenTB() + "  \n");
+                System.out.print(temp.getTGDatCho()+"\n");
+                System.out.print(TGianDatCho);
+                
                 if (temp.getTGDatCho().equals(TGianDatCho)) {
-                    // Nếu có thì thông báo là không thể đặt thêm chỗ và trả về false
+                    
+
                     System.out.println("Không thể đặt thêm chỗ vì thiết bị đã được đặt chỗ trong khoảng thời gian này.");
                     return false;
                 }
