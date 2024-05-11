@@ -22,6 +22,15 @@ public interface ThongTinSuDungRepository extends CrudRepository<ThongTinSuDungE
 			+ "JOIN thanhvien tv ON tsd.MaTV = tv.MaTV "
 			+ "WHERE tv.Nganh LIKE %:nganh%", nativeQuery = true)
 	List<ThongTinSuDungEntity> findByMaTVNganhContaining(@Param("nganh") String nganh);
+	
+	@Query(value = "SELECT * FROM thongtinsd WHERE TGVao IS NOT NULL", nativeQuery = true)
+	Iterable<ThongTinSuDungEntity> findTGVao();
+	
+	@Query(value = "SELECT * FROM thongtinsd WHERE TGMuon IS NOT NULL", nativeQuery = true)
+	Iterable<ThongTinSuDungEntity> findTGMuonTra();
+	
+	@Query(value = "SELECT * FROM thongtinsd WHERE TGDatCho IS NOT NULL", nativeQuery = true)
+	Iterable<ThongTinSuDungEntity> findTGDatCho();
 
 	@Query(value = "SELECT tsd.* "
 			+ "FROM thongtinsd tsd "
