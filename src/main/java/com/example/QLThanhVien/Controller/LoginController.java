@@ -1,6 +1,6 @@
 package com.example.QLThanhVien.Controller;
 
-import com.example.QLThanhVien.Enity.ThanhVienEnity;
+import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ public class LoginController {
     @PostMapping("/login.html")
     public String login(@RequestParam Integer maTV, @RequestParam String password, Model model) {
         // Tìm thông tin của thành viên dựa trên mã thành viên
-        ThanhVienEnity user = tvRepository.findById(Long.valueOf(maTV)).orElse(null);
+        ThanhVienEntity user = tvRepository.findById(Long.valueOf(maTV)).orElse(null);
 
         // Kiểm tra nếu người dùng tồn tại và mật khẩu nhập đúng
         if (user != null && user.getPassword().equals(password)) {
