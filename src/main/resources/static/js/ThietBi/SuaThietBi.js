@@ -67,17 +67,19 @@ function deleteThietBi() {
             body: JSON.stringify(list_id_check) // Chuyển danh sách ID thành JSON và gửi đi
         })
         .then(response => {
-            if (response.ok) {
-                alert("Hệ thống sẽ không xóa thiết bị đang được mượn hoặc đang được đặt chỗ");
-                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
-                
-            } else {
-                console.error('Lỗi khi xóa thiết bị');
+            if (!response.ok) {
+                alert ("Không được");
+                throw new Error('Network response was not ok');
             }
-            
+            return response.text();
+        })
+        .then (data =>{
+            alert (data);
+            window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+
         })
         .catch(error => {
-        console.error('There was a problem with your fetch operation:', error);
+            console.error('There was a problem with your fetch operation:', error);
         });
     } else {
         console.log("Không xóa")

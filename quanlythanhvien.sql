@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2024 at 12:09 PM
+-- Generation Time: May 11, 2024 at 04:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -50,7 +50,6 @@ INSERT INTO `thanhvien` (`MaTV`, `Ten`, `Khoa`, `Nganh`, `SDT`, `Password`, `Ema
 (1120411311, 'Lê Việt Nga', 'CNTT', 'CNTT', '0911204113', '1120411311', '11204110311@gmail.com'),
 (1120480015, 'Trần Phạm Ngọc Ly', 'Toán UD', 'Toán', '0911204800', '1120480015', '1120480015@gmail.com'),
 (1120480216, 'Nguyễn Trần Thái Ngọc', 'Toán UD', 'Toán', '0911204802', '1120480216', '11204800216@gmail.com'),
-(1120480217, 'Trần Minh Phúc Ngọc', 'Toán UD', 'Toán', '0911204802', '1120480217', '11204800217@gmail.com'),
 (1121020009, 'Bùi Đình Thái My', 'SP KHTN', 'Lí', '0911210200', '1121020009', '1121020009@gmail.com'),
 (1121100003, 'Nguyễn Đắc Phương Linh', 'SP KHXH', 'Sử', '0911211000', '1121100003', '1121100003@gmail.com'),
 (1121100012, 'Trương Hoài Nga', 'SP KHXH', 'Sử', '0911211000', '1121100012', '11211000012@gmail.com'),
@@ -111,14 +110,14 @@ CREATE TABLE `thongtinsd` (
   `TGVao` datetime DEFAULT NULL,
   `TGMuon` datetime DEFAULT NULL,
   `TGTra` datetime DEFAULT NULL,
-  `TGDatCho` date DEFAULT NULL
+  `tgdat_cho` datetime(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `thongtinsd`
 --
 
-INSERT INTO `thongtinsd` (`MaTT`, `MaTV`, `MaTB`, `TGVao`, `TGMuon`, `TGTra`, `TGDatCho`) VALUES
+INSERT INTO `thongtinsd` (`MaTT`, `MaTV`, `MaTB`, `TGVao`, `TGMuon`, `TGTra`, `tgdat_cho`) VALUES
 (1, 1121110001, NULL, '2024-04-04 10:39:00', NULL, NULL, NULL),
 (2, 1121130012, NULL, '2024-04-04 10:39:00', NULL, NULL, NULL),
 (3, 1121100003, NULL, '2024-04-04 10:40:00', NULL, NULL, NULL),
@@ -132,10 +131,10 @@ INSERT INTO `thongtinsd` (`MaTT`, `MaTV`, `MaTB`, `TGVao`, `TGMuon`, `TGTra`, `T
 (11, 1120090014, 120214, NULL, '2024-03-09 09:00:00', '2024-03-09 11:00:00', NULL),
 (12, 1122090015, 420212, NULL, '2024-03-10 13:00:00', '2024-03-10 13:30:00', NULL),
 (13, 1120480216, 420213, NULL, '2024-03-12 09:11:00', '2024-03-12 11:12:00', NULL),
-(14, 1120480217, 520221, NULL, '2024-03-12 09:17:00', NULL, NULL),
-(15, 1122550008, 620231, NULL, '2024-03-13 12:13:00', NULL, NULL),
-(16, 1121020009, 620232, NULL, '2024-03-14 09:10:00', NULL, NULL),
-(17, 1120020019, 620233, NULL, '2024-03-15 09:17:00', NULL, NULL);
+(18, 1121020009, 120235, NULL, NULL, NULL, '2024-05-21 14:31:03.000000'),
+(19, 1120010007, 120191, NULL, '2024-05-10 21:34:00', '2024-05-10 21:34:00', NULL),
+(20, 1120010007, 120192, NULL, '2024-05-10 21:37:00', '2024-05-17 11:37:00', NULL),
+(21, 1120090018, 420224, NULL, '2024-05-10 21:39:00', '2024-05-25 00:42:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -146,17 +145,17 @@ INSERT INTO `thongtinsd` (`MaTT`, `MaTV`, `MaTB`, `TGVao`, `TGMuon`, `TGTra`, `T
 CREATE TABLE `xuly` (
   `MaXL` int(10) NOT NULL,
   `MaTV` int(10) NOT NULL,
-  `HinhThucXL` varchar(250) DEFAULT NULL,
-  `SoTien` int(100) DEFAULT NULL,
+  `hinh_thucxl` varchar(250) DEFAULT NULL,
+  `so_tien` int(100) DEFAULT NULL,
   `NgayXL` datetime DEFAULT NULL,
-  `TrangThaiXL` int(2) DEFAULT NULL
+  `trang_thaixl` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `xuly`
 --
 
-INSERT INTO `xuly` (`MaXL`, `MaTV`, `HinhThucXL`, `SoTien`, `NgayXL`, `TrangThaiXL`) VALUES
+INSERT INTO `xuly` (`MaXL`, `MaTV`, `hinh_thucxl`, `so_tien`, `NgayXL`, `trang_thaixl`) VALUES
 (1, 1121110001, 'Khóa thẻ 1 tháng', 0, '2024-02-01 10:00:00', 0),
 (2, 1121130012, 'Khóa thẻ 1 tháng', 0, '2024-02-02 10:59:00', 0),
 (3, 1121100003, 'Khóa thẻ 1 tháng', 0, '2024-02-03 10:58:00', 0),
@@ -206,7 +205,7 @@ ALTER TABLE `xuly`
 -- AUTO_INCREMENT for table `thongtinsd`
 --
 ALTER TABLE `thongtinsd`
-  MODIFY `MaTT` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `MaTT` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `xuly`
