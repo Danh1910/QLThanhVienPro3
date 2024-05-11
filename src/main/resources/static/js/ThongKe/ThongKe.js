@@ -87,20 +87,101 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 });
 
-savedTable = $('#dataTable').DataTable().rows().data().toArray()
+savedTable = $('#dataTable').DataTable().rows().data().toArray();
+savedTable1 = $('#dataTable').DataTable().rows().data().toArray();
 
 // Hàm cập nhật bảng với dữ liệu mới từ kết quả Ajax
 function updateTable(data) {
 	console.log(data.length);
     var table = $('#dataTable').DataTable();
     table.clear().rows.add(data).draw();
+    savedTable1 = table.rows().data().toArray();
+    filterDateTG();
 }
+
 $(document).ready(function() {
     $('#reloadbtn').click(function() {
-        reloadTable();
+		var searchInput = document.getElementById('searchInput');
+		searchInput.value = "";
+        var table = $('#dataTable').DataTable();
+	    table.clear().rows.add(savedTable).draw();
+	    savedTable1 = table.rows().data().toArray();
     });
 });
-function reloadTable() {
-    var table = $('#dataTable').DataTable();
-    table.clear().rows.add(savedTable).draw();
+
+
+
+$(document).ready(function() {
+    $('#dateBtn').click(function() {
+		filterDateTG();
+    });      
+});
+
+function filterDateTG() {
+	var table = $('#dataTable').DataTable();
+	var thoigianchoice = document.getElementById('thoigianchoice').textContent;
+	
+	var startDateInput = document.getElementById("StartDateChoice").value;
+	var endDateInput = document.getElementById("EndDateChoice").value;
+	var theOptionNumber = 3;
+	if (thoigianchoice === "Thời gian vào") 
+		theOptionNumber = 3;
+	if (thoigianchoice === "Thời gian mượn") 
+		theOptionNumber = 4;
+	if (thoigianchoice === "Thời gian trả") 
+		theOptionNumber = 5;
+	if (thoigianchoice === "Thời gian đặt chổ") 
+		theOptionNumber = 6;
+	
+	console.log(startDateInput + " " + endDateInput);
+	
+	if (startDateInput !== "" || endDateInput !== "") {
+		// Tạo một mảng mới để lưu các dòng thỏa mãn điều kiện
+        var filteredData = [];
+
+        for (var i = 0; i < savedTable1.length; i++) {
+            var dateValue = savedTable1[i][theOptionNumber]; 
+            // Kiểm tra xem giá trị của cột này có nằm trong khoảng startDate và endDate không
+            if (startDateInput === "") {
+				console.log("startDateInput is empty");
+	            if (isDateBetween(endDateInput, endDateInput, dateValue)) {
+	                filteredData.push(savedTable1[i]);
+	            }
+           	} else if (endDateInput === "") {
+				console.log("endDateInput is empty");
+			   	if (isDateBetween(startDateInput, startDateInput, dateValue)) {
+	                filteredData.push(savedTable1[i]);
+	            }
+		   	} else {
+			  	if (isDateBetween(startDateInput, endDateInput, dateValue)) {
+	                filteredData.push(savedTable1[i]);
+	            }
+		   	}
+        }
+        // Thêm các hàng thỏa mãn điều kiện vào bảng
+        table.clear().rows.add(filteredData).draw();	
+	} else 
+		console.log("Không có ngày tìm thấy");
+	
 }
+
+function isDateBetween(startDate, endDate, dateToCheck) {
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
+    dateToCheck = new Date(dateToCheck);
+    if (startDate.toDateString() === endDate.toDateString()) {
+        // Nếu dateToCheck cũng là ngày đó thì trả về true, ngược lại trả về false
+        return dateToCheck.toDateString() === startDate.toDateString();
+    }
+    // Tăng ngày của endDate lên 1
+    endDate.setDate(endDate.getDate() + 1);
+    // Kiểm tra xem dateToCheck có nằm trong khoảng giữa startDate và endDate không
+    return dateToCheck >= startDate && dateToCheck <= endDate;
+}
+
+$(document).ready(function() {
+    $('#reloadTGloc').click(function() {
+        var table = $('#dataTable').DataTable();
+	    table.clear().rows.add(savedTable1).draw();
+    });
+});
