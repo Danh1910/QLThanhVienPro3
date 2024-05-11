@@ -49,7 +49,7 @@ public class DatMuonController {
     public void addThongTin(@RequestParam(name = "MaTV") ThanhVienEntity MaTV, @RequestParam(name = "MaTB") ThietBiEntity MaTB, @RequestParam(name = "TGianDatCho") String TGianDatCho){
         Date date = new Date();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
         try {
             date = dateFormat.parse(TGianDatCho);
 
@@ -68,19 +68,20 @@ public class DatMuonController {
         
         Iterable<ThongTinSuDungEntity> list = ttsdRepository.findAll();
     
-        
-       
         for (ThongTinSuDungEntity temp: list){
-            
-            
-            if (temp.getMaTB() == MaTB && temp.getTGDatCho() != null) {
-                System.out.print(temp.getMaTB().getTenTB() + "  \n");
-                System.out.print(temp.getTGDatCho()+"\n");
-                System.out.print(TGianDatCho);
-                
-                if (temp.getTGDatCho().equals(TGianDatCho)) {
-                    
 
+            if (temp.getMaTB() == MaTB && temp.getTGDatCho() != null) {
+
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String strDate = formatter.format(TGianDatCho);
+                String strDate2 = formatter.format(temp.getTGDatCho());
+
+                System.out.print(temp.getMaTB().getTenTB() + "  \n");
+                System.out.print(strDate2+"\n");
+                System.out.print(strDate + "\n");
+                
+                if (strDate2.equals(strDate)) {
+                    
                     System.out.println("Không thể đặt thêm chỗ vì thiết bị đã được đặt chỗ trong khoảng thời gian này.");
                     return false;
                 }
