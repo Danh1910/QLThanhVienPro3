@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Lấy tất cả check box
     var checkbox = document.querySelectorAll(".checkbox_ID");
 
-    console.log(checkbox.length)
+
 
     // Lặp qua từng checkbox
     checkbox.forEach(function (check){
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Lấy tất cả check box
     var checkbox = document.querySelectorAll(".checkbox_ID");
 
-    console.log(checkbox.length)
+
 
     checkAll.addEventListener('change', function() {
 

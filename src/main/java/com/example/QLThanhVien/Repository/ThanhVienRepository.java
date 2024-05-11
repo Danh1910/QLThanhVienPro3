@@ -20,4 +20,7 @@ import java.util.List;
 public interface ThanhVienRepository extends CrudRepository<ThanhVienEntity,Long>{
     @Query("SELECT ttsd.id FROM ThongTinSuDungEntity ttsd WHERE ttsd.MaTV.MaTV = :id AND ttsd.TGVao IS NOT NULL")
     List<Integer> getIDByMaTV(Integer id);
+
+    @Query("SELECT COUNT(*) FROM ThanhVienEntity")
+    Long countAll();
 }

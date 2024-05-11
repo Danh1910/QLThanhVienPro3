@@ -13,13 +13,17 @@ import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import com.example.QLThanhVien.Repository.ThietBiRepository;
 import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
 import com.example.QLThanhVien.Repository.XuLyViPhamRepository;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Optional;
+import java.io.ByteArrayInputStream;
+import java.time.LocalDate;
+import java.util.*;
 
 /**
  *
@@ -66,6 +70,76 @@ public class ThanhVienController {
         tvRepository.save(tvEntity);
 
     }
+
+
+
+
+    @PatchMapping("/ThanhVien.html")
+    public ResponseEntity<String> addExcel(@RequestParam("file") MultipartFile file) {
+        try {
+            ArrayList<ThanhVienEntity> list_excel = new ArrayList<>();
+            byte[] fileBytes = file.getBytes();
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(fileBytes);
+            Workbook workbook = WorkbookFactory.create(inputStream);
+            Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
+
+            Row titleRow = sheet.getRow(1);
+
+            Cell titleMaCell = titleRow.getCell(0);
+            Cell titleTenCell = titleRow.getCell(1);
+            Cell titleKhoaCell = titleRow.getCell(2);
+            Cell titleNganhCell = titleRow.getCell(3);
+            Cell titleSDTCell = titleRow.getCell(4);
+            Cell titleEmailCell = titleRow.getCell(5);
+            Cell titlePasswordCell = titleRow.getCell(6);
+
+            // Kiểm tra cấu trúc của file Excel
+            if (titleMaCell != null && titleTenCell != null && titleKhoaCell != null && titleNganhCell != null && titleSDTCell != null && titleEmailCell != null && titlePasswordCell != null) {
+                // Lặp qua các hàng của sheet (bắt đầu từ hàng thứ 2)
+                for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                    Row row = sheet.getRow(i);
+                    if (row != null) {
+                        Cell idCell = row.getCell(0);
+                        Cell nameCell = row.getCell(1);
+                        Cell khoaCell = row.getCell(2);
+                        Cell nganhCell = row.getCell(3);
+                        Cell sdtCell = row.getCell(4);
+                        Cell passCell = row.getCell(5);
+                        Cell emailCell = row.getCell(6);
+
+                        // Kiểm tra và lưu dữ liệu vào Hibernate
+                        if (idCell != null && nameCell != null && khoaCell != null && nganhCell != null && sdtCell != null) {
+                            int idCode = 0;
+                            if (idCell.getCellType() == CellType.NUMERIC) {
+                                idCode = (int) idCell.getNumericCellValue();
+                            } else if (idCell.getCellType() == CellType.STRING) {
+                                String id = idCell.getStringCellValue();
+                                idCode = Integer.parseInt(id);
+                            }
+                            String name = nameCell.getStringCellValue();
+                            String khoa = khoaCell.getStringCellValue();
+                            String nganh = nganhCell.getStringCellValue();
+                            String sdt = sdtCell.getStringCellValue();
+                            String pass = passCell == null ? "" : passCell.getStringCellValue(); // Kiểm tra cell passCell có null hay không
+                            String email = emailCell == null ? "" : emailCell.getStringCellValue(); // Kiểm tra cell emailCell có null hay không
+
+                            // Tạo đối tượng ThanhVienEntity từ dữ liệu
+                            ThanhVienEntity thanhVien = new ThanhVienEntity(idCode, name, khoa, nganh, sdt, pass, email);
+
+                            // Lưu đối tượng vào cơ sở dữ liệu bằng Hibernate
+                            tvRepository.save(thanhVien);
+                        }
+                    }
+                }
+            }
+
+            return ResponseEntity.ok("Thêm thành công"); // Trả về thông báo thành công
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok("Đã xảy ra lỗi khi thêm thành viên"); // Trả về thông báo lỗi nếu có lỗi xảy ra
+        }
+    }
+
 
     @DeleteMapping("/ThanhVien.html")
     public void deleteThanhVien(@RequestBody List<Integer> list_id){
@@ -127,6 +201,120 @@ public class ThanhVienController {
             }
         }
         return true;
+    }
+
+
+    @PostMapping("/ThanhVien.html")
+    public void addMember(@RequestParam(name = "Ten") String tenTV,
+                          @RequestParam(name = "Khoa") String khoa,
+                          @RequestParam(name = "Nganh") String nganh,
+                          @RequestParam(name = "SDT") String sdt,
+                          @RequestParam(name = "Email") String email,
+                          @RequestParam(name = "Password") String password) {
+        Long count = tvRepository.countAll();
+        LocalDate currentDate = LocalDate.now();
+        String year = String.valueOf(currentDate.getYear()).substring(2);
+        String khoaCode = "00";
+        String idTV;
+        switch (khoa.toUpperCase(Locale.ROOT)) {
+            case "SP KHXH":
+                switch (nganh.toUpperCase(Locale.ROOT)) {
+                    case "ĐỊA":
+                        khoaCode = "11";
+                        break;
+                    case "SỬ":
+                        khoaCode = "10";
+                        break;
+                    case "VĂN":
+                        khoaCode = "09";
+                        break;
+                    default:
+                        khoaCode = "00";
+                        break;
+                }
+                break;
+            case "SP KHTN":
+                switch (nganh.toUpperCase(Locale.ROOT)) {
+                    case "LÍ":
+                        khoaCode = "02";
+                        break;
+                    case "HÓA":
+                        khoaCode = "03";
+                        break;
+                    case "SINH":
+                        khoaCode = "04";
+                        break;
+                    default:
+                        khoaCode = "00";
+                        break;
+                }
+                break;
+            case "NGOẠI NGỮ":
+                switch (nganh.toUpperCase(Locale.ROOT)) {
+                    case "ANH":
+                        khoaCode = "13";
+                        break;
+                    case "NNA":
+                        khoaCode = "38";
+                        break;
+                    default:
+                        khoaCode = "00";
+                        break;
+                }
+                break;
+            case "QTKD":
+                khoaCode = "55";
+                break;
+            case "QLGD":
+                switch (nganh.toUpperCase(Locale.ROOT)) {
+                    case "TLH":
+                        khoaCode = "53";
+                        break;
+                    default:
+                        khoaCode = "00";
+                        break;
+                }
+                break;
+            case "TOÁN UD":
+                switch (nganh.toUpperCase(Locale.ROOT)) {
+                    case "TOÁN":
+                        khoaCode = "48";
+                        break;
+                    default:
+                        khoaCode = "00";
+                        break;
+                }
+                break;
+            case "CNTT":
+                switch (nganh.toUpperCase(Locale.ROOT)) {
+                    case "CNTT":
+                        khoaCode = "41";
+                        break;
+                    case "KTPM":
+                        khoaCode = "42";
+                        break;
+                    case "HTTT":
+                        khoaCode = "43";
+                        break;
+                    default:
+                        khoaCode = "00";
+                        break;
+                }
+                break;
+            default:
+                khoaCode = "00";
+                break;
+        }
+
+        idTV= "11"+ year + khoaCode + String.format("%04d", count + 1);
+        int maTV= Integer.parseInt(idTV);
+
+
+
+        ThanhVienEntity thanhVienEntity = new ThanhVienEntity(maTV, tenTV, khoa, nganh, sdt, email, password);
+
+        // Lưu thông tin thành viên vào cơ sở dữ liệu
+        tvRepository.save(thanhVienEntity);
     }
 
 
