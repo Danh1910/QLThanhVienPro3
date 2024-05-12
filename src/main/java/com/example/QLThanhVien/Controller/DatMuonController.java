@@ -64,11 +64,11 @@ public class DatMuonController {
             ThongTinSuDungEntity thongTinSuDungEntity = new ThongTinSuDungEntity(MaTV,MaTB,ngayDatdate);
             ttsdRepository.save(thongTinSuDungEntity);
             Map<String, String> response = new HashMap<>();
-            response.put("message", "a b z y z");
+            response.put("message", "Đặt chỗ thiết bị thành công");
             return ResponseEntity.ok().body(response);
         }
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Success");
+        response.put("message", "Thiết bị đã được đặt chỗ hoặc đang mượn");
         return ResponseEntity.ok().body(response);
     }
 
@@ -79,8 +79,17 @@ public class DatMuonController {
         for (ThongTinSuDungEntity temp: list){
 
             if (temp.getMaTB() == MaTB && temp.getTGTra() != null) {
-                System.out.println("Không thể đặt thêm chỗ vì thiết bị đang được mượn.");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                
+                String strDate3 = formatter.format(temp.getTGTra());
+                String strDate4 = formatter.format(TGianDatCho);
+
+                if (strDate3.equals(strDate4)) {
+                    System.out.println("Không thể đặt thêm chỗ vì thiết bị đang được mượn.");
                     return false;
+                    
+                }
+                
             }
             else if (temp.getTGDatCho() != null) {
 

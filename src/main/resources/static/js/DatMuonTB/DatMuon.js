@@ -62,7 +62,6 @@ function AddThongTin() {
             if (response.ok) {
                 // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
                 closeFormEdit();
-                alert("Thông tin sử dụng đã được thêm thành công");
                 
             } else {
                 console.error('Lỗi khi thêm thông tin sử dụng');
