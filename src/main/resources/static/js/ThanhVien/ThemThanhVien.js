@@ -4,6 +4,7 @@ function openFormAdd() {
 
 function closeFormAdd() {
     document.getElementById("addForm").style.display = "none";
+    window.location.reload();
 }
 
 

@@ -40,6 +40,7 @@ public class DatMuonController {
 
         Iterable<ThietBiEntity> list= thietBiRepository.findAll();
 
+
         model.addAttribute("data",list);
 
         return "MuonTB.html";
