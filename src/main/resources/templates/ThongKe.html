@@ -254,11 +254,13 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
                 	<div class="card shadow mb-4">
 						<div class="card-body">
 	                        <div class="table-responsive">
-	                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" data-pagination="false">
 	                                <thead>
 		                                <tr>
 		                                    <th>Mã TT</th>
 		                                    <th>Mã Thành Viên</th>
+		                                    <th>Khoa</th>
+		                                    <th>Ngành</th>
 		                                    <th>Mã Thiết bị</th>
 		                                    <th>Thời gian vào</th>
 		                                    <th>Thời gian mượn</th>
@@ -270,6 +272,8 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 		                                <tr th:each="row, state: ${listTTSD}">
 		                                    <td th:utext="${row.MaTT}">...</td>
 		                                    <td th:utext="${row.MaTV.MaTV}">...</td>
+		                                    <td th:utext="${row.MaTV.Khoa}">...</td>
+		                                    <td th:utext="${row.MaTV.Nganh}">...</td>
 		                                    <td th:utext="${row.MaTB != null ? row.MaTB.MaTB : ''}">...</td>
 		                                    <td th:utext="${row.TGVao}">...</td>
 		                                    <td th:utext="${row.TGMuon}">...</td>
@@ -340,7 +344,6 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 	<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 	
 	<!-- Page level custom scripts -->
-	<script src="../js/demo/datatables-demo.js"></script>
 	
 	
 	<script src="../js/ThongKe/ThongKe.js"></script>
