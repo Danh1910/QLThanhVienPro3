@@ -4,6 +4,14 @@ function openFormAdd() {
 
 function closeFormAdd() {
     document.getElementById("addForm").style.display = "none";
+
+    var deviceId = document.getElementById('adddeviceCode');
+    var deviceName = document.getElementById('adddeviceName');
+    var deviceDescription = document.getElementById('adddeviceDescription');
+
+    deviceId.selectedIndex = 0;
+    deviceName.value = '';
+    deviceDescription.value = '';
 }
 
 
