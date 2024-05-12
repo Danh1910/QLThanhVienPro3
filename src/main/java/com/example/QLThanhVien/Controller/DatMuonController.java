@@ -47,19 +47,19 @@ public class DatMuonController {
 
     @PostMapping("/MuonTB.html")
     public void addThongTin(@RequestParam(name = "MaTV") ThanhVienEntity MaTV, @RequestParam(name = "MaTB") ThietBiEntity MaTB, @RequestParam(name = "TGianDatCho") String TGianDatCho){
-        Date date = new Date();
+        Date ngayDatdate = new Date();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         try {
-            date = dateFormat.parse(TGianDatCho);
+            ngayDatdate = formatter.parse(TGianDatCho);
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
         
-        if (CheckDatCho(MaTB, date)) {
+        if (CheckDatCho(MaTB, ngayDatdate)) {
 
-            ThongTinSuDungEntity thongTinSuDungEntity = new ThongTinSuDungEntity(MaTV,MaTB,date);
+            ThongTinSuDungEntity thongTinSuDungEntity = new ThongTinSuDungEntity(MaTV,MaTB,ngayDatdate);
             ttsdRepository.save(thongTinSuDungEntity);
         }
     }
@@ -70,7 +70,11 @@ public class DatMuonController {
     
         for (ThongTinSuDungEntity temp: list){
 
-            if (temp.getMaTB() == MaTB && temp.getTGDatCho() != null) {
+            if (temp.getMaTB() == MaTB && temp.getTGTra() != null) {
+                System.out.println("Không thể đặt thêm chỗ vì thiết bị đang được mượn.");
+                    return false;
+            }
+            else if (temp.getTGDatCho() != null) {
 
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 String strDate = formatter.format(TGianDatCho);
