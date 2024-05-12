@@ -62,14 +62,21 @@ function AddThongTin() {
             if (response.ok) {
                 // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
                 closeFormEdit();
-
                 alert("Thông tin sử dụng đã được thêm thành công");
-                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
                 
             } else {
                 console.error('Lỗi khi thêm thông tin sử dụng');
             }
+            return response.json();
         })
+        .then(data => {
+		    // Xử lý thông báo từ máy chủ
+		    if (data && data.message) {
+		        alert(data.message); // Hiển thị thông báo từ máy chủ
+		    } else {
+		        console.error('Không có thông báo từ máy chủ');
+		    }
+  		})
         .catch(error => {
             console.error('Lỗi khi gửi yêu cầu: ', error);
         });

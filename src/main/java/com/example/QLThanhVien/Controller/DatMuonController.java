@@ -7,6 +7,8 @@ import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThietBiRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +48,7 @@ public class DatMuonController {
     }
 
     @PostMapping("/MuonTB.html")
-    public void addThongTin(@RequestParam(name = "MaTV") ThanhVienEntity MaTV, @RequestParam(name = "MaTB") ThietBiEntity MaTB, @RequestParam(name = "TGianDatCho") String TGianDatCho){
+    public ResponseEntity<Map<String, String>> addThongTin(@RequestParam(name = "MaTV") ThanhVienEntity MaTV, @RequestParam(name = "MaTB") ThietBiEntity MaTB, @RequestParam(name = "TGianDatCho") String TGianDatCho){
         Date ngayDatdate = new Date();
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
@@ -61,7 +63,13 @@ public class DatMuonController {
 
             ThongTinSuDungEntity thongTinSuDungEntity = new ThongTinSuDungEntity(MaTV,MaTB,ngayDatdate);
             ttsdRepository.save(thongTinSuDungEntity);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "a b z y z");
+            return ResponseEntity.ok().body(response);
         }
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Success");
+        return ResponseEntity.ok().body(response);
     }
 
     public boolean CheckDatCho(ThietBiEntity MaTB, Date TGianDatCho){

@@ -56,13 +56,10 @@ public class ThongKeController {
 	        modObjects[index][8] = t.getTGDatCho() != null? t.getTGDatCho().toString() : "";
 	        index++;
 	    }
-
 	    return new ResponseEntity<>(modObjects, HttpStatus.OK);
 	}
-	
 	@RequestMapping("/ThongKe.html")
     public String action(Model model){
-		 
 		model.addAttribute("message", "Thống kê");
         Iterable<ThongTinSuDungEntity> listTTSD = ttsdRepository.findAll();
         model.addAttribute("listTTSD",listTTSD);
