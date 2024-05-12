@@ -88,6 +88,11 @@ public class ThongTinSuDungEntity {
         this.TGDatCho = tgianDatCho;
     }
 
+    public ThongTinSuDungEntity(ThanhVienEntity maTV,Date tgianVao){
+        this.MaTV = maTV;
+        this.TGVao = tgianVao;
+    }
+
 
     
 

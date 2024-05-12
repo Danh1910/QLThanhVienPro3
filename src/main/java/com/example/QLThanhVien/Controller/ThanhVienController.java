@@ -6,7 +6,6 @@ package com.example.QLThanhVien.Controller;
 
 
 import com.example.QLThanhVien.Enity.ThanhVienEntity;
-import com.example.QLThanhVien.Enity.ThietBiEntity;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
 import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThanhVienRepository;
@@ -56,7 +55,17 @@ public class ThanhVienController {
     public String sayHello(Model model){
         model.addAttribute("message", "Quản lý thành viên");
         Iterable<ThanhVienEntity> list= tvRepository.findAll();
+
+        Iterable<ThongTinSuDungEntity> listtt=ttsdRepository.findAll();
+        List<ThongTinSuDungEntity> filteredList = new ArrayList<>();
+
+        for (ThongTinSuDungEntity entity : listtt) {
+            if (entity.getTGMuon() != null && entity.getTGTra() != null) {
+                filteredList.add(entity);
+            }
+        }
         model.addAttribute("data",list);
+        model.addAttribute("data1",filteredList);
 
         return "ThanhVien.html";
     }
@@ -203,6 +212,49 @@ public class ThanhVienController {
         return true;
     }
 
+    @PutMapping(path = "/ThanhVien.html", consumes = "application/json")
+    public void traThietBi(@RequestBody Map<String, Object> requestBody){
+        String maTT = (String) requestBody.get("personIdtt");
+        Integer idTT = Integer.parseInt(maTT);
+        Optional<ThongTinSuDungEntity> ttOptional = ttsdRepository.findById(idTT);
+
+        if (ttOptional.isPresent()) {
+            ThongTinSuDungEntity tt = ttOptional.get();
+            tt.setTGTra(null);
+            ttsdRepository.save(tt);
+        } else {
+            System.out.println("Thất bại!!!");
+        }
+    }
+
+
+    @PostMapping(path = "/ThanhVien.html", consumes = "application/json")
+    public ResponseEntity<Map<String, Object>> enterKhuVuc(@RequestBody Map<String, Object> requestBody) {
+        String maTVString = (String) requestBody.get("maTV");
+        Integer maTV = Integer.parseInt(maTVString);
+
+        ThanhVienEntity thanhVien = tvRepository.findById(Long.valueOf(maTV)).orElse(null);
+
+        List<XuLyViPhamEntity> listxlvp = xlvpRepository.findByMaTV(maTV);
+        boolean isViolating = !listxlvp.isEmpty();
+
+
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("thanhVien",thanhVien);
+        response.put("isViolating", isViolating);
+
+        if (thanhVien != null) {
+            // Nếu Thành viên được tìm thấy, trả về thông tin Thành viên dưới dạng JSON
+            Date date=new Date();
+            ThongTinSuDungEntity ttsd = new ThongTinSuDungEntity(thanhVien,date);
+            ttsdRepository.save(ttsd);
+            return ResponseEntity.ok(response);
+        } else {
+            // Nếu không tìm thấy Thành viên, trả về mã lỗi 404 (Not Found)
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PostMapping("/ThanhVien.html")
     public void addMember(@RequestParam(name = "Ten") String tenTV,

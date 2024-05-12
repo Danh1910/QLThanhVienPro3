@@ -33,9 +33,15 @@ function AddExcel(selectedFile){
 
     })
     .then(data => {
-        alert("Tới bước này FileExcel.js dòng 36")
-        alert(data);
-        window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+        Swal.fire({
+                                      title: "~Tuyệt~",
+                                      text: "Thêm thành công !!",
+                                      icon: "success"
+                                    }).then((result) => {
+                                      if (result.isConfirmed) {
+                                        window.location.reload();
+                                      }
+                                    })
     })
     .catch(error => {
     console.error('There was a problem with your fetch operation:', error);

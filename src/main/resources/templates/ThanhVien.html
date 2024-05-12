@@ -20,6 +20,7 @@
     <!-- Custom styles for this template -->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
 
 
     <!-- Custom styles for this page -->
@@ -31,6 +32,12 @@
     <link href="../css/Css_TV/FormSuaTV.css" rel="stylesheet">
 
     <link href="../css/Css_TV/FormThemTV.css" rel="stylesheet">
+
+    <link href="../css/Css_TV/FormVaoKhuVuc.css" rel="stylesheet">
+
+    <link href="../css/Css_TV/TraThietBi.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -125,6 +132,12 @@
                                     <a class="btn btn-danger btn-circle btn-lg" onclick="deleteThanhVien()">
                                         <i class="fas fa-trash-alt"></i> <!-- Xóa -->
                                     </a>
+                                    <a class="btn btn-warning btn-circle btn-lg" id="enterButton" onclick="openFormEnter()">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                    </a>
+                                    <a class="btn btn-success btn-circle btn-lg" onclick="openFormGive()">
+                                        <i class="fas fa-allergies"></i> <!-- Xóa -->
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +177,7 @@
 
                                     <td>
                                         <a class="btn btn-success btn-circle btn-lg openFormButton">
-                                            <i class="fas fa-pencil-alt"></i> <!-- Sửa -->
+                                            <i class="fas fa-pencil-alt"></i>  <!-- Sửa -->
                                         </a>
 
                                     </td> <!-- Sửa đường dẫn ở đây -->
@@ -292,6 +305,80 @@
     </div>
 </div>
 
+<div class="container">
+    <div id="enterForm" class="enter-form">
+        <h2>Khu Vực Học Tập</h2>
+        <form id="enterPersonForm">
+
+            <div class="form-group">
+                <label for="personName">Mã Thành Viên</label>
+                <input type="text" class="form-control" id="enterPersonCode" value="" />
+            </div>
+            <div class="form-group" >
+                <label for="personSDT">Tên Thành Viên:</label>
+                <input type="text" class="form-control" id="enterPersonName" value="" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="personSDT">Khoa:</label>
+                <input type="text" class="form-control" id="enterPersonKhoa" value="" readonly />
+            </div>
+            <div class="form-group">
+                <label for="personSDT">Ngành:</label>
+                <input type="text" class="form-control" id="enterPersonNganh" value="" readonly />
+            </div>
+            <div class="form-group">
+                <label for="personSDT">SDT:</label>
+                <input type="text" class="form-control" id="enterPersonSDT" value="" readonly />
+            </div>
+            <div class="form-group">
+                <label for="personEmail">Email:</label>
+                <input type="email" class="form-control" id="enterPersonEmail" value=""  readonly/>
+            </div>
+
+            <button type="button" class="btn btn-secondary" onclick="closeFormEnter()">Đóng</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div id="giveForm" class="give-form">
+        <h2>Danh Sách Các Thiết Bị Đang Được Mượn</h2>
+        <form id="givePersonForm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable-Tra" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Mã Thông Tin</th>
+                            <th>Tên Thành Viên</th>
+                            <th>Tên Thiết Bị</th>
+                            <th>Thời Gian Mượn</th>
+                            <th>Thời Gian Trả</th>
+                            <th>Trả Thiết bị</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="row, state: ${data1}" th:idtt="${row.MaTT}" th:idtv="${row.MaTV}" th:idtb="${row.MaTB}" th:tgmuon="${row.TGMuon}" th:tgtra="${row.TGTra}">
+                            <td th:utext="${row.MaTT}">...</td>
+                            <td th:utext="${row.MaTV.Ten}">...</td>
+                            <td th:utext="${row.MaTB.TenTB}">...</td>
+                            <td th:utext="${row.TGMuon}">...</td>
+                            <td th:utext="${row.TGTra}">...</td>
+                            <!-- Sửa đường dẫn ở đây -->
+                            <td>
+                                <a class="btn btn-success btn-circle btn-lg openFormTra">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="closeFormGive()">Đóng</button>
+        </form>
+    </div>
+</div>
 
 
 <!-- Scroll to Top Button-->
@@ -340,7 +427,13 @@ Bootstrap core JavaScript
 
 <script src="../js/ThanhVien/ThemThanhVien.js"></script>
 
+<script src="../js/ThanhVien/VaoKhuVucHocTap.js"></script>
+
 <script src="../js/ThanhVien/FileExcel.js"></script>
+
+<script src="../js/ThanhVien/TraThietBi.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-JzfvrGFIbTJNhKXwrIvVHbAxOHTzS0jopOgZsd2V3yn6UJveE6wJl+qdY2n0dfZw" crossorigin="anonymous"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

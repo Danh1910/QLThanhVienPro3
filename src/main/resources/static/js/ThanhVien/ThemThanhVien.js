@@ -36,11 +36,22 @@ function saveAdd() {
                 // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
                 closeFormAdd();
 
-                alert("Thiết bị đã được thêm thành công");
-                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+                Swal.fire({
+                                                  title: "~Tuyệt~",
+                                                  text: "Thêm thành viên thành công !!",
+                                                  icon: "success"
+                                               }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        window.location.reload();
+                                                    }
+                                                 });
 
             } else {
-                console.error('Lỗi khi thêm thành viên');
+                Swal.fire({
+                                                icon: 'error',
+                                                title: 'Lỗi!',
+                                                text: 'Lỗi thêm thành viên !',
+                                            });
             }
         })
         .catch(error => {
@@ -49,6 +60,8 @@ function saveAdd() {
     
     }
 }
+
+
 var addButton = document.getElementById('addButton');
 
 // Thêm trình nghe sự kiện cho sự kiện nhấp chuột
@@ -56,37 +69,39 @@ addButton.addEventListener('click', function(event) {
     openFormAdd();
 });
 
-// Lấy phần tử select của Khoa và Ngành
-var khoaSelect = document.getElementById('addPersonKhoa');
-var nganhSelect = document.getElementById('addPersonNganh');
+document.addEventListener('DOMContentLoaded', function() {
+    // Lấy phần tử select của Khoa và Ngành
+    var khoaSelect = document.getElementById('addPersonKhoa');
+    var nganhSelect = document.getElementById('addPersonNganh');
 
-// Một đối tượng chứa các ngành tương ứng với mỗi khoa
-var nganhOptions = {
-    "SP KHXH": ["Địa", "Sử", "Văn"],
-    "SP KHTN": ["Lí", "Hóa", "Sinh"],
-    "Ngoại Ngữ": ["Anh", "NNA"],
-    "QTKD": ["QTKD"],
-    "QLGD": ["TLH"],
-    "Toán UD": ["Toán"],
-    "CNTT": ["CNTT", "KTPM", "HTTT"]
-};
+    // Một đối tượng chứa các ngành tương ứng với mỗi khoa
+    var nganhOptions = {
+        "SP KHXH": ["Địa", "Sử", "Văn"],
+        "SP KHTN": ["Lí", "Hóa", "Sinh"],
+        "Ngoại Ngữ": ["Anh", "NNA"],
+        "QTKD": ["QTKD"],
+        "QLGD": ["TLH"],
+        "Toán UD": ["Toán"],
+        "CNTT": ["CNTT", "KTPM", "HTTT"]
+    };
 
-// Thêm sự kiện change cho select của Khoa
-khoaSelect.addEventListener('change', function() {
-    // Xóa các option cũ trong select của Ngành
-    nganhSelect.innerHTML = '';
+    // Thêm sự kiện change cho select của Khoa
+    khoaSelect.addEventListener('change', function() {
+        // Xóa các option cũ trong select của Ngành
+        nganhSelect.innerHTML = '';
 
-    // Lấy ra giá trị của khoa đã chọn
-    var selectedKhoa = khoaSelect.value;
+        // Lấy ra giá trị của khoa đã chọn
+        var selectedKhoa = khoaSelect.value;
 
-    // Lấy danh sách các ngành tương ứng với khoa đã chọn và thêm chúng vào select của Ngành
-    var nganhs = nganhOptions[selectedKhoa];
-    nganhs.forEach(function(nganh) {
-        var option = document.createElement('option');
-        option.textContent = nganh;
-        option.value = nganh;
-        nganhSelect.appendChild(option);
+        // Lấy danh sách các ngành tương ứng với khoa đã chọn và thêm chúng vào select của Ngành
+        var nganhs = nganhOptions[selectedKhoa];
+        nganhs.forEach(function(nganh) {
+            var option = document.createElement('option');
+            option.textContent = nganh;
+            option.value = nganh;
+            nganhSelect.appendChild(option);
+        });
     });
-});
+ })
 
 

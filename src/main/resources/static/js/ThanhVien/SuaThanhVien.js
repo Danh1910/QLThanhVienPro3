@@ -45,9 +45,9 @@ function saveChanges() {
                             closeFormEdit();
 //                            window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
                             Swal.fire({
-                              title: "Good job!",
-                              text: "Edit",
-                              icon: "Sửa thành công"
+                              title: "~Tuyệt~",
+                              text: "Sửa thành công !!",
+                              icon: "success"
                             }).then((result) => {
                               if (result.isConfirmed) {
                                 window.location.reload();
@@ -56,7 +56,11 @@ function saveChanges() {
 
 
                         } else {
-                            console.error('Lỗi khi lưu thiết bị');
+                            Swal.fire({
+                                                            icon: 'error',
+                                                            title: 'Lỗi!',
+                                                            text: 'Sửa thất bại!',
+                                                        });
                         }
                     })
                     .catch(error => {

@@ -18,4 +18,8 @@ public interface ThanhVienRepository extends CrudRepository<ThanhVienEntity,Long
 
     @Query("SELECT COUNT(*) FROM ThanhVienEntity")
     Long countAll();
+
+
+
+
 }
