@@ -1,7 +1,6 @@
 package com.example.QLThanhVien.Controller;
 
 
-import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import com.example.QLThanhVien.Enity.ThietBiEntity;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
 import com.example.QLThanhVien.Repository.ThanhVienRepository;
@@ -9,11 +8,8 @@ import com.example.QLThanhVien.Repository.ThietBiRepository;
 import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.data.repository.config.RepositoryConfigurationExtension;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +22,9 @@ public class ThongKeController {
 	@PutMapping("/ThongKe.html")
 	public ResponseEntity<Object[][]> action(@RequestParam("chon") String chon, @RequestParam(name = "search", required = false) String search) {
 
-	    List<ThongTinSuDungEntity> listTTSD = new ArrayList<>();
+
+
+		List<ThongTinSuDungEntity> listTTSD = new ArrayList<>();
 
 	    // Kiểm tra nếu mã thành viên được cung cấp
 	    if (search != null) {
@@ -60,6 +61,11 @@ public class ThongKeController {
 	}
 	@RequestMapping("/ThongKe.html")
     public String action(Model model){
+
+		// Kiểm tra thời gian đặt chỗ
+//
+		new MuonThietBiController().XoaDatCho_1gio(ttsdRepository);
+
 		model.addAttribute("message", "Thống kê");
         Iterable<ThongTinSuDungEntity> listTTSD = ttsdRepository.findAll();
         model.addAttribute("listTTSD",listTTSD);

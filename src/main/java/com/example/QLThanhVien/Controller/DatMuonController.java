@@ -3,7 +3,6 @@ package com.example.QLThanhVien.Controller;
 import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import com.example.QLThanhVien.Enity.ThietBiEntity;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
-import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThietBiRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.QLThanhVien.Repository.ThanhVienRepository;

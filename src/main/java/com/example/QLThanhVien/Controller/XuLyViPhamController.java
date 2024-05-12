@@ -1,8 +1,6 @@
 package com.example.QLThanhVien.Controller;
 
 import com.example.QLThanhVien.Enity.ThanhVienEntity;
-import com.example.QLThanhVien.Enity.ThietBiEntity;
-import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
 import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.XuLyViPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

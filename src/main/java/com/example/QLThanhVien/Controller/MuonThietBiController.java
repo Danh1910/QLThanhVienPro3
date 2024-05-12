@@ -37,6 +37,10 @@ public class MuonThietBiController {
     @RequestMapping("/MuonThietBi/{maTV}")
     public String openFormMuon(@PathVariable("maTV") int maTV, Model model) {
 
+        // Kiểm tra thời gian đặt chỗ
+
+		XoaDatCho_1gio(thongTinSuDungRepository);
+
         MaTV = maTV;
 
         ThanhVienEntity tv=   tvRepository.findById(Long.valueOf(maTV)).orElse(null);
@@ -135,5 +139,32 @@ public class MuonThietBiController {
             }
         }
         return true;
+    }
+
+
+    public void XoaDatCho_1gio(ThongTinSuDungRepository thongTinSuDungRepository){
+        List<ThongTinSuDungEntity> list  = thongTinSuDungRepository.LayThongTinSuDungTB();
+
+        for (ThongTinSuDungEntity temp : list){
+            if (temp.getTGDatCho() != null){
+                Date thoigianDat = temp.getTGDatCho();
+                Date thoigianHienTai = new Date();
+
+                // Tính sự chênh lệch
+
+                long diffInMilliseconds = thoigianDat.getTime() - thoigianHienTai.getTime();
+
+                long diffInHours = diffInMilliseconds / (60 * 60 * 1000);
+
+
+                System.out.println(thoigianDat + "\n" + thoigianHienTai+"\n"+diffInHours);
+
+                if (diffInHours <= -1){
+                    thongTinSuDungRepository.delete(temp);
+                }
+
+
+            }
+        }
     }
 }
