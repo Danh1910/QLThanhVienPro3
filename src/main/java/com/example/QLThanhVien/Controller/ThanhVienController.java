@@ -6,7 +6,6 @@ package com.example.QLThanhVien.Controller;
 
 
 import com.example.QLThanhVien.Enity.ThanhVienEntity;
-import com.example.QLThanhVien.Enity.ThietBiEntity;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
 import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThanhVienRepository;

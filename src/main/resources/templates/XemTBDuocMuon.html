@@ -61,7 +61,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="ThongTinTV.html?maTV=1120010007">
+            <a class="nav-link" href="ThongTinTV.html">
                 <i class="fas fa-fw fa-users"></i>
                 <span>Thành viên</span></a>
         </li>
@@ -80,7 +80,7 @@
         </li>
 
         <li class="nav-item active">
-            <a class="nav-link" href="XemThietBiDuocMuon.html">
+            <a class="nav-link" href="#">
                 <i class="fas fa-desktop"></i>
                 <span>Thiết bị được mượn</span></a>
         </li>
@@ -406,6 +406,62 @@
 
 <script src="../js/ThietBi/ThemThietBi.js"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy tham số maTV từ URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var maTV = urlParams.get('maTV');
+
+        // Lấy tất cả các liên kết có href là ThongTinTV.html
+        var ThongTinTVLinks = document.querySelectorAll('a[href="ThongTinTV.html"]');
+
+        // Lặp qua từng liên kết
+        ThongTinTVLinks.forEach(function (link) {
+            // Gắn tham số maTV vào URL của liên kết
+            if (maTV) {
+                link.href = "ThongTinTV.html?maTV=" + maTV;
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy tham số maTV từ URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var maTV = urlParams.get('maTV');
+
+        // Lấy tất cả các liên kết có href là MuonTB.html
+        var muonTBLinks = document.querySelectorAll('a[href="MuonTB.html"]');
+
+        // Lặp qua từng liên kết
+        muonTBLinks.forEach(function (link) {
+            // Gắn tham số maTV vào URL của liên kết
+            if (maTV) {
+                link.href = "MuonTB.html?maTV=" + maTV;
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy tham số maTV từ URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var maTV = urlParams.get('maTV');
+
+        // Lấy tất cả các liên kết có href là XemViPham.html
+        var XemViPhamLinks = document.querySelectorAll('a[href="XemViPham.html"]');
+
+        // Lặp qua từng liên kết
+        XemViPhamLinks.forEach(function (link) {
+            // Gắn tham số maTV vào URL của liên kết
+            if (maTV) {
+                link.href = "XemViPham.html?maTV=" + maTV;
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

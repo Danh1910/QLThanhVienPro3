@@ -61,7 +61,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="ThongTinTV.html?maTV=1120010007">
+            <a class="nav-link" href="ThongTinTV.html">
                 <i class="fas fa-fw fa-users"></i>
                 <span>Thành viên</span></a>
         </li>
@@ -74,7 +74,7 @@
         </li>
 
         <li class="nav-item active">
-            <a class="nav-link" href="XemViPham.html">
+            <a class="nav-link" href="#">
                 <i class="fas fa-desktop"></i>
                 <span>Vi phạm</span></a>
         </li>
@@ -432,6 +432,71 @@
 <script src="../js/ThietBi/FileExcel.js"></script>
 
 <script src="../js/ThietBi/ThemThietBi.js"></script>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var maTV = urlParams.get('maTV');
+        document.getElementById("MaTV").value = maTV;
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy tham số maTV từ URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var maTV = urlParams.get('maTV');
+
+        // Lấy tất cả các liên kết có href là ThongTinTV.html
+        var ThongTinTVLinks = document.querySelectorAll('a[href="ThongTinTV.html"]');
+
+        // Lặp qua từng liên kết
+        ThongTinTVLinks.forEach(function (link) {
+            // Gắn tham số maTV vào URL của liên kết
+            if (maTV) {
+                link.href = "ThongTinTV.html?maTV=" + maTV;
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy tham số maTV từ URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var maTV = urlParams.get('maTV');
+
+        // Lấy tất cả các liên kết có href là MuonTB.html
+        var muonTBLinks = document.querySelectorAll('a[href="MuonTB.html"]');
+
+        // Lặp qua từng liên kết
+        muonTBLinks.forEach(function (link) {
+            // Gắn tham số maTV vào URL của liên kết
+            if (maTV) {
+                link.href = "MuonTB.html?maTV=" + maTV;
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy tham số maTV từ URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var maTV = urlParams.get('maTV');
+
+        // Lấy tất cả các liên kết có href là XemTBDuocMuon.html
+        var XemTBDuocMuonLinks = document.querySelectorAll('a[href="XemTBDuocMuon.html"]');
+
+        // Lặp qua từng liên kết
+        XemTBDuocMuonLinks.forEach(function (link) {
+            // Gắn tham số maTV vào URL của liên kết
+            if (maTV) {
+                link.href = "XemTBDuocMuon.html?maTV=" + maTV;
+            }
+        });
+    });
+</script>
 
 </body>
 
