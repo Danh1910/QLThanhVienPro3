@@ -89,7 +89,7 @@ public class DatMuonController {
                 }
                 
             }
-            else if (temp.getTGDatCho() != null) {
+            else if (temp.getMaTB() == MaTB && temp.getTGDatCho() != null) {
 
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 String strDate = formatter.format(TGianDatCho);
