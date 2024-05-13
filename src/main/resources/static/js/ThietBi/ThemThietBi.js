@@ -35,8 +35,15 @@ function saveAdd() {
                 // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
                 closeFormAdd();
 
-                alert("Thiết bị đã được thêm thành công");
-                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+                Swal.fire({
+                    title: "~Tuyệt~",
+                    text: "Thêm thành công",
+                    icon: "success"
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      window.location.reload();
+                    }
+                  })
                 
             } else {
                 console.error('Lỗi khi thêm thiết bị');

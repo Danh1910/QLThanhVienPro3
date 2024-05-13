@@ -46,9 +46,16 @@ document.addEventListener('DOMContentLoaded', function (){
         })
         .then(data => {
 
-            alert(data);
-            // Chuyển đến trang web mới
-            window.location.href = 'http://localhost:8080/ThanhVien.html';
+            Swal.fire({
+                title: "Thông báo",
+                text: data,
+                icon: "info"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'http://localhost:8080/ThanhVien.html';
+                }
+              })
+            
         })
         .catch(error => {
             console.error('There was a problem with your fetch operation:', error);

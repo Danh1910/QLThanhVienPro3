@@ -33,8 +33,15 @@ function AddExcel(selectedFile){
         
     })
     .then(data => {
-        alert(data);
-        window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+        Swal.fire({
+            title: "Thông báo",
+            text: data,
+            icon: "info"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          })
     })
     .catch(error => {
     console.error('There was a problem with your fetch operation:', error);
