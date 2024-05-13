@@ -71,7 +71,15 @@ function AddThongTin() {
         .then(data => {
 		    // Xử lý thông báo từ máy chủ
 		    if (data && data.message) {
-		        alert(data.message); // Hiển thị thông báo từ máy chủ
+                Swal.fire({
+                    title: "Thông báo",
+                    text: data.message,
+                    icon: "info"
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      window.location.reload();
+                    }
+                  })
 		    } else {
 		        console.error('Không có thông báo từ máy chủ');
 		    }

@@ -3,6 +3,7 @@ package com.example.QLThanhVien.Controller;
 import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import com.example.QLThanhVien.Enity.ThietBiEntity;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
+import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThietBiRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
+import com.example.QLThanhVien.Repository.XuLyViPhamRepository;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
@@ -31,6 +34,9 @@ public class DatMuonController {
 
     @Autowired
     private ThongTinSuDungRepository ttsdRepository;
+
+    @Autowired
+    private XuLyViPhamRepository xLyViPhamRepository;
 
 
     @RequestMapping("/MuonTB.html")
@@ -57,6 +63,12 @@ public class DatMuonController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        if (CheckViPham(MaTV)){
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Bạn đang vi phạm nên không thể đặt chỗ thiết bị");
+            return ResponseEntity.ok().body(response);
+        }
         
         if (CheckDatCho(MaTB, ngayDatdate)) {
 
@@ -67,7 +79,7 @@ public class DatMuonController {
             return ResponseEntity.ok().body(response);
         }
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Thiết bị đã được đặt chỗ hoặc đang mượn");
+        response.put("message", "Không thể đặt chỗ vì thiết bị đã được đặt chỗ hoặc đang mượn");
         return ResponseEntity.ok().body(response);
     }
 
@@ -112,4 +124,23 @@ public class DatMuonController {
         return true;
     }
 
+
+    public boolean CheckViPham(ThanhVienEntity MaTV){
+
+        Iterable<XuLyViPhamEntity> listvp = xLyViPhamRepository.findAll();
+        System.out.println("Hàm đã chạy \n");
+        for (XuLyViPhamEntity temp : listvp){
+            System.out.println("vòng for \n");
+            if (temp.getMaTV() == MaTV ) {
+                System.out.println("MSSV: " + MaTV.getMaTV());
+                if (temp.getTrang_thaixl() == 0) {
+                    System.out.println("Thanh niên này đang vi phạm");
+                    return true;
+                }
+            }
+        }
+
+
+        return true;
+    }
 }
