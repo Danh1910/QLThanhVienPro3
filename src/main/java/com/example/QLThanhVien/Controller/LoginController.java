@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
@@ -19,6 +20,10 @@ public class LoginController {
     @Autowired
     private ThanhVienRepository tvRepository;
 
+    @RequestMapping("/DangNhap.html")
+    public String loginxin(){
+        return "/DangNhap.html";
+    }
 
     @PostMapping("/login.html")
     public String login(@RequestParam Integer maTV, @RequestParam String password, Model model) {
