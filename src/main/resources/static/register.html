@@ -44,54 +44,47 @@
 
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <select class="form-control form-control-user" id="exampleKhoa" name="exampleKhoa">
-                                            <option value="">Chọn khoa hoặc nhập mới...</option>
-                                            <option value="KhoaCNTT">Khoa CNTT</option>
-                                            <option value="KhoaQTKD">Khoa QTKD</option>
-                                            <option value="Khoa 3">Khoa 3</option>
+                                        <select class="form-control" id="exampleKhoa" style="border-radius:10rem">
+                                            <option value="QTKD">QTKD</option>
+                                            <option value="SP KHTN">SP KHTN</option>
+                                            <option value="SP KHXH">SP KHXH</option>
+                                            <option value="Ngoại Ngữ">Ngoại Ngữ</option>
+                                            <option value="QLGD">QLGD</option>
+                                            <option value="Toán UD">Toán UD</option>
+                                            <option value="CNTT">CNTT</option>
                                             <!-- Thêm các option khác nếu cần -->
                                         </select>
                                     </div>
 
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <select class="form-control form-control-user" id="exampleKhoa" name="exampleKhoa">
-                                            <option value="">Chọn khoa hoặc nhập mới...</option>
-                                            <option value="KhoaCNTT">công ngẹe</option>
-                                            <option value="KhoaQTKD">đasa</option>
-                                            <option value="Khoa 3">gdfgdf</option>
-                                            <!-- Thêm các option khác nếu cần -->
+                                        <select class="form-control" id="exampleNganh" style="border-radius:10rem">
+                                            <option>QTKD</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                    <input type="email" class="form-control form-control-user" id="exampleEmail"
                                         placeholder="Email">
                                 </div>
                                 <div class="form-group">
                                     <input type="SDT" class="form-control form-control-user" id="exampleSDT"
                                            placeholder="Số điện thoại">
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Mật khẩu">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Nhập lại mật khẩu">
-                                    </div>
+                                <div class="form-group">
+<!--                                    <div class="col-sm-6 mb-3 mb-sm-0">-->
+                                    <input type="password" class="form-control form-control-user"
+                                            id="examplePassword" placeholder="Mật khẩu">
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+<!--                                    <div class="col-sm-6">-->
+<!--                                        <input type="password" class="form-control form-control-user"-->
+<!--                                            id="exampleRepeat" placeholder="Nhập lại mật khẩu">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <a class="btn btn-primary btn-user btn-block " onclick="saveAdd()">
                                     Register Account
                                 </a>
-                                <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
+
                             </form>
                             <hr>
                             <div class="text-center">
@@ -117,6 +110,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script src="../js/Login/Register.js"></script>
 
 </body>
 
