@@ -55,15 +55,10 @@ public class MuonThietBiController {
     @PostMapping("/MuonThietBi.html")
     public ResponseEntity<String> addMuon(@RequestParam(name = "MaTV") Integer MaTV, @RequestParam (name = "MaTB") Integer MaTB, @RequestParam (name = "NgayMuon") String NgayMuon, @RequestParam (name = "NgayTra") String NgayTra){
 
-        ThongTinSuDungEntity thongTinSuDung = new ThongTinSuDungEntity();
 
-        System.out.println(NgayMuon);
 
-        // Set up thông tin truoc khi them vao
+        Iterable<ThongTinSuDungEntity> list = thongTinSuDungRepository.LayThongTinSuDungTB();
 
-        ThanhVienEntity TV = tvRepository.findById(Long.valueOf(MaTV)).orElse(null);
-
-        ThietBiEntity TB = thietBiRepository.findById(MaTB).orElse(null);
 
         Date ngayMuonDate = new Date();
 
@@ -77,6 +72,28 @@ public class MuonThietBiController {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+
+        for (ThongTinSuDungEntity temp : list){
+            if (temp.getMaTV().getMaTV() == MaTV && temp.getMaTB().getMaTB().equals(MaTB) && temp.getTGDatCho() != null){
+                temp.setTGMuon(ngayMuonDate);
+                temp.setTGTra(ngayTraDate);
+                temp.setTGDatCho(null);
+                thongTinSuDungRepository.save(temp);
+                return ResponseEntity.ok("Mượn thành công");
+            }
+        }
+
+
+
+        // Neu khong dat cho truoc thi chay o duoi day
+
+        ThongTinSuDungEntity thongTinSuDung = new ThongTinSuDungEntity();
+
+        // Set up thông tin truoc khi them vao
+
+        ThanhVienEntity TV = tvRepository.findById(Long.valueOf(MaTV)).orElse(null);
+
+        ThietBiEntity TB = thietBiRepository.findById(MaTB).orElse(null);
 
 
         if (TV == null || TB == null){
@@ -146,7 +163,7 @@ public class MuonThietBiController {
         List<ThongTinSuDungEntity> list  = thongTinSuDungRepository.LayThongTinSuDungTB();
 
         for (ThongTinSuDungEntity temp : list){
-            if (temp.getTGDatCho() != null){
+            if (temp.getTGDatCho() != null) {
                 Date thoigianDat = temp.getTGDatCho();
                 Date thoigianHienTai = new Date();
 
@@ -157,9 +174,9 @@ public class MuonThietBiController {
                 long diffInHours = diffInMilliseconds / (60 * 60 * 1000);
 
 
-                System.out.println(thoigianDat + "\n" + thoigianHienTai+"\n"+diffInHours);
+                System.out.println(thoigianDat + "\n" + thoigianHienTai + "\n" + diffInHours);
 
-                if (diffInHours <= -1){
+                if (diffInHours <= -1) {
                     thongTinSuDungRepository.delete(temp);
                 }
 
