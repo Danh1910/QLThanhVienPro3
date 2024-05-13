@@ -11,6 +11,13 @@ import java.util.List;
 
 @Repository
 public interface ThongTinSuDungRepository extends CrudRepository<ThongTinSuDungEntity, Integer> {
+
+	@Query("SELECT tb FROM ThongTinSuDungEntity tb WHERE tb.MaTV.MaTV = :maTV AND tb.TGMuon IS NOT NULL AND tb.TGTra IS NOT NULL")
+	List<ThongTinSuDungEntity> listmuon(Integer maTV);
+
+	@Query("SELECT tb FROM ThongTinSuDungEntity tb WHERE tb.MaTV.MaTV = :maTV AND tb.TGMuon IS NOT NULL AND tb.TGTra IS NULL")
+	List<ThongTinSuDungEntity> listmuon1(Integer maTV);
+
 	@Query(value = "SELECT tsd.* "
 			+ "FROM thongtinsd tsd "
 			+ "JOIN thanhvien tv ON tsd.MaTV = tv.MaTV "

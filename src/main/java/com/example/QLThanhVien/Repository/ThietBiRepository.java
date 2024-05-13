@@ -2,6 +2,7 @@ package com.example.QLThanhVien.Repository;
 
 
 import com.example.QLThanhVien.Enity.ThietBiEntity;
+import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

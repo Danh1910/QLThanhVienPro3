@@ -25,7 +25,7 @@ public class LoginController {
         return "/DangNhap.html";
     }
 
-    @PostMapping("/login.html")
+    @PostMapping("/DangNhap.html")
     public String login(@RequestParam Integer maTV, @RequestParam String password, Model model) {
         // Tìm thông tin của thành viên dựa trên mã thành viên
         ThanhVienEntity user = tvRepository.findById(Long.valueOf(maTV)).orElse(null);

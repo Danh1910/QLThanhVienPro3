@@ -84,6 +84,11 @@
                 <i class="fas fa-desktop"></i>
                 <span>Thiết bị được mượn</span></a>
         </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="XemTBDaMuon.html">
+                <i class="fas fa-desktop"></i>
+                <span>Thiết bị đã mượn</span></a>
+        </li>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -175,26 +180,23 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Mã thiết bị</th>
-                                    <th>Tên thiết bị</th>
-                                    <th>Mô tả thiết bị</th>
-                                    <th>Trạng thái đặt chỗ</th>
-                                    <th></th>
+                                    <th>Mã Xử Lý</th>
+                                    <th>Ngày Xử Lý</th>
+                                    <th>Hình Thức Xử Lý</th>
+                                    <th>Số Tiền</th>
+                                    <th>Trạng Thái Xử Lý</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
 
-                                <tr th:each="row, state: ${data}" th:idtb="${row.MaTB}" th:tentb="${row.TenTB}" th:motatb="${row.MoTaTB}">
-                                    <td th:utext="${row.MaTB}">...</td>
-                                    <td th:utext="${row.TenTB}">...</td>
-                                    <td th:utext="${row.MoTaTB}">...</td>
-                                    <td>...</td>
-                                    <td>
-                                        <a class="btn btn-success btn-circle btn-lg openFormButton">
-                                            <i class="fas fa-pencil-alt"></i> <!-- Sửa -->
-                                        </a>
-                                    </td> <!-- Sửa đường dẫn ở đây -->
+                                <tr th:each="row, state: ${data}">
+                                    <td th:utext="${row.MaXL}">...</td>
+                                    <td th:utext="${row.NgayXL}">...</td>
+                                    <td th:utext="${row.hinh_thucxl}">...</td>
+                                    <td th:utext="${row.so_tien}">...</td>
+                                    <td th:utext="${row.trang_thaixl == 0 ? 'Chưa xử lý' : 'Đã xử lý'}">...</td>
+
                                 </tr>
 
                                 </tbody>

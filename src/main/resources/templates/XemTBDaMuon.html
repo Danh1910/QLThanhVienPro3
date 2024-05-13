@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Thiết bị được mượn</title>
+    <title>Thiết bị đã mượn</title>
 
     <!-- Custom fonts for this template -->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -175,7 +175,7 @@
             <div class="container-fluid">
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
-                
+
                     <div class="card-body">
 
                         <div class="table-responsive">
@@ -185,19 +185,20 @@
                                     <th>Mã Thông Tin</th>
                                     <th>Tên Thiết Bị</th>
                                     <th>Thời Gian Mượn</th>
-                                    <th>Thời Gian Trả</th>
+                                    <th>Trạng Thái</th>
 
                                 </tr>
                                 </thead>
 
                                 <tbody>
 
-                                <tr th:each="row, state: ${data}" >
+                                <tr th:each="row, state: ${data1}" >
                                     <td th:utext="${row.MaTT}">...</td>
                                     <td th:utext="${row.MaTB.TenTB}">...</td>
                                     <td th:utext="${row.TGMuon}">...</td>
-                                    <td th:utext="${row.TGTra}">...</td>
-                                     <!-- Sửa đường dẫn ở đây -->
+                                    <td th:utext="${row.TGTra == null ? 'Đã xử lý' : 'Chưa xử lý'}">...</td>
+
+                                    <!-- Sửa đường dẫn ở đây -->
                                 </tr>
 
                                 </tbody>

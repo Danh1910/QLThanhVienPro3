@@ -15,4 +15,5 @@ public interface XuLyViPhamRepository extends CrudRepository<XuLyViPhamEntity, I
     List<XuLyViPhamEntity> findByMaTV(Integer maTV);
 
 
+
 }
