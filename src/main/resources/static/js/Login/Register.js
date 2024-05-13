@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
          var personSDT = document.getElementById('exampleSDT');
          var personEmail = document.getElementById('exampleEmail');
          var personPassword = document.getElementById('examplePassword');
+         var personRepeat = document.getElementById('exampleRepeat')
 
 
          if (personName && personKhoa && personNganh && personSDT && personEmail && personPassword) {
@@ -49,37 +50,46 @@ document.addEventListener('DOMContentLoaded', function() {
                  const sdt = personSDT.value;
                  const email = personEmail.value;
                  const password = personPassword.value;
+                 const repeat = personRepeat.value;
+                 if(password != repeat){
+                     Swal.fire({
+                                               icon: 'error',
+                                               title: 'Lỗi!',
+                                               text: 'Nhập lại mật khẩu !',
+                     });
+                 }
+                 else{
+                    fetch('/DangKy.html?&Ten=' + tenTV + '&Khoa=' + khoa + '&Nganh=' + nganh + '&SDT=' + sdt + '&Email=' + email + '&Password=' + password, {
+                                         method: 'POST'
+                                     })
+                                     .then(response => {
+                                         if (response.ok) {
+                                             // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
 
 
-                 fetch('/DangKy.html?&Ten=' + tenTV + '&Khoa=' + khoa + '&Nganh=' + nganh + '&SDT=' + sdt + '&Email=' + email + '&Password=' + password, {
-                     method: 'POST'
-                 })
-         .then(response => {
-             if (response.ok) {
-                 // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
+                                             Swal.fire({
+                                                                               title: "~Tuyệt~",
+                                                                               text: "Đăng ký thành công !!",
+                                                                               icon: "success"
+                                                                            }).then((result) => {
+                                                                                 if (result.isConfirmed) {
+                                                                                     window.location.href = '/Login.html';
+                                                                                 }
+                                                                              });
+
+                                         } else {
+                                             Swal.fire({
+                                                                             icon: 'error',
+                                                                             title: 'Lỗi!',
+                                                                             text: 'Lỗi thêm thành viên !',
+                                                                         });
+                                         }
+                                     })
+                                     .catch(error => {
+                                         console.error('Lỗi khi gửi yêu cầu: ', error);
+                                     });
+                 }
 
 
-                 Swal.fire({
-                                                   title: "~Tuyệt~",
-                                                   text: "Đăng ký thành công !!",
-                                                   icon: "success"
-                                                }).then((result) => {
-                                                     if (result.isConfirmed) {
-                                                         window.location.href = '/Login.html';
-                                                     }
-                                                  });
-
-             } else {
-                 Swal.fire({
-                                                 icon: 'error',
-                                                 title: 'Lỗi!',
-                                                 text: 'Lỗi thêm thành viên !',
-                                             });
-             }
-         })
-         .catch(error => {
-             console.error('Lỗi khi gửi yêu cầu: ', error);
-         });
-
-     }
+        }
  }

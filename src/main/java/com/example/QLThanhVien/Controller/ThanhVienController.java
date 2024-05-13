@@ -66,6 +66,7 @@ public class ThanhVienController {
         }
         model.addAttribute("data",list);
         model.addAttribute("data1",filteredList);
+        model.addAttribute("ListMaTV",list);
 
         return "ThanhVien.html";
     }
