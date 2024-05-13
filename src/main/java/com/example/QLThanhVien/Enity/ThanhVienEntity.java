@@ -61,7 +61,7 @@ public class ThanhVienEntity {
         this.SDT = SDT;
     }
 
-    public ThanhVienEntity(int MaTV, String Ten, String Khoa, String Nganh, String SDT, String Email,String Password) {
+    public ThanhVienEntity(int MaTV, String Ten, String Khoa, String Nganh, String SDT,String Password, String Email) {
         this.MaTV = MaTV;
         this.Ten = Ten;
         this.Khoa = Khoa;
