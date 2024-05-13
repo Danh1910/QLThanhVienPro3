@@ -7,6 +7,10 @@ function closeFormAdd() {
 }
 var addButton = document.getElementById('openFormButton');
 
+$(document).ready(function() {
+    $('#MaTV').select2();
+});
+
 function saveAdd() {
     // Lấy phần tử input bằng id
 
@@ -16,6 +20,8 @@ function saveAdd() {
     var NgayXL = document.getElementById('NgayXL');
     var TrangThaiXL = document.getElementById('TrangThaiXL');
 
+    
+
     if (MaTV && HTXL && SoTien && NgayXL && TrangThaiXL) {
 
         const matv = MaTV.value;
@@ -23,7 +29,15 @@ function saveAdd() {
         const sotien = SoTien.value; 
         const ngayxl = NgayXL.value;
         const trangthaixl = TrangThaiXL.selectedIndex;
-
+        console.log(typeof(matv))
+        if (matv.trim() === '' || sotien.trim() === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Vui lòng nhập đầy đủ thông tin!',
+            });
+            return;
+        }
         fetch('/XuLyViPham.html?MaTV=' + matv + '&HTXL=' + htxl + '&SoTien=' + sotien + '&NgayXL=' + ngayxl+ '&TrangThaiXL=' + trangthaixl, {
             method: 'POST'
         })
@@ -32,8 +46,14 @@ function saveAdd() {
                 // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
                 closeFormAdd();
 
-                alert("Xử lý vi phạm đã được thêm thành công");
-                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+                Swal.fire({
+                    text: "Thêm thành công !",
+                    icon: "success"
+                 }).then((result) => {
+                      if (result.isConfirmed) {
+                          window.location.reload();
+                      }
+                   });
                 
             } else {
                 console.error('Lỗi khi thêm xử lý vi phạm');

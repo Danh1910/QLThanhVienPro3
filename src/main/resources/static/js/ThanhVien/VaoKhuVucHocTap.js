@@ -6,7 +6,9 @@ function closeFormEnter() {
     document.getElementById("enterForm").style.display = "none";
 }
 
-
+$(document).ready(function() {
+    $('#enterPersonCode').select2();
+});
 
 var enterPersonCodeInput = document.getElementById('enterPersonCode');
 enterPersonCodeInput.addEventListener('keypress', function(event) {
