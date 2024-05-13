@@ -2,6 +2,7 @@ package com.example.QLThanhVien.Controller;
 
 import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
+import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import com.example.QLThanhVien.Repository.XuLyViPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,20 +19,23 @@ import java.util.Optional;
 public class XuLyViPhamController {
     @Autowired
     private XuLyViPhamRepository xlvpRepository;
+    @Autowired
+    private ThanhVienRepository tvRepository;
     @RequestMapping("/XuLyViPham.html")
     public String LoadData(Model model){
 
-
+        Iterable<ThanhVienEntity> listTV = tvRepository.findAll();
         Iterable<XuLyViPhamEntity> list= xlvpRepository.findAll();
 
         model.addAttribute("data",list);
-
+        model.addAttribute("ListMaTV",listTV);
 
         return "XuLyViPham.html";
     }
 
     @PutMapping("/XuLyViPham.html")
     public void editXLVP(@RequestParam(name = "MaXL") Integer MaXL, @RequestParam(name = "MaTV") ThanhVienEntity MaTV, @RequestParam(name = "HTXL") String HTXL, @RequestParam(name = "SoTien") Integer SoTien, @RequestParam(name = "NgayXL") String NgayXL, @RequestParam(name = "TrangThaiXL") Integer TrangThaiXL) {
+
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
@@ -55,7 +59,6 @@ public class XuLyViPhamController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         XuLyViPhamEntity xlvpEntity = new XuLyViPhamEntity(MaTV,HTXL,SoTien,date,TrangThaiXL);
         xlvpRepository.save(xlvpEntity);
     }

@@ -56,6 +56,8 @@ function closeFormEdit() {
 }
 
 
+
+
 // thực hiện đổ dữ liệu lên
 document.addEventListener('DOMContentLoaded', function () {
     // Lấy tất cả các nút "Sửa"
@@ -130,12 +132,21 @@ function saveEdit() {
         .then(response => {
             if (response.ok) {
                 closeFormEdit();
-
-                alert("Dữ liệu đã được sửa thành công");
-                window.location.reload(); // Làm mới trang sau khi hiển thị thông báo
+                Swal.fire({
+                    text: "Sửa thành công !!",
+                    icon: "success"
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      window.location.reload();
+                    }
+                  })
                 
             } else {
-                console.error('Lỗi khi lưu xử lý vi phạm');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: "Vui lòng nhập số tiền!",
+                });
             }
         })
         .catch(error => {

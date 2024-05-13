@@ -13,6 +13,8 @@ function closeFormEdit() {
 }
 
 
+
+
 // Thực hiện thay đổi thông tin thiết bị
 function saveChanges() {
 

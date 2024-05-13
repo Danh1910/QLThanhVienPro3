@@ -30,6 +30,8 @@
 
     <link href="../css/Css_XLVP/FormThemXLVP.css" rel="stylesheet">
     <link href="../css/Css_XLVP/FormSuaXLVP.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
 
 
@@ -226,11 +228,20 @@
         <form id="addxlvpForm">
             <div class="form-group">
                 <label for="MaTV">Mã thành viên:</label>
-                <input type="text" class="form-control" id="MaTV" value="" />
+                <select class="form-control" id="MaTV">
+                    <option value="">Chọn mã thành viên</option>
+                    <option th:each="user: ${ListMaTV}" th:value="${user.MaTV}" th:text="${user.MaTV}" ></option>
+                </select>
             </div>
             <div class="form-group">
-                <label for="HTXL">Hình thức xử lý:</label>
-                <input type="text" class="form-control" id="HTXL" value="" />
+                <label for="HTXL">Trạng thái xử lý:</label>
+                <select class="form-control" id="HTXL">
+                    <option value="Khóa thẻ 1 tháng">Khóa thẻ 1 tháng</option>
+                    <option value="Khóa thẻ 2 tháng">Khóa thẻ 2 tháng</option>
+                    <option value="Khóa thẻ vĩnh viễn">Khóa thẻ vĩnh viễn</option>
+                    <option value="Bồi thường">Bồi thường</option>
+                    <option value="Khóa thẻ 1 tháng và bồi thường">Khóa thẻ 1 tháng và bồi thường</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="SoTien">Số tiền:</label>
@@ -265,11 +276,18 @@
             </div>
             <div class="form-group">
                 <label for="edit_MaTV">Mã thành viên:</label>
-                <input type="text" class="form-control" id="edit_MaTV" value="" />
+                <input type="text" class="form-control" id="edit_MaTV" value="" readonly/>
             </div>
+        
             <div class="form-group">
-                <label for="edit_HTXL">Hình thức xử lý:</label>
-                <input type="text" class="form-control" id="edit_HTXL" value="" />
+                <label for="edit_HTXL">Trạng thái xử lý:</label>
+                <select class="form-control" id="edit_HTXL">
+                    <option value="Khóa thẻ 1 tháng">Khóa thẻ 1 tháng</option>
+                    <option value="Khóa thẻ 2 tháng">Khóa thẻ 2 tháng</option>
+                    <option value="Khóa thẻ vĩnh viễn">Khóa thẻ vĩnh viễn</option>
+                    <option value="Bồi thường">Bồi thường</option>
+                    <option value="Khóa thẻ 1 tháng và bồi thường">Khóa thẻ 1 tháng và bồi thường</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="edit_SoTien">Số tiền:</label>
@@ -312,6 +330,8 @@ Bootstrap core JavaScript
 
 <script src="../js/XuLyViPham/SuaXLVP.js"></script>
 <script src="../js/XuLyViPham/ThemXLVP.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 
