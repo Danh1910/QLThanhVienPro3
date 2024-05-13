@@ -26,6 +26,15 @@ function saveChanges() {
         const tenTB = deviceName.value; // Giá trị TenTB
         const moTaTB = deviceDescription.value; // Giá trị MoTaTB
 
+        if (tenTB == '' || moTaTB == ''){
+            Swal.fire({
+                title: "Cảnh báo",
+                text: "Không để trống thông tin",
+                icon: "error"
+              })
+            return;
+        }
+
         fetch('/ThietBi.html?MaTB=' + maTB + '&TenTB=' + tenTB + '&MoTaTB=' + moTaTB, {
             method: 'PUT'
         })
