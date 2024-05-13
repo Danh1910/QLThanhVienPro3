@@ -21,13 +21,13 @@
     text-align: center;
 }
 
-@media screen and (max-height: 800px) {
+@media screen and (max-height: 500px) {
     .give-form {
         height: auto; /
     }
 }
 
-@media screen and (min-height: 801px) {
+@media screen and (min-height: 500px) {
     .give-form {
         height: 800px;
     }

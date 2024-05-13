@@ -229,52 +229,79 @@ document.addEventListener('DOMContentLoaded', function() {
 
 })
 
-// thực hiện tạo thành động khi vừa load trang
-document.addEventListener('DOMContentLoaded', function() {
-
-    var checkAll = document.getElementById("checkAll");
-
-    // Lấy tất cả check box
-    var checkbox = document.querySelectorAll(".checkbox_ID");
-
-    console.log(checkbox.length)
-
-    checkAll.addEventListener('change', function() {
 
 
-        // Xóa toàn bộ nội dung của mảng
+$('#dataTable').dataTable({
+    "bPaginate": false
+});
+
+
+var checkAll = document.getElementById("checkAll");
+
+// Lấy tất cả check box
+var checkboxesInTable = document.querySelectorAll(".checkbox_ID");
+
+
+// bắt sự kiện của thanh search
+var dataTableFilter = document.getElementById("dataTable_filter");
+var searchInput = dataTableFilter.querySelector('input[type="search"]');
+
+
+searchInput.addEventListener("input", function() {
+
+    // Xóa check trước khi search
+
+    checkboxesInTable.forEach(function (check) {
+            
+        check.checked = false
+        
         list_id_check.length = 0;
-
-        if (this.checked) {
-            console.log('CheckboxAll is checked');
-            // Thực hiện các hành động khi checkbox được chọn
-
-
-            checkbox.forEach(function (check) {
-
-                check.checked = true
-
-                var id = check.value
-
-                list_id_check.push(id)
-
-            });
-
-        } else {
-            console.log('CheckboxAll is unchecked');
-            // Thực hiện các hành động khi checkbox không được chọn
-
-            checkbox.forEach(function (check) {
-
-                check.checked = false
-
-
-            });
-
-        }
-
-        console.log(list_id_check)
-
+        
     });
+
+    // Lấy tất cả các checkbox có ID trong bảng
+    checkboxesInTable = document.querySelectorAll(".checkbox_ID");
+
+    checkAll.checked = false;
+    
+});
+
+
+
+checkAll.addEventListener('change', function() {
+
+
+    // Xóa toàn bộ nội dung của mảng
+    list_id_check.length = 0;
+
+    if (this.checked) {
+        console.log('CheckboxAll is checked');
+        // Thực hiện các hành động khi checkbox được chọn
+
+
+        checkboxesInTable.forEach(function (check) {
+            
+            check.checked = true
+
+            var id = check.value
+            
+            list_id_check.push(id)
+            
+        });
+
+    } else {
+        console.log('CheckboxAll is unchecked');
+        // Thực hiện các hành động khi checkbox không được chọn
+
+        checkboxesInTable.forEach(function (check) {
+                
+            check.checked = false
+
+
+        });
+
+    }
+
+    console.log(list_id_check)
 
 });
