@@ -16,5 +16,10 @@ public interface XuLyViPhamRepository extends CrudRepository<XuLyViPhamEntity, I
 
     @Query("SELECT DISTINCT x.hinh_thucxl FROM XuLyViPhamEntity x")
     List<String> getDistinctHinhThucXl();
-
+    
+    @Query("SELECT xl FROM XuLyViPhamEntity xl WHERE xl.trang_thaixl = 1")
+    List<XuLyViPhamEntity> getXulyVipham_DaNhan();
+    
+    @Query("SELECT xl FROM XuLyViPhamEntity xl WHERE xl.trang_thaixl = 0")
+    List<XuLyViPhamEntity> getXulyVipham_ChuaNhan();
 }

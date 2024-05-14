@@ -8,9 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
 import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
@@ -81,6 +84,48 @@ public class ThongKeController {
         
         return "ThongKe.html";
     }
+	@GetMapping("/loadXulyData")
+	@ResponseBody
+    public Object[][] loadXulyData() {
+        // Gọi service hoặc repository để lấy dữ liệu xử lý
+		List<XuLyViPhamEntity> returnListData = (List<XuLyViPhamEntity>) xlReponsitory.findAll();
+		
+        return returnListData(returnListData);
+    }
+	@GetMapping("/loadDaXulyData")
+	@ResponseBody
+    public Object[][] loadDaXulyData() {
+        // Gọi service hoặc repository để lấy dữ liệu xử lý
+		List<XuLyViPhamEntity> xulyDataList = xlReponsitory.getXulyVipham_DaNhan();
+
+        return returnListData(xulyDataList);
+    }
+	@GetMapping("/loadChuaXulyData")
+	@ResponseBody
+    public Object[][] loadChuaXulyData() {
+        // Gọi service hoặc repository để lấy dữ liệu xử lý
+		List<XuLyViPhamEntity> xulyDataList = xlReponsitory.getXulyVipham_ChuaNhan();
+
+        return returnListData(xulyDataList);
+    }
+	private Object[][] returnListData(List<XuLyViPhamEntity> xulyDataList){
+		Object[][] modObjects = new Object[xulyDataList.size()][8];
+
+	    int index = 0;
+	    for (XuLyViPhamEntity t : xulyDataList) {
+	        modObjects[index][0] = t.getMaXL();
+	        modObjects[index][1] = t.getMaTV().getMaTV();
+	        modObjects[index][2] = t.getMaTV().getKhoa();
+	        modObjects[index][3] = t.getMaTV().getNganh();
+	        modObjects[index][4] = t.getHinh_thucxl(); 
+	        modObjects[index][5] = t.getSo_tien();
+	        modObjects[index][6] = t.getNgayXL().toString();
+	        modObjects[index][7] = t.getTrang_thaixl() == 0 ? "Chưa xử lý" : "Đã xử lý";
+	        index++;
+	    }
+        return modObjects;
+	}
+	
 }
 
 

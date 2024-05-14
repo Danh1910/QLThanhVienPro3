@@ -30,11 +30,43 @@ function handleContentChange_trangthai() {
     var currentContent = selectedSpan.innerText;
     //console.log("Nội dung thay đổi thành: " + currentContent);
     if (currentContent === "All"){
-		searchTable("", 'xulyTable');
-	} else if (currentContent === "Chưa xử lý"){
-		searchTable("chưa", 'xulyTable');
-	} else {
-		searchTable("đã", 'xulyTable');
+		loadDataToTable("/loadXulyData");
+	} else if (currentContent === "Đã xử lý"){
+		loadDataToTable("/loadDaXulyData")
+	}
+	else {
+		loadDataToTable("/loadChuaXulyData")
 	}
 	
 }
+
+function loadDataToTable(urll) {
+    $.ajax({
+        url: urll,
+        type: "GET",
+        success: function(data) {
+            // Xử lý dữ liệu nhận được từ controller
+            // Đẩy dữ liệu vào bảng
+            var tableBody = $("#xulyTable tbody");
+            tableBody.empty(); // Xóa dữ liệu cũ trong bảng trước khi thêm dữ liệu mới
+
+            $.each(data, function(index, xulyData) {
+                var row = "<tr>" +
+                          "<td>" + xulyData[0] + "</td>" +
+                          "<td>" + xulyData[1] + "</td>" +
+                          "<td>" + xulyData[2] + "</td>" +
+                          "<td>" + xulyData[3] + "</td>" +
+                          "<td>" + xulyData[4] + "</td>" +
+                          "<td>" + xulyData[5] + "</td>" +
+                          "<td>" + xulyData[6] + "</td>" +
+                          "<td>" + xulyData[7] + "</td>" +
+                          "</tr>";
+                tableBody.append(row);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("Error loading data: " + error);
+        }
+    });
+}
+
