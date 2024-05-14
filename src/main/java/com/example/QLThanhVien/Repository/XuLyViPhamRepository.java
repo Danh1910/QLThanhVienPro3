@@ -14,6 +14,7 @@ public interface XuLyViPhamRepository extends CrudRepository<XuLyViPhamEntity, I
     @Query("SELECT xl FROM XuLyViPhamEntity xl WHERE xl.MaTV.MaTV = :maTV AND xl.trang_thaixl = 0")
     List<XuLyViPhamEntity> findByMaTV(Integer maTV);
 
-
+    @Query("SELECT DISTINCT x.hinh_thucxl FROM XuLyViPhamEntity x")
+    List<String> getDistinctHinhThucXl();
 
 }

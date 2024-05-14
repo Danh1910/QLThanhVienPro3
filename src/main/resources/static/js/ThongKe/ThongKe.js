@@ -29,7 +29,6 @@ dropdowns.forEach(dropdown => {
             // Add 'active' class to the clicked option
             option.classList.add('activecbx');
             
-            
             if (option.textContent === "Thời gian vào") {
 				chonTGVao();
 				console.log("Thời gian vào");

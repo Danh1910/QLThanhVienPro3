@@ -76,6 +76,8 @@ public class ThongKeController {
         model.addAttribute("listTTSD",listTTSD);
         Iterable<XuLyViPhamEntity> listXLVP = xlReponsitory.findAll();
         model.addAttribute("listXLVP",listXLVP);
+        List<String> hinhThucXl = xlReponsitory.getDistinctHinhThucXl();
+        model.addAttribute("hinhThucXl", hinhThucXl);
         
         return "ThongKe.html";
     }

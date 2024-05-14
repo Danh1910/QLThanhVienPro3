@@ -287,8 +287,38 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 					</div>
 					<div class="card shadow mb-4">
 						<div class="card-body">
+							<div class="input-group">
+								<div class="dropdown">
+					                <div class="select">
+					                    <span class="selected" id="choiceXL">All</span>
+					                    <div class="caret"></div>
+					                </div>
+					                <ul class="menu" onclick="handleContentChange_trangthai()">
+			                            <li class="activecbx">All</li>
+			                            <li>Chưa xử lý</li>
+			                            <li>Đã xử lý</li>
+					                </ul>
+				            	</div>
+				            	&nbsp&nbsp&nbsp
+				            	<div class="dropdown">
+					                <div class="select">
+					                    <span class="selected" id="choiceHTXL">All</span>
+					                    <div class="caret"></div>
+					                </div>
+					                <ul class="menu">
+			                            <li class="activecbx">All</li>
+			                            <li th:each="htxl : ${hinhThucXl}" th:text="${htxl}"></li>
+					                </ul>
+				            	</div>
+				            </div>
+						    <br>
+							<div class="search-container">
+						        <input type="text" id="searchTable2" class="form-control" placeholder="Tìm Kiếm trong bảng Xử lý">
+						    </div>
+						    <br>
+						    
 	                        <div class="table-responsive">
-	                            <table class="table table-bordered" width="100%" cellspacing="0" data-pagination="false">
+	                            <table class="table table-bordered" id="xulyTable" width="100%" cellspacing="0" data-pagination="false">
 	                                <thead>
 		                                <tr>
 		                                    <th>Mã XL</th>
@@ -310,7 +340,7 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 		                                    <td th:utext="${row.hinh_thucxl}">...</td>
 		                                    <td th:utext="${row.so_tien}">...</td>
 		                                    <td th:utext="${row.NgayXL}">...</td>
-		                                    <td th:utext="${row.trang_thaixl}">...</td>
+		                                    <td th:utext="${row.trang_thaixl == 0 ? 'Chưa xử lý' : 'Đã xử lý'}">...</td>
 		                                </tr>
 	                                </tbody>
 	                            </table>
@@ -379,6 +409,7 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 	
 	
 	<script src="../js/ThongKe/ThongKe.js"></script>
+	<script src="../js/ThongKe/XulyThongKe.js"></script>
 
 </body>
 
