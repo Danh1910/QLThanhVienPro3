@@ -1,47 +1,88 @@
 package com.example.QLThanhVien.Controller;
 
 import com.example.QLThanhVien.Enity.ThanhVienEntity;
-import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
-import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThanhVienRepository;
-import com.example.QLThanhVien.Repository.ThietBiRepository;
-import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
-import com.example.QLThanhVien.Repository.XuLyViPhamRepository;
-import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayInputStream;
-import java.time.LocalDate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+
 import java.util.*;
+
 @Controller
 public class QuenMatKhauController {
     @Autowired
     private ThanhVienRepository tvRepository;
 
-    @PostMapping("/forgot-password")
-    public String sendResetPasswordEmail(@RequestParam String email, Model model) {
-        // Lấy danh sách tất cả các thanh viên từ cơ sở dữ liệu
+    @Autowired
+    private JavaMailSender emailSender;
+
+    private Map<String, String> emailCodeMap = new HashMap<>();
+    private Map<String, String> codeMaTVMap = new HashMap<>(); // Lưu mã thành viên với mã xác nhận
+
+    @RequestMapping("/QuenMatKhau.html")
+    public String quenmatkhau() {
+        return "/QuenMatKhau.html";
+    }
+
+    @PostMapping("/QuenMatKhau.html")
+    public ResponseEntity<String> sendResetPasswordEmail(@RequestParam(name = "Email") String email, Model model) {
         Iterable<ThanhVienEntity> allThanhVien = tvRepository.findAll();
 
-        // Duyệt qua từng thành viên để kiểm tra email
-        for (ThanhVienEntity thanhVien : allThanhVien) {
-            // Nếu email của thành viên hiện tại trùng với email được nhập từ form
-            if (thanhVien.getEmail().equals(email)) {
-                // Thực hiện gửi email reset mật khẩu ở đây
+        String code = generateRandomCode();
+        boolean emailFound = false;
 
-                // Gửi thông báo thành công về trang cho người dùng
+        for (ThanhVienEntity thanhVien : allThanhVien) {
+            if (thanhVien.getEmail().equals(email)) {
+                emailFound = true;
+                sendEmail(email, code);
+                emailCodeMap.put(email, code);
+                codeMaTVMap.put(code, String.valueOf(thanhVien.getMaTV())); // Chuyển đổi maTV thành String
                 model.addAttribute("message", "Reset password email sent successfully!");
-                return "ThanhVien.html"; // Trả về trang HTML thông báo gửi email thành công
+                return ResponseEntity.ok().body("Thông tin thành viên đã được cập nhật thành công.");
             }
         }
 
-        // Nếu không tìm thấy email trong cơ sở dữ liệu, trả về trang cho người dùng nhập lại email
-        model.addAttribute("error", "Email not found in the database.");
-        return "forgot-password"; // Trả về trang HTML chứa form quên mật khẩu và thông báo lỗi
+        if (!emailFound) {
+            model.addAttribute("error", "Email not found in the database.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email không tồn tại trong cơ sở dữ liệu.");
+        }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the request.");
+    }
+
+    @PostMapping("/VerifyCode")
+    public ResponseEntity<Map<String, String>> verifyCode(@RequestBody Map<String, String> request) {
+        String code = request.get("code");
+        if (emailCodeMap.containsValue(code)) {
+            String maTV = codeMaTVMap.get(code); // Lấy mã thành viên từ mã xác nhận
+            Map<String, String> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("maTV", maTV);
+            return ResponseEntity.ok(response);
+        } else {
+            Map<String, String> response = new HashMap<>();
+            response.put("status", "fail");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+    }
+
+    private String generateRandomCode() {
+        Random random = new Random();
+        int code = 100000 + random.nextInt(900000);
+        return String.valueOf(code);
+    }
+
+    private void sendEmail(String email, String code) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Password Reset Code");
+        message.setText("Your password reset code is: " + code);
+        emailSender.send(message);
     }
 }

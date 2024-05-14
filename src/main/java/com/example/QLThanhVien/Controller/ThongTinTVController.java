@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
 
 import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
@@ -43,18 +44,29 @@ public class ThongTinTVController {
     }
 
     @PutMapping("/ThongTinTV.html")
-    public String updateThongTinTV(@RequestParam Long maTV,
-                                   @RequestParam String ten,
-                                   @RequestParam String khoa,
-                                   @RequestParam String nganh,
-                                   @RequestParam String password,
-                                   @RequestParam String email,
-                                   @RequestParam String sdt) {
+    public ResponseEntity<String> updateThongTinTV(@RequestParam Long maTV,
+                                                   @RequestParam String ten,
+                                                   @RequestParam String khoa,
+                                                   @RequestParam String nganh,
+                                                   @RequestParam String password,
+                                                   @RequestParam String email,
+                                                   @RequestParam String sdt) {
         // Tìm thông tin của thành viên dựa trên mã thành viên
         ThanhVienEntity thanhVien = tvRepository.findById(maTV).orElse(null);
 
         // Kiểm tra xem thành viên có tồn tại không
         if (thanhVien != null) {
+            // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu hay không
+            boolean isEmailExists = checkEmailExists(email);
+            boolean isSDTExists = checkSDTExists(sdt);
+            
+            // Nếu email đã tồn tại và không phải của thành viên hiện tại, trả về mã lỗi 400 - Bad Request
+            if (isEmailExists && !thanhVien.getEmail().equals(email)) {
+                return ResponseEntity.badRequest().body("Email đã tồn tại trong hệ thống.");
+            } else if (isSDTExists && !thanhVien.getSDT().equals(sdt)) {
+                return ResponseEntity.badRequest().body("SDT đã tồn tại trong hệ thống.");
+            }
+
             // Cập nhật thông tin thành viên
             thanhVien.setTen(ten);
             thanhVien.setKhoa(khoa);
@@ -63,12 +75,44 @@ public class ThongTinTVController {
             thanhVien.setEmail(email);
             thanhVien.setSDT(sdt);
             tvRepository.save(thanhVien); // Lưu thông tin cập nhật vào cơ sở dữ liệu
-            return "redirect:/ThongTinTV.html?maTV=" + maTV; // Chuyển hướng đến trang thông tin thành viên sau khi cập nhật thành công
+
+            return ResponseEntity.ok().body("Thông tin thành viên đã được cập nhật thành công.");
         } else {
-            // Nếu không tìm thấy thành viên, có thể xử lý theo ý của bạn, ví dụ chuyển hướng đến trang lỗi
-            return "redirect:/error.html";
+            // Nếu không tìm thấy thành viên, trả về mã lỗi 404 - Not Found
+            return ResponseEntity.notFound().build();
         }
     }
+
+
+    // Phương thức kiểm tra xem email đã tồn tại trong cơ sở dữ liệu hay không
+    private boolean checkEmailExists(String email) {
+        // Lấy danh sách tất cả các thành viên từ cơ sở dữ liệu
+        Iterable<ThanhVienEntity> allThanhVien = tvRepository.findAll();
+
+        // Duyệt qua từng thành viên để kiểm tra email
+        for (ThanhVienEntity thanhVien : allThanhVien) {
+            // Nếu email của thành viên hiện tại trùng với email được nhập từ form
+            if (thanhVien.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkSDTExists(String sdt) {
+        // Lấy danh sách tất cả các thành viên từ cơ sở dữ liệu
+        Iterable<ThanhVienEntity> allThanhVien = tvRepository.findAll();
+
+        // Duyệt qua từng thành viên để kiểm tra email
+        for (ThanhVienEntity thanhVien : allThanhVien) {
+            // Nếu email của thành viên hiện tại trùng với email được nhập từ form
+            if (thanhVien.getSDT().equals(sdt)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 

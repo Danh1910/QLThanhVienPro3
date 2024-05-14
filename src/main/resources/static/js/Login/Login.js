@@ -4,9 +4,10 @@ function login() {
 
     if (maTVInput && passwordInput) {
         const maTV = parseInt(maTVInput.value); // Chuyển đổi thành số nguyên
+        console.log(maTV);
         const password = passwordInput.value; // Giá trị password
 
-        fetch('/login.html', {
+        fetch('/DangNhap.html', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
