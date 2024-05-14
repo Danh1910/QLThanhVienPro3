@@ -4,6 +4,8 @@ package com.example.QLThanhVien.Controller;
 import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,12 +45,23 @@ public class LoginController {
     }
 
     @PostMapping("/DangKy.html")
-    public void addMember(@RequestParam(name = "Ten") String tenTV,
+    public ResponseEntity<String> addMember(@RequestParam(name = "Ten") String tenTV,
                           @RequestParam(name = "Khoa") String khoa,
                           @RequestParam(name = "Nganh") String nganh,
                           @RequestParam(name = "SDT") String sdt,
                           @RequestParam(name = "Email") String email,
                           @RequestParam(name = "Password") String password) {
+
+        Iterable<ThanhVienEntity> listtv= tvRepository.findAll();
+
+        for (ThanhVienEntity tv : listtv) {
+            if (tv.getSDT().equals(sdt)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Số điện thoại đã tồn tại");
+            }
+            if (tv.getEmail().equals(email)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email đã tồn tại");
+            }
+        }
         Long count = tvRepository.countAll();
         LocalDate currentDate = LocalDate.now();
         String year = String.valueOf(currentDate.getYear()).substring(2);
@@ -153,6 +166,7 @@ public class LoginController {
 
         // Lưu thông tin thành viên vào cơ sở dữ liệu
         tvRepository.save(thanhVienEntity);
+        return ResponseEntity.ok("Thành viên đã được thêm thành công");
     }
 
 }

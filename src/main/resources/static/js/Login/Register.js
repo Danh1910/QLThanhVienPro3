@@ -63,27 +63,27 @@ document.addEventListener('DOMContentLoaded', function() {
                                          method: 'POST'
                                      })
                                      .then(response => {
-                                         if (response.ok) {
-                                             // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
-
-
-                                             Swal.fire({
-                                                                               title: "~Tuyệt~",
-                                                                               text: "Đăng ký thành công !!",
-                                                                               icon: "success"
-                                                                            }).then((result) => {
-                                                                                 if (result.isConfirmed) {
-                                                                                     window.location.href = '/Login.html';
-                                                                                 }
-                                                                              });
-
-                                         } else {
-                                             Swal.fire({
-                                                                             icon: 'error',
-                                                                             title: 'Lỗi!',
-                                                                             text: 'Lỗi thêm thành viên !',
-                                                                         });
-                                         }
+                                                         if (response.ok) {
+                                                             // Thành công
+                                                             Swal.fire({
+                                                                 title: "~Tuyệt~",
+                                                                 text: "Thêm thành viên thành công !!",
+                                                                 icon: "success"
+                                                             }).then((result) => {
+                                                                 if (result.isConfirmed) {
+                                                                     window.location.reload();
+                                                                 }
+                                                             });
+                                                         } else {
+                                                             // Xử lý lỗi
+                                                             response.text().then(errorMessage => {
+                                                                 Swal.fire({
+                                                                     icon: 'error',
+                                                                     title: 'Lỗi!',
+                                                                     text: errorMessage,
+                                                                 });
+                                                             });
+                                                         }
                                      })
                                      .catch(error => {
                                          console.error('Lỗi khi gửi yêu cầu: ', error);
