@@ -14,6 +14,7 @@ import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
 import com.example.QLThanhVien.Repository.XuLyViPhamRepository;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -258,116 +259,132 @@ public class ThanhVienController {
     }
 
     @PostMapping("/ThanhVien.html")
-    public void addMember(@RequestParam(name = "Ten") String tenTV,
+    public ResponseEntity<String> addMember(@RequestParam(name = "Ten") String tenTV,
                           @RequestParam(name = "Khoa") String khoa,
                           @RequestParam(name = "Nganh") String nganh,
                           @RequestParam(name = "SDT") String sdt,
                           @RequestParam(name = "Email") String email,
-                          @RequestParam(name = "Password") String password) {
-        Long count = tvRepository.countAll();
-        LocalDate currentDate = LocalDate.now();
-        String year = String.valueOf(currentDate.getYear()).substring(2);
-        String khoaCode = "00";
-        String idTV;
-        switch (khoa.toUpperCase(Locale.ROOT)) {
-            case "SP KHXH":
-                switch (nganh.toUpperCase(Locale.ROOT)) {
-                    case "ĐỊA":
-                        khoaCode = "11";
-                        break;
-                    case "SỬ":
-                        khoaCode = "10";
-                        break;
-                    case "VĂN":
-                        khoaCode = "09";
-                        break;
-                    default:
-                        khoaCode = "00";
-                        break;
-                }
-                break;
-            case "SP KHTN":
-                switch (nganh.toUpperCase(Locale.ROOT)) {
-                    case "LÍ":
-                        khoaCode = "02";
-                        break;
-                    case "HÓA":
-                        khoaCode = "03";
-                        break;
-                    case "SINH":
-                        khoaCode = "04";
-                        break;
-                    default:
-                        khoaCode = "00";
-                        break;
-                }
-                break;
-            case "NGOẠI NGỮ":
-                switch (nganh.toUpperCase(Locale.ROOT)) {
-                    case "ANH":
-                        khoaCode = "13";
-                        break;
-                    case "NNA":
-                        khoaCode = "38";
-                        break;
-                    default:
-                        khoaCode = "00";
-                        break;
-                }
-                break;
-            case "QTKD":
-                khoaCode = "55";
-                break;
-            case "QLGD":
-                switch (nganh.toUpperCase(Locale.ROOT)) {
-                    case "TLH":
-                        khoaCode = "53";
-                        break;
-                    default:
-                        khoaCode = "00";
-                        break;
-                }
-                break;
-            case "TOÁN UD":
-                switch (nganh.toUpperCase(Locale.ROOT)) {
-                    case "TOÁN":
-                        khoaCode = "48";
-                        break;
-                    default:
-                        khoaCode = "00";
-                        break;
-                }
-                break;
-            case "CNTT":
-                switch (nganh.toUpperCase(Locale.ROOT)) {
-                    case "CNTT":
-                        khoaCode = "41";
-                        break;
-                    case "KTPM":
-                        khoaCode = "42";
-                        break;
-                    case "HTTT":
-                        khoaCode = "43";
-                        break;
-                    default:
-                        khoaCode = "00";
-                        break;
-                }
-                break;
-            default:
-                khoaCode = "00";
-                break;
+                          @RequestParam(name = "Password") String password,
+                          Model model) {
+
+        Iterable<ThanhVienEntity> listtv= tvRepository.findAll();
+
+        for (ThanhVienEntity tv : listtv) {
+            if (tv.getSDT().equals(sdt)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Số điện thoại đã tồn tại");
+            }
+            if (tv.getEmail().equals(email)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email đã tồn tại");
+            }
         }
 
-        idTV= "11"+ year + khoaCode + String.format("%04d", count + 1);
-        int maTV= Integer.parseInt(idTV);
+            Long count = tvRepository.countAll();
+            LocalDate currentDate = LocalDate.now();
+            String year = String.valueOf(currentDate.getYear()).substring(2);
+            String khoaCode = "00";
+            String idTV;
+            switch (khoa.toUpperCase(Locale.ROOT)) {
+                case "SP KHXH":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "ĐỊA":
+                            khoaCode = "11";
+                            break;
+                        case "SỬ":
+                            khoaCode = "10";
+                            break;
+                        case "VĂN":
+                            khoaCode = "09";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
+                    break;
+                case "SP KHTN":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "LÍ":
+                            khoaCode = "02";
+                            break;
+                        case "HÓA":
+                            khoaCode = "03";
+                            break;
+                        case "SINH":
+                            khoaCode = "04";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
+                    break;
+                case "NGOẠI NGỮ":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "ANH":
+                            khoaCode = "13";
+                            break;
+                        case "NNA":
+                            khoaCode = "38";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
+                    break;
+                case "QTKD":
+                    khoaCode = "55";
+                    break;
+                case "QLGD":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "TLH":
+                            khoaCode = "53";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
+                    break;
+                case "TOÁN UD":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "TOÁN":
+                            khoaCode = "48";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
+                    break;
+                case "CNTT":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "CNTT":
+                            khoaCode = "41";
+                            break;
+                        case "KTPM":
+                            khoaCode = "42";
+                            break;
+                        case "HTTT":
+                            khoaCode = "43";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
+                    break;
+                default:
+                    khoaCode = "00";
+                    break;
+            }
+
+            idTV= "11"+ year + khoaCode + String.format("%04d", count + 1);
+            int maTV= Integer.parseInt(idTV);
 
 
 
-        ThanhVienEntity thanhVienEntity = new ThanhVienEntity(maTV, tenTV, khoa, nganh, sdt, email, password);
+            ThanhVienEntity thanhVienEntity = new ThanhVienEntity(maTV, tenTV, khoa, nganh, sdt, email, password);
 
-        // Lưu thông tin thành viên vào cơ sở dữ liệu
-        tvRepository.save(thanhVienEntity);
+            // Lưu thông tin thành viên vào cơ sở dữ liệu
+            tvRepository.save(thanhVienEntity);
+            return ResponseEntity.ok("Thành viên đã được thêm thành công");
+
+
     }
 
 

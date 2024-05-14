@@ -31,33 +31,34 @@ function saveAdd() {
 
                 fetch('/ThanhVien.html?&Ten=' + tenTV + '&Khoa=' + khoa + '&Nganh=' + nganh + '&SDT=' + sdt + '&Email=' + email + '&Password=' + password, {
                     method: 'POST'
-        })
-        .then(response => {
-            if (response.ok) {
-                // // Sau khi lưu xong, bạn có thể đóng form bằng cách gọi hàm closeForm()
-                closeFormAdd();
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Thành công
+                        Swal.fire({
+                            title: "~Tuyệt~",
+                            text: "Thêm thành viên thành công !!",
+                            icon: "success"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        });
+                    } else {
+                        // Xử lý lỗi
+                        response.text().then(errorMessage => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi!',
+                                text: errorMessage,
+                            });
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi khi gửi yêu cầu: ', error);
+                });
 
-                Swal.fire({
-                                                  title: "~Tuyệt~",
-                                                  text: "Thêm thành viên thành công !!",
-                                                  icon: "success"
-                                               }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        window.location.reload();
-                                                    }
-                                                 });
-
-            } else {
-                Swal.fire({
-                                                icon: 'error',
-                                                title: 'Lỗi!',
-                                                text: 'Lỗi thêm thành viên !',
-                                            });
-            }
-        })
-        .catch(error => {
-            console.error('Lỗi khi gửi yêu cầu: ', error);
-        });
     
     }
 }
