@@ -18,6 +18,9 @@
 
     <form th:object="${thanhVien}">
 
+        <div th:if="${viPham}">
+            <p style="color: red;">Thành viên đang bị vi phạm.</p>
+        </div>
 
         <label >Mã Thành Viên:</label>
         <input type="text" readonly th:value="${thanhVien.MaTV}" id="inputMaTV">
@@ -38,8 +41,9 @@
         
         <label for="return-date">Ngày Trả:</label>
         <input type="datetime-local" id="return-date" name="return-date" required>
-    
-        <input type="button" value="Mượn Thiết Bị" id="btnSubmit">
+
+        <input type="button" value="Mượn Thiết Bị" id="btnSubmit" th:if="${not viPham}">
+
     </form>
     
 

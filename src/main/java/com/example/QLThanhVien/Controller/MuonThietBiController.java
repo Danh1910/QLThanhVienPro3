@@ -3,9 +3,11 @@ package com.example.QLThanhVien.Controller;
 import com.example.QLThanhVien.Enity.ThanhVienEntity;
 import com.example.QLThanhVien.Enity.ThietBiEntity;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
+import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThanhVienRepository;
 import com.example.QLThanhVien.Repository.ThietBiRepository;
 import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
+import com.example.QLThanhVien.Repository.XuLyViPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,9 @@ public class MuonThietBiController {
     @Autowired
     private ThanhVienRepository tvRepository;
 
+    @Autowired
+    private XuLyViPhamRepository xlvpRepository;
+
     private int MaTV = 0;
 
 
@@ -42,12 +47,21 @@ public class MuonThietBiController {
 		XoaDatCho_1gio(thongTinSuDungRepository);
 
         MaTV = maTV;
-
+        Iterable<XuLyViPhamEntity> listvp=xlvpRepository.findAll();
         ThanhVienEntity tv=   tvRepository.findById(Long.valueOf(maTV)).orElse(null);
 
-        if(tv !=null){
-            model.addAttribute("thanhVien",tv);
+        if(CheckVP((List<XuLyViPhamEntity>) listvp,maTV)){
+            if(tv !=null){
+                model.addAttribute("thanhVien",tv);
+                model.addAttribute("viPham", false);
+            }
         }
+        else{
+            model.addAttribute("viPham", true);
+            ThanhVienEntity tv1= new ThanhVienEntity();
+            model.addAttribute("thanhVien",tv1);
+        }
+
         return "MuonThietBi"; // Trả về tên của trang HTML
     }
 
@@ -158,6 +172,14 @@ public class MuonThietBiController {
         return true;
     }
 
+    public boolean CheckVP(List<XuLyViPhamEntity> list, int idTV){
+        for(XuLyViPhamEntity arr: list){
+            if(arr.getMaTV().getMaTV()==idTV && arr.getTrang_thaixl()==0){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void XoaDatCho_1gio(ThongTinSuDungRepository thongTinSuDungRepository){
         List<ThongTinSuDungEntity> list  = thongTinSuDungRepository.LayThongTinSuDungTB();
