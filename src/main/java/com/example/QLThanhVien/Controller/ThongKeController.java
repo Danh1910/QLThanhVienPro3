@@ -12,12 +12,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
+import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 import com.example.QLThanhVien.Repository.ThongTinSuDungRepository;
+import com.example.QLThanhVien.Repository.XuLyViPhamRepository;
 
 @Controller
 public class ThongKeController {
 	@Autowired
     private ThongTinSuDungRepository ttsdRepository;
+	
+	@Autowired
+    private XuLyViPhamRepository xlReponsitory;
 	
 	@PutMapping("/ThongKe.html")
 	public ResponseEntity<Object[][]> action(@RequestParam("chon") String chon, @RequestParam(name = "search", required = false) String search) {
@@ -69,6 +74,9 @@ public class ThongKeController {
 		model.addAttribute("message", "Thống kê");
         Iterable<ThongTinSuDungEntity> listTTSD = ttsdRepository.findAll();
         model.addAttribute("listTTSD",listTTSD);
+        Iterable<XuLyViPhamEntity> listXLVP = xlReponsitory.findAll();
+        model.addAttribute("listXLVP",listXLVP);
+        
         return "ThongKe.html";
     }
 }

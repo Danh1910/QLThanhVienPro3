@@ -285,6 +285,38 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 	                        </div>
 	                    </div>
 					</div>
+					<div class="card shadow mb-4">
+						<div class="card-body">
+	                        <div class="table-responsive">
+	                            <table class="table table-bordered" width="100%" cellspacing="0" data-pagination="false">
+	                                <thead>
+		                                <tr>
+		                                    <th>Mã XL</th>
+		                                    <th>Mã Thành Viên</th>
+		                                    <th>Khoa</th>
+		                                    <th>Ngành</th>
+		                                    <th>Hình Thức XL</th>
+		                                    <th>Số Tiền</th>
+		                                    <th>Ngày XL</th>
+		                                    <th>Trạng Thái XL</th>
+		                                </tr>
+	                                </thead>
+	                                <tbody>
+		                                <tr th:each="row, state: ${listXLVP}">
+		                                    <td th:utext="${row.MaXL}">...</td>
+		                                    <td th:utext="${row.MaTV.MaTV}">...</td>
+		                                    <td th:utext="${row.MaTV.Khoa}">...</td>
+		                                    <td th:utext="${row.MaTV.Nganh}">...</td>
+		                                    <td th:utext="${row.hinh_thucxl}">...</td>
+		                                    <td th:utext="${row.so_tien}">...</td>
+		                                    <td th:utext="${row.NgayXL}">...</td>
+		                                    <td th:utext="${row.trang_thaixl}">...</td>
+		                                </tr>
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                    </div>
+					</div>
                 </div>
                 
                 <!-- /.container-fluid -->
