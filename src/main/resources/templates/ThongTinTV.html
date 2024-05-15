@@ -213,9 +213,8 @@
                     </div>
 
                     <div class="card-body">
-
-
-
+                        <label>Tổng số tiền còn nợ:</label>
+                        <span id="totalDebt">Đang tải...</span>
                     </div>
                 </div>
 
@@ -285,30 +284,27 @@
 
 <script>
     window.addEventListener("DOMContentLoaded", function() {
+        // Lấy mã thành viên từ URL
         var urlParams = new URLSearchParams(window.location.search);
-        var email = urlParams.get('email');
+        var maTV = urlParams.get('maTV');
+        document.getElementById("maTV").value = maTV;
 
-        if (email) {
-            fetch('/getMaTVByEmail?email=' + email)
+        if (maTV) {
+            // Gửi yêu cầu lấy tổng số tiền nợ cho mã thành viên hiện tại
+            fetch('/getTotalDebt?maTV=' + maTV)
             .then(response => response.json())
-            .then(maTV => {
-                if (maTV) {
-                    urlParams.delete('email');
-                    urlParams.set('maTV', maTV);
-                    window.location.search = urlParams.toString();
-                } else {
-                    console.error('Không tìm thấy thành viên với email: ' + email);
-                }
+            .then(data => {
+                // Hiển thị tổng số tiền nợ lên giao diện
+                document.getElementById('totalDebt').innerText = data + " vnđ";
             })
             .catch(error => {
                 console.error('Lỗi khi gửi yêu cầu: ', error);
+                // Xử lý lỗi nếu cần thiết
             });
-        } else {
-            var maTV = urlParams.get('maTV');
-            document.getElementById("maTV").value = maTV;
         }
     });
 </script>
+
 
 <script>
     function saveChanges() {
