@@ -83,39 +83,40 @@ document.addEventListener('DOMContentLoaded', function () {
     function handleClick() {
     	handleSearch();
     }
-    function handleSearch() {
-		var theogi = document.getElementById('khoahaynganh').textContent;
-    	
-        // This function will be called when the user clicks the search button
-        var searchText = searchInput.value;
-        var search = searchText;
-        var url = ""
+    
+})
+function handleSearch() {
+	var theogi = document.getElementById('khoahaynganh').textContent;
 	
-		if (theogi === 'Theo Khoa') {
-			url = "/ThongKe?chon=khoa&search=";
-		} else {
-			url = "/ThongKe?chon=nganh&search=";
-		}
-		fetch(url + search, {
-            method: 'PUT'
-        })
-        .then(response => {
-			if (!response.ok) {
-				alert("Không tìm thấy dữ liệu!")
-      			throw new Error('Network response was not ok');
-    		}
-    		return response.json();
-  		})
-  		.then(data => {
-		    console.log(data);
-		    updateTable(data);
-		    handleSearchXuly();
-  		})
-        .catch(error => {
-            console.error('Lỗi ', error);
-        });
+    // This function will be called when the user clicks the search button
+    var searchText = searchInput.value;
+    var search = searchText;
+    var url = ""
+
+	if (theogi === 'Theo Khoa') {
+		url = "/ThongKe?chon=khoa&search=";
+	} else {
+		url = "/ThongKe?chon=nganh&search=";
 	}
-});
+	fetch(url + search, {
+        method: 'PUT'
+    })
+    .then(response => {
+		if (!response.ok) {
+			//alert("Không tìm thấy dữ liệu!")
+  			//throw new Error('Network response was not ok');
+		}
+		return response.json();
+	})
+	.then(data => {
+	    console.log(data);
+	    updateTable(data);
+	    handleSearchXuly();
+	})
+    .catch(error => {
+        //console.error('Lỗi ', error);
+    });
+	}
 
 $('#dataTable').dataTable({
     "bPaginate": false
@@ -158,8 +159,8 @@ $(document).ready(function() {
 		chonAll();
 		var searchInput = document.getElementById('searchInput');
 		searchInput.value = "";
+		handleSearch();
         var table = $('#dataTable').DataTable();
-	    table.clear().rows.add(savedTable).draw();
 	    savedTable1 = table.rows().data().toArray();
 	    var thoigianchoice = document.getElementById('thoigianchoice').textContent;
 	    if (thoigianchoice === "Thời gian vào") 

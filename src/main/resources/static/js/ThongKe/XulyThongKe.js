@@ -65,7 +65,7 @@ function loadDataToTable(urll) {
             });
         },
         error: function(xhr, status, error) {
-            console.error("Error loading data: " + error);
+            //console.error("Error loading data: " + error);
         }
     });
 }
@@ -88,29 +88,29 @@ function handleSearchXuly() {
     })
     .then(response => {
 		if (!response.ok) {
-			alert("Không tìm thấy dữ liệu!")
-  			throw new Error('Network response was not ok');
+			//alert("Không tìm thấy dữ liệu!")
+  			//throw new Error('Network response was not ok');
 		}
 		return response.json();
 	})
 	.then(data => {
-	    console.log(data);
 	    var tableBody = $("#xulyTable tbody");
         tableBody.empty(); // Xóa dữ liệu cũ trong bảng trước khi thêm dữ liệu mới
-
-        $.each(data, function(index, xulyData) {
-            var row = "<tr>" +
-                      "<td>" + xulyData[0] + "</td>" +
-                      "<td>" + xulyData[1] + "</td>" +
-                      "<td>" + xulyData[2] + "</td>" +
-                      "<td>" + xulyData[3] + "</td>" +
-                      "<td>" + xulyData[4] + "</td>" +
-                      "<td>" + xulyData[5] + "</td>" +
-                      "<td>" + xulyData[6] + "</td>" +
-                      "<td>" + xulyData[7] + "</td>" +
-                      "</tr>";
-            tableBody.append(row);
-        });
+		if (data.length != null) {
+	        $.each(data, function(index, xulyData) {
+	            var row = "<tr>" +
+	                      "<td>" + xulyData[0] + "</td>" +
+	                      "<td>" + xulyData[1] + "</td>" +
+	                      "<td>" + xulyData[2] + "</td>" +
+	                      "<td>" + xulyData[3] + "</td>" +
+	                      "<td>" + xulyData[4] + "</td>" +
+	                      "<td>" + xulyData[5] + "</td>" +
+	                      "<td>" + xulyData[6] + "</td>" +
+	                      "<td>" + xulyData[7] + "</td>" +
+	                      "</tr>";
+	            tableBody.append(row);
+	        });
+        }
 	})
     .catch(error => {
         console.error('Lỗi ', error);
