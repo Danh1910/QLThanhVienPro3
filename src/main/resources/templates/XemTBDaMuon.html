@@ -79,14 +79,14 @@
                 <span>Vi phạm</span></a>
         </li>
 
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="XemTBDuocMuon.html">
                 <i class="fas fa-desktop"></i>
                 <span>Thiết bị được mượn</span></a>
         </li>
 
-        <li class="nav-item active">
-            <a class="nav-link" href="XemTBDaMuon.html">
+        <li class="nav-item  active">
+            <a class="nav-link" href="#">
                 <i class="fas fa-desktop"></i>
                 <span>Thiết bị đã mượn</span></a>
         </li>
@@ -314,6 +314,25 @@
             // Gắn tham số maTV vào URL của liên kết
             if (maTV) {
                 link.href = "MuonTB.html?maTV=" + maTV;
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy tham số maTV từ URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var maTV = urlParams.get('maTV');
+
+        // Lấy tất cả các liên kết có href là XemTBDuocMuon.html
+        var XemTBDuocMuonLinks = document.querySelectorAll('a[href="XemTBDuocMuon.html"]');
+
+        // Lặp qua từng liên kết
+        XemTBDuocMuonLinks.forEach(function (link) {
+            // Gắn tham số maTV vào URL của liên kết
+            if (maTV) {
+                link.href = "XemTBDuocMuon.html?maTV=" + maTV;
             }
         });
     });
