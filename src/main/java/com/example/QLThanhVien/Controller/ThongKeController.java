@@ -1,5 +1,6 @@
 package com.example.QLThanhVien.Controller;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +34,12 @@ public class ThongKeController {
 
 
 		List<ThongTinSuDungEntity> listTTSD = new ArrayList<>();
+		System.out.println(search);
+		System.out.println(chon);
 
 	    // Kiểm tra nếu mã thành viên được cung cấp
 	    if (search != null) {
-	    	if (chon == "khoa") {
+	    	if (chon.equals("khoa")) {
 	    		System.out.println("chon  khoa");
 	    		listTTSD = ttsdRepository.findByMaTVKhoaContaining(search);
 	    	}
