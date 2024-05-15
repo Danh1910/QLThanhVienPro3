@@ -156,3 +156,32 @@ function calculateTotal() {
 }
 
 calculateTotal();
+
+
+function xulybangDate(startDateInput,endDateInput) {
+	const table = document.getElementById('xulyTable');
+    // Bắt đầu từ hàng đầu tiên của tbody
+    for (let i = 0; i < table.rows.length; i++) {
+        const row = table.rows[i];
+        console.log(row.style.display);
+        if (row.parentElement.nodeName === 'TBODY' && row.style.display !== 'none') {
+            const cellValue = row.cells[6].innerText;
+            if (isNaN(cellValue)) {
+				if (startDateInput === "") {
+		            if (!isDateBetween(endDateInput, endDateInput, cellValue)) {
+						table.getElementsByTagName('tr')[i].style.display = 'none';
+		            }
+	           	} else if (endDateInput === "") {
+				   	if (!isDateBetween(startDateInput, startDateInput, cellValue)) {
+				   		table.getElementsByTagName('tr')[i].style.display = 'none';
+		            }
+			   	} else {
+				  	if (!isDateBetween(startDateInput, endDateInput, cellValue)) {
+					  	table.getElementsByTagName('tr')[i].style.display = 'none';
+		            }
+			   	} 
+            } 
+            
+        }
+    }
+}

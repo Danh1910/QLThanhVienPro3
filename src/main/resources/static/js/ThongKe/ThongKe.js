@@ -244,6 +244,7 @@ function filterDateTG() {
 			hideColumn(7);
 			hideColumn(8);
 		}
+		xulybangDate(startDateInput,endDateInput);
 	} else 
 		console.log("Không có ngày tìm thấy");
 }
@@ -276,6 +277,7 @@ $(document).ready(function() {
 	    	chonTGTra();
 	    if (thoigianchoice === "Thời gian đặt chổ") 
 	    	chonTGDatCho();
+	    searchTable("", "xulyTable");
     });
 });
 
