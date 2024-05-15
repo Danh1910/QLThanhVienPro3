@@ -184,4 +184,5 @@ function xulybangDate(startDateInput,endDateInput) {
             
         }
     }
+    calculateTotal();
 }
