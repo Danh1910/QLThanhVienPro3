@@ -2,6 +2,8 @@
 function searchTable(filter, tableId) {
     const table = document.getElementById(tableId);
     const tr = table.getElementsByTagName('tr');
+    if (filter === "all")
+    	filter = "";
     
     for (let i = 1; i < tr.length; i++) {
         const tdArray = tr[i].getElementsByTagName('td');
@@ -32,12 +34,17 @@ function handleContentChange_trangthai() {
     if (currentContent === "All"){
 		loadDataToTable("/loadXulyData");
 	} else if (currentContent === "Đã xử lý"){
-		loadDataToTable("/loadDaXulyData")
+		loadDataToTable("/loadDaXulyData");
 	}
 	else {
-		loadDataToTable("/loadChuaXulyData")
+		loadDataToTable("/loadChuaXulyData");
 	}
-	
+}
+function handleContentChange_hinhthuc() {
+    var selectedSpan = document.getElementById("choiceHTXL");
+    var currentContent = selectedSpan.innerText;
+    const filter = currentContent.toLowerCase();
+    searchTable(filter, 'xulyTable');
 }
 
 function loadDataToTable(urll) {
