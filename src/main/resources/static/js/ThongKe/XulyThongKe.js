@@ -70,6 +70,8 @@ function loadDataToTable(urll) {
                           "</tr>";
                 tableBody.append(row);
             });
+            
+			handleContentChange_hinhthuc();
         },
         error: function(xhr, status, error) {
             //console.error("Error loading data: " + error);
