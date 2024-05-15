@@ -137,7 +137,7 @@ function handleSearchXuly() {
 function calculateTotal() {
     const table = document.getElementById('xulyTable');
     let total = 0;
-
+	let num = 0;
     // Bắt đầu từ hàng đầu tiên của tbody
     for (let i = 0; i < table.rows.length; i++) {
         const row = table.rows[i];
@@ -146,10 +146,12 @@ function calculateTotal() {
             const cellValue = parseFloat(row.cells[5].innerText);
             if (!isNaN(cellValue)) {
                 total += cellValue;
+                num += 1;
             }
         }
     }
-
+	
+	document.getElementById('hanhnumber').innerText = num;
     document.getElementById('tongTienPhat').innerText = total;
 }
 
