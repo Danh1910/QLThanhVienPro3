@@ -84,7 +84,7 @@
                 <i class="fas fa-desktop"></i>
                 <span>Thiết bị được mượn</span></a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="XemTBDaMuon.html">
                 <i class="fas fa-desktop"></i>
                 <span>Thiết bị đã mượn</span></a>
@@ -367,6 +367,25 @@
             // Gắn tham số maTV vào URL của liên kết
             if (maTV) {
                 link.href = "XemTBDuocMuon.html?maTV=" + maTV;
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy tham số maTV từ URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var maTV = urlParams.get('maTV');
+
+        // Lấy tất cả các liên kết có href là XemTBDaMuon.html
+        var XemTBDaMuonLinks = document.querySelectorAll('a[href="XemTBDaMuon.html"]');
+
+        // Lặp qua từng liên kết
+        XemTBDaMuonLinks.forEach(function (link) {
+            // Gắn tham số maTV vào URL của liên kết
+            if (maTV) {
+                link.href = "XemTBDaMuon.html?maTV=" + maTV;
             }
         });
     });
