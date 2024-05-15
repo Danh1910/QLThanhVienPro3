@@ -252,14 +252,14 @@ function filterDateTG() {
 function isDateBetween(startDate, endDate, dateToCheck) {
     startDate = new Date(startDate);
     endDate = new Date(endDate);
+    if (startDate > endDate) {
+        [startDate, endDate] = [endDate, startDate];
+    }
     dateToCheck = new Date(dateToCheck);
     if (startDate.toDateString() === endDate.toDateString()) {
-        // Nếu dateToCheck cũng là ngày đó thì trả về true, ngược lại trả về false
         return dateToCheck.toDateString() === startDate.toDateString();
     }
-    // Tăng ngày của endDate lên 1
     endDate.setDate(endDate.getDate() + 1);
-    // Kiểm tra xem dateToCheck có nằm trong khoảng giữa startDate và endDate không
     return dateToCheck >= startDate && dateToCheck <= endDate;
 }
 
