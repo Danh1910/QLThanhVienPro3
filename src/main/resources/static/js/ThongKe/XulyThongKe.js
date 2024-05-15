@@ -46,6 +46,7 @@ function handleContentChange_hinhthuc() {
     const filter = currentContent.toLowerCase();
     searchTable(filter, 'xulyTable');
     calculateTotal();
+    
 }
 
 function loadDataToTable(urll) {
@@ -138,9 +139,10 @@ function calculateTotal() {
 
     // Bắt đầu từ hàng đầu tiên của tbody
     for (let i = 0; i < table.rows.length; i++) {
-        // Chỉ lấy các hàng từ tbody
-        if (table.rows[i].parentElement.nodeName === 'TBODY') {
-            const cellValue = parseFloat(table.rows[i].cells[5].innerText);
+        const row = table.rows[i];
+        console.log(row.style.display);
+        if (row.parentElement.nodeName === 'TBODY' && row.style.display !== 'none') {
+            const cellValue = parseFloat(row.cells[5].innerText);
             if (!isNaN(cellValue)) {
                 total += cellValue;
             }
