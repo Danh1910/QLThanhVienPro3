@@ -208,7 +208,7 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 				            	</div>
 				            	&nbsp&nbsp&nbsp
 	                            <input id="searchInput" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-	                                aria-label="Search" aria-describedby="basic-addon2" style="margin-top: 3px;">
+	                                list="listKhoa" aria-label="Search" aria-describedby="basic-addon2" style="margin-top: 3px;">
 	                            <div class="input-group-append">
 	                                <button id="searchButton" class="btn btn-primary" type="button">
 	                                    <i class="fas fa-search fa-sm"></i>
@@ -216,7 +216,12 @@ t            <a class="sidebar-brand d-flex align-items-center justify-content-c
 	                            </div>
 				            	&nbsp&nbsp&nbsp
 	                        	<input id="reloadbtn" type="button" value="Dọn" class="btn btn-secondary btn-icon-split" style="padding-left: 1em;padding-right: 1em;">
-	                        
+	                        	<datalist id="listKhoa">
+		                            <option th:each="khoa : ${listKhoa}" th:text="${khoa}"></option>
+								</datalist>
+								<datalist id="listNganh">
+		                            <option th:each="nganh : ${listNganh}" th:text="${nganh}"></option>
+								</datalist>
 							</div><br>
 	                        <div class="input-group">
 								<div class="dropdown">

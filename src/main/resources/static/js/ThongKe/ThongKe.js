@@ -45,10 +45,24 @@ dropdowns.forEach(dropdown => {
             	chonTGDatCho();
 				console.log("Thời gian đặt chổ");
 			}
+			
+			if (option.textContent === "Theo Khoa" || option.textContent === "Theo Ngành") {
+				changeListSugget();
+			}
+			
+			
         });
     });
 });
 
+function changeListSugget(){
+	const searchInput = document.getElementById('searchInput');
+	if (searchInput.getAttribute('list') === 'listKhoa') {
+        searchInput.setAttribute('list', 'listNganh');
+    } else {
+        searchInput.setAttribute('list', 'listKhoa');
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     // Get references to the input field and button

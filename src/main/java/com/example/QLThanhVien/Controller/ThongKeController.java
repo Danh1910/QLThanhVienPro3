@@ -69,9 +69,6 @@ public class ThongKeController {
 	}
 	@RequestMapping("/ThongKe.html")
     public String action(Model model){
-
-		// Kiểm tra thời gian đặt chỗ
-//
 		new MuonThietBiController().XoaDatCho_1gio(ttsdRepository);
 
 		model.addAttribute("message", "Thống kê");
@@ -81,6 +78,10 @@ public class ThongKeController {
         model.addAttribute("listXLVP",listXLVP);
         List<String> hinhThucXl = xlReponsitory.getDistinctHinhThucXl();
         model.addAttribute("hinhThucXl", hinhThucXl);
+        List<String> listKhoa = ttsdRepository.listKhoainTTSD();
+        model.addAttribute("listKhoa",listKhoa);
+        List<String> listNganh = ttsdRepository.listNganhinTTSD();
+        model.addAttribute("listNganh",listNganh);
         
         return "ThongKe.html";
     }

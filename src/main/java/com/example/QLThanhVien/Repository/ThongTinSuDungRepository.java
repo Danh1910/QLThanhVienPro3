@@ -1,6 +1,7 @@
 package com.example.QLThanhVien.Repository;
 
 import com.example.QLThanhVien.Enity.ThongTinSuDungEntity;
+import com.example.QLThanhVien.Enity.XuLyViPhamEntity;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -43,4 +44,14 @@ public interface ThongTinSuDungRepository extends CrudRepository<ThongTinSuDungE
 			+ "FROM thongtinsd tsd "
 			+ "WHERE tsd.MaTB", nativeQuery = true)
 	List<ThongTinSuDungEntity> LayThongTinSuDungTB();
+	
+	@Query(value = "SELECT DISTINCT tv.Khoa "
+			+ "FROM thongtinsd tsd "
+			+ "JOIN thanhvien tv ON tsd.MaTV = tv.MaTV ", nativeQuery = true)
+    List<String> listKhoainTTSD();
+
+	@Query(value = "SELECT DISTINCT tv.Nganh "
+			+ "FROM thongtinsd tsd "
+			+ "JOIN thanhvien tv ON tsd.MaTV = tv.MaTV ", nativeQuery = true)
+    List<String> listNganhinTTSD();
 }
