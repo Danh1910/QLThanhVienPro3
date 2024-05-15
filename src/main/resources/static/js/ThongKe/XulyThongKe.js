@@ -151,7 +151,7 @@ function calculateTotal() {
         }
     }
 	
-	document.getElementById('hanhnumber').innerText = num;
+	document.getElementById('hanhnumber').innerText = num + " hàng";
     document.getElementById('tongTienPhat').innerText = total;
 }
 
