@@ -124,7 +124,8 @@ function handleSearchXuly() {
 	        });
 	        
         }
-        
+     	document.getElementById('choiceXL').innerHTML = "All";
+     	document.getElementById('choiceHTXL').innerHTML = "All";
 		calculateTotal();
 	})
     .catch(error => {
