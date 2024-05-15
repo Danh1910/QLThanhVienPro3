@@ -47,7 +47,7 @@ dropdowns.forEach(dropdown => {
 			}
 			
 			if (option.textContent === "Theo Khoa" || option.textContent === "Theo Ngành") {
-				changeListSugget();
+				changeListSugget(option.textContent);
 			}
 			
 			
@@ -55,9 +55,9 @@ dropdowns.forEach(dropdown => {
     });
 });
 
-function changeListSugget(){
+function changeListSugget(text){
 	const searchInput = document.getElementById('searchInput');
-	if (searchInput.getAttribute('list') === 'listKhoa') {
+	if (text === 'Theo Ngành') {
         searchInput.setAttribute('list', 'listNganh');
     } else {
         searchInput.setAttribute('list', 'listKhoa');
@@ -92,9 +92,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var url = ""
 	
 		if (theogi === 'Theo Khoa') {
-			url = "/ThongKe.html?chon=khoa&search=";
+			url = "/ThongKe?chon=khoa&search=";
 		} else {
-			url = "/ThongKe.html?chon=nganh&search=";
+			url = "/ThongKe?chon=nganh&search=";
 		}
 		fetch(url + search, {
             method: 'PUT'
@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
   		.then(data => {
 		    console.log(data);
 		    updateTable(data);
+		    handleSearchXuly();
   		})
         .catch(error => {
             console.error('Lỗi ', error);

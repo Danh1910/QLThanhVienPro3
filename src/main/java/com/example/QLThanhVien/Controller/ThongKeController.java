@@ -28,10 +28,8 @@ public class ThongKeController {
 	@Autowired
     private XuLyViPhamRepository xlReponsitory;
 	
-	@PutMapping("/ThongKe.html")
+	@PutMapping("/ThongKe")
 	public ResponseEntity<Object[][]> action(@RequestParam("chon") String chon, @RequestParam(name = "search", required = false) String search) {
-
-
 
 		List<ThongTinSuDungEntity> listTTSD = new ArrayList<>();
 		System.out.println(search);
@@ -49,7 +47,6 @@ public class ThongKeController {
 	    	}
 	        System.out.println(listTTSD.get(0).getMaTV().getMaTV());
 	    } else {
-	        // Nếu không có mã thành viên, hiển thị tất cả các bản ghi
 	        listTTSD = (List<ThongTinSuDungEntity>) ttsdRepository.findAll();
 	    }
 	    Object[][] modObjects = new Object[listTTSD.size()][9];
@@ -69,6 +66,26 @@ public class ThongKeController {
 	        index++;
 	    }
 	    return new ResponseEntity<>(modObjects, HttpStatus.OK);
+	}
+	@PutMapping("/ThongKeXuly")
+	public ResponseEntity<Object[][]> getXulWithSearch(@RequestParam("chon") String chon, @RequestParam(name = "search", required = false) String search) {
+		List<XuLyViPhamEntity> listTTSD = new ArrayList<>();
+	    // Kiểm tra nếu mã thành viên được cung cấp
+	    if (search != null) {
+	    	if (chon.equals("khoa")) {
+	    		System.out.println("chon  khoa");
+	    		listTTSD = xlReponsitory.findByMaTVKhoaContaining(search);
+	    	}
+	    	else {
+	    		System.out.println("chon  nganh");
+	    		listTTSD = xlReponsitory.findByMaTVNganhContaining(search);
+	    	}
+	        System.out.println(listTTSD.get(0).getMaTV().getMaTV());
+	    } else {
+	        listTTSD = (List<XuLyViPhamEntity>) xlReponsitory.findAll();
+	    }
+
+	    return new ResponseEntity<>(returnListData(listTTSD), HttpStatus.OK);
 	}
 	@RequestMapping("/ThongKe.html")
     public String action(Model model){
