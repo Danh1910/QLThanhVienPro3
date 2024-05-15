@@ -286,8 +286,27 @@
 <script>
     window.addEventListener("DOMContentLoaded", function() {
         var urlParams = new URLSearchParams(window.location.search);
-        var maTV = urlParams.get('maTV');
-        document.getElementById("maTV").value = maTV;
+        var email = urlParams.get('email');
+
+        if (email) {
+            fetch('/getMaTVByEmail?email=' + email)
+            .then(response => response.json())
+            .then(maTV => {
+                if (maTV) {
+                    urlParams.delete('email');
+                    urlParams.set('maTV', maTV);
+                    window.location.search = urlParams.toString();
+                } else {
+                    console.error('Không tìm thấy thành viên với email: ' + email);
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi khi gửi yêu cầu: ', error);
+            });
+        } else {
+            var maTV = urlParams.get('maTV');
+            document.getElementById("maTV").value = maTV;
+        }
     });
 </script>
 

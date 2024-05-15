@@ -27,30 +27,50 @@ public class LoginController {
         return "/DangNhap.html";
     }
 
-    @PostMapping("/DangNhap.html")
-    public String login(@RequestParam Integer maTV, @RequestParam String password, Model model) {
-        // Tìm thông tin của thành viên dựa trên mã thành viên
-        ThanhVienEntity user = tvRepository.findById(Long.valueOf(maTV)).orElse(null);
+    @PostMapping("/getMatvFromEmail")
+    public ResponseEntity<Integer> getMatvFromEmail(@RequestParam("email") String email) {
+        int maTV = getMaTVByEmail(email);
 
-        // Kiểm tra nếu người dùng tồn tại và mật khẩu nhập đúng
-        if (user != null && user.getPassword().equals(password)) {
-            // Đăng nhập thành công
-            model.addAttribute("thanhVien", user); // Truyền thông tin của thành viên vào model
-            return "ThongTinTV.html"; // Chuyển hướng đến trang thông tin thành viên
+        if (maTV != -1) {
+            return ResponseEntity.ok(maTV);
         } else {
-            // Đăng nhập thất bại
-            model.addAttribute("error", "Mã thành viên hoặc mật khẩu không đúng");
-            return "redirect:/login.html"; // Chuyển hướng lại trang đăng nhập với thông báo lỗi
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(-1);
         }
+    }
+
+    @PostMapping("/DangNhap.html")
+    public ResponseEntity<String> login(@RequestParam String maTV, @RequestParam String password, Model model) {
+        ThanhVienEntity user = null;
+
+        if (!maTV.isEmpty()) {
+            user = tvRepository.findById(Long.valueOf(maTV)).orElse(null);
+        }
+
+        if (user != null && user.getPassword().equals(password)) {
+            model.addAttribute("thanhVien", user);
+            return ResponseEntity.ok("Success");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mã thành viên hoặc mật khẩu không đúng");
+        }
+    }
+
+    private int getMaTVByEmail(String email) {
+        Iterable<ThanhVienEntity> allThanhVien = tvRepository.findAll();
+        for (ThanhVienEntity thanhVien : allThanhVien) {
+            if (thanhVien.getEmail().equals(email)) {
+                return thanhVien.getMaTV();
+            }
+        }
+        return -1;
     }
 
     @PostMapping("/DangKy.html")
     public ResponseEntity<String> addMember(@RequestParam(name = "Ten") String tenTV,
-                          @RequestParam(name = "Khoa") String khoa,
-                          @RequestParam(name = "Nganh") String nganh,
-                          @RequestParam(name = "SDT") String sdt,
-                          @RequestParam(name = "Email") String email,
-                          @RequestParam(name = "Password") String password) {
+                                            @RequestParam(name = "Khoa") String khoa,
+                                            @RequestParam(name = "Nganh") String nganh,
+                                            @RequestParam(name = "SDT") String sdt,
+                                            @RequestParam(name = "Email") String email,
+                                            @RequestParam(name = "Password") String password) {
 
         Iterable<ThanhVienEntity> listtv= tvRepository.findAll();
 
@@ -160,13 +180,8 @@ public class LoginController {
         idTV= "11"+ year + khoaCode + String.format("%04d", count + 1);
         int maTV= Integer.parseInt(idTV);
 
-
-
         ThanhVienEntity thanhVienEntity = new ThanhVienEntity(maTV, tenTV, khoa, nganh, sdt, email, password);
-
-        // Lưu thông tin thành viên vào cơ sở dữ liệu
         tvRepository.save(thanhVienEntity);
         return ResponseEntity.ok("Thành viên đã được thêm thành công");
     }
-
 }
