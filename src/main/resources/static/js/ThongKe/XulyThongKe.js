@@ -45,6 +45,7 @@ function handleContentChange_hinhthuc() {
     var currentContent = selectedSpan.innerText;
     const filter = currentContent.toLowerCase();
     searchTable(filter, 'xulyTable');
+    calculateTotal();
 }
 
 function loadDataToTable(urll) {
@@ -72,6 +73,7 @@ function loadDataToTable(urll) {
             });
             
 			handleContentChange_hinhthuc();
+			calculateTotal();
         },
         error: function(xhr, status, error) {
             //console.error("Error loading data: " + error);
@@ -119,9 +121,33 @@ function handleSearchXuly() {
 	                      "</tr>";
 	            tableBody.append(row);
 	        });
+	        
         }
+        
+		calculateTotal();
 	})
     .catch(error => {
         console.error('Lỗi ', error);
     });
 }
+
+
+function calculateTotal() {
+    const table = document.getElementById('xulyTable');
+    let total = 0;
+
+    // Bắt đầu từ hàng đầu tiên của tbody
+    for (let i = 0; i < table.rows.length; i++) {
+        // Chỉ lấy các hàng từ tbody
+        if (table.rows[i].parentElement.nodeName === 'TBODY') {
+            const cellValue = parseFloat(table.rows[i].cells[5].innerText);
+            if (!isNaN(cellValue)) {
+                total += cellValue;
+            }
+        }
+    }
+
+    document.getElementById('tongTienPhat').innerText = total;
+}
+
+calculateTotal();
