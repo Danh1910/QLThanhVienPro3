@@ -19,7 +19,8 @@ label {
 
 input[type="text"],
 input[type="datetime-local"],
-input[type="button"]{
+input[type="button"],
+input[type="time"]{
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;

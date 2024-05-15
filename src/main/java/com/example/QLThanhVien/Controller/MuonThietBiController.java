@@ -47,6 +47,7 @@ public class MuonThietBiController {
 		XoaDatCho_1gio(thongTinSuDungRepository);
 
         MaTV = maTV;
+
         Iterable<XuLyViPhamEntity> listvp=xlvpRepository.findAll();
         ThanhVienEntity tv=   tvRepository.findById(Long.valueOf(maTV)).orElse(null);
 
@@ -137,6 +138,7 @@ public class MuonThietBiController {
         Iterable<ThietBiEntity> list_TB = thietBiRepository.findAll();
 
         List<ThietBiEntity> list = getThietBiMuon((List<ThietBiEntity>) list_TB,MaTV);
+
 
 
         return ResponseEntity.ok(list);

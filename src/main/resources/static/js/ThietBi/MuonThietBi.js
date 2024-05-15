@@ -25,7 +25,11 @@ document.addEventListener('DOMContentLoaded', function (){
 
         var BorrowDate = document.getElementById('borrow-date').value;
 
-        var ReturnDate = document.getElementById('return-date').value;
+        var ReturnTime = document.getElementById('return-date').value;
+
+        // Tạo một đối tượng Moment từ giá trị của input
+        var ReturnDate = moment(ReturnTime, 'HH:mm').format("YYYY-MM-DDTHH:mm");
+
 
 
         if (ReturnDate == '' || MaTB == ''){
@@ -194,6 +198,33 @@ document.addEventListener('DOMContentLoaded', function (){
 
 
     });
+
+    document.getElementById("return-date").addEventListener("blur", function() {
+
+        var InputDate = document.getElementById('return-date');
+
+        // Lấy giá trị của input "time"
+        var timeValue = InputDate.value;
+
+        // Tạo một đối tượng Moment từ giá trị của input
+        var ReturnDate = moment(timeValue, 'HH:mm');
+
+        // Lấy thời gian hiện tại theo múi giờ UTC
+        var currentUTCTime = moment.utc();
+
+        // Chuyển múi giờ UTC thành múi giờ Việt Nam
+        var currentVNTime = currentUTCTime.utcOffset(7);
+
+
+        // So sánh giữa ReturnDate và currentVNTime
+        if (ReturnDate.isBefore(currentVNTime)) {
+            alert("Thời gian trả không thể nhỏ hơn thời gian hiện tại.");
+            InputDate.value = "";
+            InputDate.focus()
+        } 
+
+    });
+
 
 
 })

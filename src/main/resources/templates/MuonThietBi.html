@@ -39,8 +39,10 @@
         <label for="borrow-date">Ngày Mượn:</label>
         <input type="datetime-local" id="borrow-date" name="borrow-date" required>
         
-        <label for="return-date">Ngày Trả:</label>
-        <input type="datetime-local" id="return-date" name="return-date" required>
+        <label for="return-date">Giờ Trả:</label>
+        <input type="time" id="return-date" name="return-date" required>
+        
+
 
         <input type="button" value="Mượn Thiết Bị" id="btnSubmit" th:if="${not viPham}">
 
