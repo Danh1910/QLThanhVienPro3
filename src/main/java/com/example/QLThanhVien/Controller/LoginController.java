@@ -180,7 +180,7 @@ public class LoginController {
         idTV= "11"+ year + khoaCode + String.format("%04d", count + 1);
         int maTV= Integer.parseInt(idTV);
 
-        ThanhVienEntity thanhVienEntity = new ThanhVienEntity(maTV, tenTV, khoa, nganh, sdt, email, password);
+        ThanhVienEntity thanhVienEntity = new ThanhVienEntity(maTV, tenTV, khoa, nganh, sdt, password, email);
         tvRepository.save(thanhVienEntity);
         return ResponseEntity.ok("Thành viên đã được thêm thành công");
     }

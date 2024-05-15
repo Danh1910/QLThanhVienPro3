@@ -76,7 +76,7 @@ public class ThanhVienController {
     @PutMapping("/ThanhVien.html")
     public void editThanhVien(@RequestParam(name = "MaTV") Integer maTV, @RequestParam(name = "Ten") String ten, @RequestParam(name = "Khoa") String khoa, @RequestParam(name = "Nganh") String nganh, @RequestParam(name = "SDT") String sdt, @RequestParam(name = "Email") String email, @RequestParam(name = "Password") String password, Model model) {
 
-        ThanhVienEntity tvEntity = new ThanhVienEntity(maTV,ten,khoa,nganh,sdt,email,password);
+        ThanhVienEntity tvEntity = new ThanhVienEntity(maTV,ten,khoa,nganh,sdt,password,email);
 
         tvRepository.save(tvEntity);
 
@@ -378,7 +378,7 @@ public class ThanhVienController {
 
 
 
-            ThanhVienEntity thanhVienEntity = new ThanhVienEntity(maTV, tenTV, khoa, nganh, sdt, email, password);
+            ThanhVienEntity thanhVienEntity = new ThanhVienEntity(maTV, tenTV, khoa, nganh, sdt, password, email);
 
             // Lưu thông tin thành viên vào cơ sở dữ liệu
             tvRepository.save(thanhVienEntity);

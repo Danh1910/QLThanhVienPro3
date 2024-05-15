@@ -52,7 +52,7 @@ public class XemTBDuocMuonController {
     @GetMapping("/XemTBDaMuon.html")
     public String getViPham1(@RequestParam Integer maTV, Model model) {
         // Tìm thông tin của thành viên dựa trên mã thành viên
-        List<ThongTinSuDungEntity> xlvp = ttsdRepository.listmuon(maTV);
+        List<ThongTinSuDungEntity> xlvp = ttsdRepository.listmuon1(maTV);
 
         // Kiểm tra xem thành viên có tồn tại không
 
