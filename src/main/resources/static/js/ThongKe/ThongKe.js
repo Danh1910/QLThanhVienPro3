@@ -33,13 +33,13 @@ dropdowns.forEach(dropdown => {
 				chonTGVao();
 				console.log("Thời gian vào");
 			}
-            if (option.textContent === "Thời gian mượn") {
+            if (option.textContent === "Được mượn") {
             	chonTGMuon();
-            	console.log("Thời gian mượn");
+            	console.log("Được mượn");
 			}
-            if (option.textContent === "Thời gian trả") {
+            if (option.textContent === "Đang mượn") {
             	chonTGTra();
-				console.log("Thời gian trả");
+				console.log("Đang mượn");
 			}
             if (option.textContent === "Thời gian đặt chổ") {
             	chonTGDatCho();
@@ -146,9 +146,9 @@ function updateTable(data) {
     var thoigianchoice = document.getElementById('thoigianchoice').textContent;
     if (thoigianchoice === "Thời gian vào") 
     	chonTGVao();
-    if (thoigianchoice === "Thời gian mượn") 
+    if (thoigianchoice === "Được mượn") 
     	chonTGMuon();
-    if (thoigianchoice === "Thời gian trả") 
+    if (thoigianchoice === "Đang mượn") 
     	chonTGTra();
     if (thoigianchoice === "Thời gian đặt chổ") 
     	chonTGDatCho();
@@ -165,9 +165,9 @@ $(document).ready(function() {
 	    var thoigianchoice = document.getElementById('thoigianchoice').textContent;
 	    if (thoigianchoice === "Thời gian vào") 
 	    	chonTGVao();
-	    if (thoigianchoice === "Thời gian mượn") 
+	    if (thoigianchoice === "Được mượn") 
 	    	chonTGMuon();
-	    if (thoigianchoice === "Thời gian trả") 
+	    if (thoigianchoice === "Đang mượn") 
 	    	chonTGTra();
 	    if (thoigianchoice === "Thời gian đặt chổ") 
 	    	chonTGDatCho();
@@ -192,9 +192,9 @@ function filterDateTG() {
 	var theOptionNumber = 5;
 	if (thoigianchoice === "Thời gian vào") 
 		theOptionNumber = 5;
-	if (thoigianchoice === "Thời gian mượn") 
+	if (thoigianchoice === "Được mượn") 
 		theOptionNumber = 6;
-	if (thoigianchoice === "Thời gian trả") 
+	if (thoigianchoice === "Đang mượn") 
 		theOptionNumber = 7;
 	if (thoigianchoice === "Thời gian đặt chổ") 
 		theOptionNumber = 8;
@@ -231,11 +231,11 @@ function filterDateTG() {
 			hideColumn(9);
 		}
 		
-		if (thoigianchoice === "Thời gian mượn") {
+		if (thoigianchoice === "Được mượn") {
 			hideColumn(6);
 			hideColumn(9);
 		}
-		if (thoigianchoice === "Thời gian trả") {
+		if (thoigianchoice === "Đang mượn") {
 			hideColumn(6);
 			hideColumn(9);
 		}
@@ -271,9 +271,9 @@ $(document).ready(function() {
 	    var thoigianchoice = document.getElementById('thoigianchoice').textContent;
 	    if (thoigianchoice === "Thời gian vào") 
 	    	chonTGVao();
-	    if (thoigianchoice === "Thời gian mượn") 
+	    if (thoigianchoice === "Được mượn") 
 	    	chonTGMuon();
-	    if (thoigianchoice === "Thời gian trả") 
+	    if (thoigianchoice === "Đang mượn") 
 	    	chonTGTra();
 	    if (thoigianchoice === "Thời gian đặt chổ") 
 	    	chonTGDatCho();
