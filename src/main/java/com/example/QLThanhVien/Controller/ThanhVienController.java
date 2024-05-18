@@ -259,7 +259,8 @@ public class ThanhVienController {
     }
 
     @PostMapping("/ThanhVien.html")
-    public ResponseEntity<String> addMember(@RequestParam(name = "Ten") String tenTV,
+    public ResponseEntity<String> addMember(
+                          @RequestParam(name = "Ten") String tenTV,
                           @RequestParam(name = "Khoa") String khoa,
                           @RequestParam(name = "Nganh") String nganh,
                           @RequestParam(name = "SDT") String sdt,
